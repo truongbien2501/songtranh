@@ -50,19 +50,6 @@ class Homescreen(ScreenManager):
     def thongbao(self):
         toast("Không đúng tên hoặc mật khẩu")
         
-    # def show_error_dialog(self):
-    #         dialog = MDDialog(
-    #             title="Lỗi đăng nhập",
-    #             text="Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.",
-    #             buttons=[
-    #                 MDFillRoundFlatButton(
-    #                     text="Đóng",
-    #                     on_release=lambda x: dialog.dismiss()
-    #                 )
-    #             ]
-    #         )
-    #         Clock.schedule_once(lambda dt: dialog.open(), 2.0)
-
 class RectangularRippleButton(MDBoxLayout, RectangularRippleBehavior, ButtonBehavior, BackgroundColorBehavior):
     pass
 
@@ -72,8 +59,10 @@ class RectangularRippleImage(CircularRippleBehavior, ButtonBehavior, Image):
 
 
 class Hochua(MDApp):
+
     
     def build(self):
+
         # self.theme_cls.colors = colors
         # self.theme_cls.primary_palette = "Teal"
         # self.theme_cls.accent_palette = "Red"
@@ -110,8 +99,8 @@ class Hochua(MDApp):
         if selected_item == "Facebook":
             self.update_image_source("new_image_path_facebook.png")
         elif selected_item == "YouTube":
-            print('ban da chon youtube')
-            self.update_image_source('icon/logo_ttb.png')
+            self.read_ftp_sever_image('tin_tvhn.png')
+            self.root.ids.image_bantin.source = 'icon/logo_ttb.png'
         elif selected_item == "Twitter":
             self.update_image_source("new_image_path_twitter.png")
         elif selected_item == "Da Cloud":
@@ -124,12 +113,7 @@ class Hochua(MDApp):
 
             
     def update_image_source(self, new_image_path):
-        
-        # print(new_image_path)
-        self.root.ids.image_chart_tvhn.source = new_image_path
-        # image = ImageLeftWidget(source = new_image_path)
-        # # one_line.add_widget(image)
-        # self.root.ids.image_widget.add_widget(image)
+        pass
         
     def TTB_API_HC(self):
         now = datetime.now()
@@ -162,9 +146,11 @@ class Hochua(MDApp):
             ftp.retrbinary('RETR ' + file_path, local_file.write)
         ftp.quit()
         
+    
     def get_ftp_image(self,tram):
         self.read_ftp_sever_image(tram)
         self.root.ids.image_chart_tvhn.source = "cache/" + tram
+
 
     def get_custom_value(self):
         mucnuoc,qve = self.TTB_API_HC()
