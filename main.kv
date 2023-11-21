@@ -237,39 +237,8 @@
             MDBottomNavigationItem:
                 name: 'bantin'
                 icon:'newspaper-variant-multiple-outline'
-                # on_release: app.
-                MDBoxLayout:
-                    orientation: 'vertical'
-                    GridLayout:
-                        cols:1
-                        GridLayout:
-                            rows:3
-                            MDLabel:
-                                text: 'Đài KTTV TRUNG TRUNG BỘ'
-                                halign:"center"
-                                size_hint: 0.9,0.2
-                                theme_text_color: "Custom"
-                                text_color: 1, 0, 0, 1  # Đặt màu chữ
-                                canvas.before:
-                                    Color:
-                                        rgba: 0, 0, 255, 1  # Đặt màu nền (RGBA)
-                                    Rectangle:
-                                        pos: self.pos
-                                        size: self.size
-                            Image:
-                                id: image_bantin
-                                source: 'cache/tvhn.png'
-                                pos_hint: {"center_x": .5, "center_y": .5}
-                                size_hint: 0.99,0.9
-                            MDFloatingActionButtonSpeedDial:
-                                icon: "pencil"
-                                data: app.data
-                                root_button_anim: True
-                                # text: "Bản tin KTTV"
-                                # md_bg_color: "coral"
-                                # on_press: app.show_example_grid_bottom_sheet()
-                                # size_hint: 0.99,0.1
-                                # pos_hint: {"center_x": .5}
+                on_tab_release: root.current = 'bantinkttv'
+
 
             MDBottomNavigationItem:
                 name: 'map'
@@ -327,6 +296,43 @@
                             lon: 112.7 # Kinh độ của marker
                             size: (50, 50)    
                             # source: 'atlas://data/images/defaulttheme/marker-red'  # Đường dẫn đến hình ảnh marker (điền tên tệp ảnh của bạn)
+
+    MDScreen:
+        name: 'bantinkttv'
+        MDBoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                cols:1
+                GridLayout:
+                    rows:3
+                    MDLabel:
+                        text: 'Đài KTTV TRUNG TRUNG BỘ'
+                        halign:"center"
+                        size_hint: 0.9,0.2
+                        theme_text_color: "Custom"
+                        text_color: 1, 0, 0, 1  # Đặt màu chữ
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0, 255, 1  # Đặt màu nền (RGBA)
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    Image:
+                        id: image_bantin
+                        source: 'cache/tvhn.png'
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: 0.99,0.9
+                    # MDFloatingActionButtonSpeedDial:
+                    #     icon: "pencil"
+                    #     data: app.data
+                    #     root_button_anim: True
+                    MDRaisedButton:
+                        text: "Bản tin KTTV"
+                        md_bg_color: "coral"
+                        on_press: app.show_example_grid_bottom_sheet()
+                        size_hint: 0.99,0.1
+                        pos_hint: {"center_x": .5}
+
 <RectangularRippleButton>:
 <RectangularRippleImage>:
 <NCard@MDBoxLayout>:
