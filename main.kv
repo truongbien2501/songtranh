@@ -299,39 +299,52 @@
 
     MDScreen:
         name: 'bantinkttv'
-        MDBoxLayout:
-            orientation: 'vertical'
-            GridLayout:
-                cols:1
-                GridLayout:
-                    rows:3
-                    MDLabel:
-                        text: 'Đài KTTV TRUNG TRUNG BỘ'
-                        halign:"center"
-                        size_hint: 0.9,0.2
-                        theme_text_color: "Custom"
-                        text_color: 1, 0, 0, 1  # Đặt màu chữ
-                        canvas.before:
-                            Color:
-                                rgba: 0, 0, 255, 1  # Đặt màu nền (RGBA)
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
-                    Image:
-                        id: image_bantin
-                        source: 'cache/tvhn.png'
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        size_hint: 0.99,0.9
-                    # MDFloatingActionButtonSpeedDial:
-                    #     icon: "pencil"
-                    #     data: app.data
-                    #     root_button_anim: True
-                    MDRaisedButton:
-                        text: "Bản tin KTTV"
-                        md_bg_color: "coral"
-                        on_press: app.show_example_grid_bottom_sheet()
-                        size_hint: 0.99,0.1
-                        pos_hint: {"center_x": .5}
+        MDTopAppBar:
+            title: 'Example BottomSheet'
+            pos_hint: {"top": 1}
+            elevation: 4
+
+        Image:
+            id: image_bantin
+            source: 'cache/TVHN_0.png'
+            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint: 0.99,0.9
+
+        MDRaisedButton:
+            text: "Open grid bottom sheet"
+            on_release: app.show_example_grid_bottom_sheet()
+            pos_hint: {"center_x": .5, "center_y": .5}
+        # GridLayout:
+        #     cols:1
+        #     GridLayout:
+        #         rows:3
+        #         MDLabel:
+        #             text: 'Đài KTTV TRUNG TRUNG BỘ'
+        #             halign:"center"
+        #             size_hint: 0.9,0.2
+        #             theme_text_color: "Custom"
+        #             text_color: 1, 0, 0, 1  # Đặt màu chữ
+        #             canvas.before:
+        #                 Color:
+        #                     rgba: 0, 0, 255, 1  # Đặt màu nền (RGBA)
+        #                 Rectangle:
+        #                     pos: self.pos
+        #                     size: self.size
+        #         Image:
+        #             id: image_bantin
+        #             source: 'cache/TVHN_0.png'
+        #             pos_hint: {"center_x": .5, "center_y": .5}
+        #             size_hint: 0.99,0.9
+        #         # MDFloatingActionButtonSpeedDial:
+        #         #     icon: "pencil"
+        #         #     data: app.data
+        #         #     root_button_anim: True
+        #         MDRaisedButton:
+        #             text: "Bản tin KTTV"
+        #             md_bg_color: "coral"
+        #             on_press: app.show_example_grid_bottom_sheet()
+        #             size_hint: 0.99,0.1
+        #             pos_hint: {"center_x": .5}
 
 <RectangularRippleButton>:
 <RectangularRippleImage>:
