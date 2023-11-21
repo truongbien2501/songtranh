@@ -76,7 +76,7 @@ class Hochua(MDApp):
         self.theme_cls.primary_palette = "Pink"
         Builder.load_file('main.kv')
         self.scr = Homescreen()
-        self.scr.current = 'trangchu'
+        #self.scr.current = 'trangchu'
         # self.scr.ids.bottom_navigation.switch_tab('chart')
         return self.scr
 
