@@ -91,20 +91,20 @@ class Hochua(MDApp):
     ):
 
         if tab_text=='TVHN':           
-            self.read_ftp_sever_image('TVHN_0.png')
-            self.root.ids.image_bantin.source = 'cache/TVHN_0.png'
+            self.read_ftp_sever_image('tin_TVHN.png')
+            self.root.ids.image_bantin.source = 'cache/tin_TVHN.png'
         elif tab_text=='TVHV':
-            self.read_ftp_sever_image('TVHV_0.png')
-            self.root.ids.image_bantin.source = 'cache/TVHV_0.png'  
+            self.read_ftp_sever_image('tin_TVHV.png')
+            self.root.ids.image_bantin.source = 'cache/tin_TVHV.png'  
         elif tab_text=='TVHD':
-            self.read_ftp_sever_image('TVHD_0.png')
-            self.root.ids.image_bantin.source = 'cache/TVHD_0.png'            
+            self.read_ftp_sever_image('tin_TVHD.png')
+            self.root.ids.image_bantin.source = 'cache/tin_TVHN.png'            
         elif tab_text=='LULU':
-            self.read_ftp_sever_image('LULU_0.png')
-            self.root.ids.image_bantin.source = 'cache/LULU_0.png'
+            self.read_ftp_sever_image('tin_LULU.png')
+            self.root.ids.image_bantin.source = 'cache/tin_LULU.png'
         elif tab_text=='CBLU':
-            self.read_ftp_sever_image('CBLU_0.png')
-            self.root.ids.image_bantin.source = 'cache/CBLU_0.png'
+            self.read_ftp_sever_image('tin_CBLU.png')
+            self.root.ids.image_bantin.source = 'cache/tin_CBLU.png'
             
     def callback_for_menu_items(self, *args):
         toast(args[0])
