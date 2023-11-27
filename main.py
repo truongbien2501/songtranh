@@ -81,12 +81,12 @@ class Hochua(MDApp):
         # self.scr.ids.bottom_navigation.switch_tab('chart')
         return self.scr
 
-    def on_start(self):
-        self.root.ids.tabs.add_widget(Tab(title="TVHN"))
-        self.root.ids.tabs.add_widget(Tab(title="TVHV"))
-        self.root.ids.tabs.add_widget(Tab(title="TVHD"))
-        self.root.ids.tabs.add_widget(Tab(title="LULU"))
-        self.root.ids.tabs.add_widget(Tab(title="CBLU"))
+    # def on_start(self):
+    #     self.root.ids.tabs.add_widget(Tab(title="TVHN"))
+    #     self.root.ids.tabs.add_widget(Tab(title="TVHV"))
+    #     self.root.ids.tabs.add_widget(Tab(title="TVHD"))
+    #     self.root.ids.tabs.add_widget(Tab(title="LULU"))
+    #     self.root.ids.tabs.add_widget(Tab(title="CBLU"))
     def on_tab_switch(
         self, instance_tabs, instance_tab, instance_tab_label, tab_text
     ):
@@ -108,6 +108,13 @@ class Hochua(MDApp):
             self.root.ids.image_bantin.source = 'cache/tin_CBLU_0.png'
     
     def on_start(self):
+        self.root.ids.tabs.add_widget(Tab(title="TVHN"))
+        self.root.ids.tabs.add_widget(Tab(title="TVHV"))
+        self.root.ids.tabs.add_widget(Tab(title="TVHD"))
+        self.root.ids.tabs.add_widget(Tab(title="LULU"))
+        self.root.ids.tabs.add_widget(Tab(title="CBLU"))
+        
+        
         trammua = ['Sông Tranh','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam','Trà Linh']
         for i in range(len(trammua)):
             self.root.ids.container.add_widget(
@@ -117,7 +124,22 @@ class Hochua(MDApp):
                 )
             )
     
-    
+         # list of images
+        images = ['cache/tin_TVHN_0.png', 'cache/tin_TVHN_0.png', 'cache/tin_TVHN_0.png'] 
+        
+        for image in images:
+            self.root.ids.box_images.add_widget(
+                Image(
+                    source=image,
+                    size_hint=(1, None),
+                    height="250dp"
+                )
+            )
+
+    def callback_trangchu(self):
+        app = MDApp.get_running_app()
+        app.root.current = 'trangchu'
+        
     def callback_for_menu_items(self, *args):
         toast(args[0])
 
