@@ -93,102 +93,77 @@ class Hochua(MDApp):
     ):
 
         if tab_text=='TVHN':
-            images = []
             self.root.ids.box_images.clear_widgets()
-            for p in range(4):
-                try:
-                    linkimage = 'tin_TVHN_{}.png'.format(str(p))
-                    self.read_ftp_sever_image(linkimage)
-                    images.append('cache/' + linkimage )
-                except:
-                    pass
+            self.read_ftp_sever_image('tin_TVHN_0.png')
+            self.read_ftp_sever_image('tin_TVHN_1.png')
+            images =['cache/tin_TVHN_0.png','cache/tin_TVHN_1.png']
             for image in images:
                 self.root.ids.box_images.add_widget(
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        width=Window.size[0] - dp(20),
-                        height=Window.size[1] - dp(20)
+                        height='400dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_TVHN_0.png')
             # self.root.ids.image_bantin.source = 'cache/tin_TVHN_0.png'
         elif tab_text=='TVHV':
-            images = []
             self.root.ids.box_images.clear_widgets()
-            for p in range(4):
-                try:
-                    linkimage = 'tin_TVHV_{}.png'.format(str(p))
-                    self.read_ftp_sever_image(linkimage)
-                    images.append('cache/' + linkimage )
-                except:
-                    pass
+            self.read_ftp_sever_image('tin_TVHV_0.png')
+            self.read_ftp_sever_image('tin_TVHV_1.png')
+            images =['cache/tin_TVHV_0.png','cache/tin_TVHV_1.png']
             for image in images:
                 self.root.ids.box_images.add_widget(
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height="350dp"
+                        height='400dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_TVHV_0.png')
             # self.root.ids.image_bantin.source = 'cache/tin_TVHV_0.png'  
         elif tab_text=='TVHD':
-            images = []
             self.root.ids.box_images.clear_widgets()
-            for p in range(4):
-                try:
-                    linkimage = 'tin_TVHD_{}.png'.format(str(p))
-                    self.read_ftp_sever_image(linkimage)
-                    images.append('cache/' + linkimage )
-                except:
-                    pass
+            self.read_ftp_sever_image('tin_TVHD_0.png')
+            self.read_ftp_sever_image('tin_TVHD_1.png')
+            self.read_ftp_sever_image('tin_TVHD_2.png')
+            images =['cache/tin_TVHD_0.png','cache/tin_TVHD_1.png','tin_TVHD_2.png']
             for image in images:
                 self.root.ids.box_images.add_widget(
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height="350dp"
+                        height='400dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_TVHD_0.png')
             # self.root.ids.image_bantin.source = 'cache/tin_TVHD_0.png'            
         elif tab_text=='LULU':
-            images = []
             self.root.ids.box_images.clear_widgets()
-            for p in range(4):
-                try:
-                    linkimage = 'tin_LULU_{}.png'.format(str(p))
-                    self.read_ftp_sever_image(linkimage)
-                    images.append('cache/' + linkimage )
-                except:
-                    pass
+            self.read_ftp_sever_image('tin_LULU_0.png')
+            self.read_ftp_sever_image('tin_LULU_1.png')
+            images =['cache/tin_LULU_0.png','cache/tin_LULU_1.png']
             for image in images:
                 self.root.ids.box_images.add_widget(
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height="350dp"
+                        height='400dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_LULU_0.png')
             # self.root.ids.image_bantin.source = 'cache/tin_LULU_0.png'
         elif tab_text=='CBLU':
-            images = []
             self.root.ids.box_images.clear_widgets()
-            for p in range(4):
-                try:
-                    linkimage = 'tin_CBLU_{}.png'.format(str(p))
-                    self.read_ftp_sever_image(linkimage)
-                    images.append('cache/' + linkimage )
-                except:
-                    pass
+            self.read_ftp_sever_image('tin_CBLU_0.png')
+            self.read_ftp_sever_image('tin_CBLU_1.png')
+            images =['cache/tin_LULU_0.png','cache/tin_LULU_1.png']
             for image in images:
                 self.root.ids.box_images.add_widget(
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height="350dp"
+                        height='400dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_CBLU_0.png')
@@ -215,13 +190,13 @@ class Hochua(MDApp):
         # images = ['cache/tin_TVHN_0.png', 'cache/tin_TVHN_0.png'] 
         
         # for image in images:
-        self.root.ids.box_images.add_widget(
-            Image(
-                source='',
-                size_hint=(1, None),
-                height="250dp"
-            )
-        )
+        # self.root.ids.box_images.add_widget(
+        #     Image(
+        #         source='',
+        #         size_hint=(1, None),
+        #         height="250dp"
+        #     )
+        # )
 
     def callback_trangchu(self):
         app = MDApp.get_running_app()

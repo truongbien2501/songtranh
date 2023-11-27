@@ -252,7 +252,7 @@
                 MDBoxLayout:
                     padding:10
                     orientation: 'vertical'
-                    size_hint: 0.99,0.9
+                    size_hint: (1, 0.9)
                     MDScrollView:
                         do_scroll_x: False  
                         MDBoxLayout:
@@ -293,7 +293,7 @@
                             source: "cache/weather.png"
                             description: "Thông tin điểm đánh dấu"
                             size: (35, 35)
-                            on_press: app.show_marker_info(self.title,self.description)
+                            # on_press: app.show_marker_info(self.title,self.description)
                         MapMarker:
                             title: 'Trà Bui'
                             lat: 15.34661   # Vĩ độ của marker
