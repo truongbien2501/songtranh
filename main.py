@@ -32,6 +32,7 @@ from kivy.clock import Clock
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.label import MDLabel
 from kivymd.uix.list import OneLineListItem
+from kivy.metrics import dp
 # Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -91,21 +92,107 @@ class Hochua(MDApp):
         self, instance_tabs, instance_tab, instance_tab_label, tab_text
     ):
 
-        if tab_text=='TVHN':           
-            self.read_ftp_sever_image('tin_TVHN_0.png')
-            self.root.ids.image_bantin.source = 'cache/tin_TVHN_0.png'
+        if tab_text=='TVHN':
+            images = []
+            self.root.ids.box_images.clear_widgets()
+            for p in range(4):
+                try:
+                    linkimage = 'tin_TVHN_{}.png'.format(str(p))
+                    self.read_ftp_sever_image(linkimage)
+                    images.append('cache/' + linkimage )
+                except:
+                    pass
+            for image in images:
+                self.root.ids.box_images.add_widget(
+                    Image(
+                        source=image,
+                        size_hint=(1, None),
+                        width=Window.size[0] - dp(20),
+                        height=Window.size[1] - dp(20)
+                    )
+                )   
+            # self.read_ftp_sever_image('tin_TVHN_0.png')
+            # self.root.ids.image_bantin.source = 'cache/tin_TVHN_0.png'
         elif tab_text=='TVHV':
-            self.read_ftp_sever_image('tin_TVHV_0.png')
-            self.root.ids.image_bantin.source = 'cache/tin_TVHV_0.png'  
+            images = []
+            self.root.ids.box_images.clear_widgets()
+            for p in range(4):
+                try:
+                    linkimage = 'tin_TVHV_{}.png'.format(str(p))
+                    self.read_ftp_sever_image(linkimage)
+                    images.append('cache/' + linkimage )
+                except:
+                    pass
+            for image in images:
+                self.root.ids.box_images.add_widget(
+                    Image(
+                        source=image,
+                        size_hint=(1, None),
+                        height="350dp"
+                    )
+                )   
+            # self.read_ftp_sever_image('tin_TVHV_0.png')
+            # self.root.ids.image_bantin.source = 'cache/tin_TVHV_0.png'  
         elif tab_text=='TVHD':
-            self.read_ftp_sever_image('tin_TVHD_0.png')
-            self.root.ids.image_bantin.source = 'cache/tin_TVHD_0.png'            
+            images = []
+            self.root.ids.box_images.clear_widgets()
+            for p in range(4):
+                try:
+                    linkimage = 'tin_TVHD_{}.png'.format(str(p))
+                    self.read_ftp_sever_image(linkimage)
+                    images.append('cache/' + linkimage )
+                except:
+                    pass
+            for image in images:
+                self.root.ids.box_images.add_widget(
+                    Image(
+                        source=image,
+                        size_hint=(1, None),
+                        height="350dp"
+                    )
+                )   
+            # self.read_ftp_sever_image('tin_TVHD_0.png')
+            # self.root.ids.image_bantin.source = 'cache/tin_TVHD_0.png'            
         elif tab_text=='LULU':
-            self.read_ftp_sever_image('tin_LULU_0.png')
-            self.root.ids.image_bantin.source = 'cache/tin_LULU_0.png'
+            images = []
+            self.root.ids.box_images.clear_widgets()
+            for p in range(4):
+                try:
+                    linkimage = 'tin_LULU_{}.png'.format(str(p))
+                    self.read_ftp_sever_image(linkimage)
+                    images.append('cache/' + linkimage )
+                except:
+                    pass
+            for image in images:
+                self.root.ids.box_images.add_widget(
+                    Image(
+                        source=image,
+                        size_hint=(1, None),
+                        height="350dp"
+                    )
+                )   
+            # self.read_ftp_sever_image('tin_LULU_0.png')
+            # self.root.ids.image_bantin.source = 'cache/tin_LULU_0.png'
         elif tab_text=='CBLU':
-            self.read_ftp_sever_image('tin_CBLU_0.png')
-            self.root.ids.image_bantin.source = 'cache/tin_CBLU_0.png'
+            images = []
+            self.root.ids.box_images.clear_widgets()
+            for p in range(4):
+                try:
+                    linkimage = 'tin_CBLU_{}.png'.format(str(p))
+                    self.read_ftp_sever_image(linkimage)
+                    images.append('cache/' + linkimage )
+                except:
+                    pass
+            for image in images:
+                self.root.ids.box_images.add_widget(
+                    Image(
+                        source=image,
+                        size_hint=(1, None),
+                        height="350dp"
+                    )
+                )   
+            # self.read_ftp_sever_image('tin_CBLU_0.png')
+            # self.root.ids.image_bantin.source = 'cache/tin_CBLU_0.png'
     
     def on_start(self):
         self.root.ids.tabs.add_widget(Tab(title="TVHN"))
@@ -124,17 +211,17 @@ class Hochua(MDApp):
                 )
             )
     
-         # list of images
-        images = ['cache/tin_TVHN_0.png', 'cache/tin_TVHN_0.png', 'cache/tin_TVHN_0.png'] 
+        #  # list of images
+        # images = ['cache/tin_TVHN_0.png', 'cache/tin_TVHN_0.png'] 
         
-        for image in images:
-            self.root.ids.box_images.add_widget(
-                Image(
-                    source=image,
-                    size_hint=(1, None),
-                    height="250dp"
-                )
+        # for image in images:
+        self.root.ids.box_images.add_widget(
+            Image(
+                source='',
+                size_hint=(1, None),
+                height="250dp"
             )
+        )
 
     def callback_trangchu(self):
         app = MDApp.get_running_app()
