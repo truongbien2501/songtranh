@@ -31,6 +31,7 @@ from kivy.core.image import Image as CoreImage
 from kivy.clock import Clock
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.label import MDLabel
+from kivymd.uix.list import OneLineListItem
 # Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -40,7 +41,7 @@ class Homescreen(ScreenManager):
     def login(self,username, password):
         # print('da click')
         # Thực hiện xác thực đăng nhập ở đây (ví dụ: kiểm tra tên đăng nhập và mật khẩu)
-        if username == 'a' and password == 'b':
+        if username == 'admin' and password == 'admin':
             app = MDApp.get_running_app()
             app.root.current = 'trangchu'  # Chuyển đến màn hình chính
         else:
@@ -91,21 +92,32 @@ class Hochua(MDApp):
     ):
 
         if tab_text=='TVHN':           
-            self.read_ftp_sever_image('tin_TVHN.png')
-            self.root.ids.image_bantin.source = 'cache/tin_TVHN.png'
+            self.read_ftp_sever_image('tin_TVHN_0.png')
+            self.root.ids.image_bantin.source = 'cache/tin_TVHN_0.png'
         elif tab_text=='TVHV':
-            self.read_ftp_sever_image('tin_TVHV.png')
-            self.root.ids.image_bantin.source = 'cache/tin_TVHV.png'  
+            self.read_ftp_sever_image('tin_TVHV_0.png')
+            self.root.ids.image_bantin.source = 'cache/tin_TVHV_0.png'  
         elif tab_text=='TVHD':
-            self.read_ftp_sever_image('tin_TVHD.png')
-            self.root.ids.image_bantin.source = 'cache/tin_TVHN.png'            
+            self.read_ftp_sever_image('tin_TVHD_0.png')
+            self.root.ids.image_bantin.source = 'cache/tin_TVHD_0.png'            
         elif tab_text=='LULU':
-            self.read_ftp_sever_image('tin_LULU.png')
-            self.root.ids.image_bantin.source = 'cache/tin_LULU.png'
+            self.read_ftp_sever_image('tin_LULU_0.png')
+            self.root.ids.image_bantin.source = 'cache/tin_LULU_0.png'
         elif tab_text=='CBLU':
-            self.read_ftp_sever_image('tin_CBLU.png')
-            self.root.ids.image_bantin.source = 'cache/tin_CBLU.png'
-            
+            self.read_ftp_sever_image('tin_CBLU_0.png')
+            self.root.ids.image_bantin.source = 'cache/tin_CBLU_0.png'
+    
+    def on_start(self):
+        trammua = ['Sông Tranh','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam','Trà Linh']
+        for i in range(len(trammua)):
+            self.root.ids.container.add_widget(
+                OneLineListItem(
+                    text=str(i+1) + '. ' + trammua[i] + ':                ' + '25 mm'
+                    # text_color='aliceblue',  # Màu trắng cho chữ, sử dụng giá trị RGBA
+                )
+            )
+    
+    
     def callback_for_menu_items(self, *args):
         toast(args[0])
 
@@ -158,7 +170,7 @@ class Hochua(MDApp):
         bd = kt - timedelta(days=1)
         # data = pd.DataFrame()
         # data['time'] = pd.date_range(bd,kt,freq='T')
-        matram = '6DR'
+        matram = '5ST'
         # muc nuoc
         pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=1&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
         pth = pth.format(matram,'ho_dakdrinh_mucnuoc',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
@@ -175,7 +187,7 @@ class Hochua(MDApp):
         ftp_host = '203.209.181.174'
         ftp_user = 'admin'
         ftp_password = 'Supportdng'
-        file_path = 'DAKDRINH/Image' + '/' + tenanh
+        file_path = 'SONGTRANH/Image' + '/' + tenanh
         # Kết nối đến máy chủ FTP
         ftp = FTP(ftp_host)
         ftp.login(user=ftp_user, passwd=ftp_password)
