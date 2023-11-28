@@ -31,8 +31,9 @@ from kivy.core.image import Image as CoreImage
 from kivy.clock import Clock
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.label import MDLabel
-from kivymd.uix.list import OneLineListItem
+from kivymd.uix.list import OneLineListItem,OneLineIconListItem,IconLeftWidget
 from kivy.metrics import dp
+from kivymd.icon_definitions import md_icons
 # Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -156,8 +157,7 @@ class Hochua(MDApp):
         elif tab_text=='CBLU':
             self.root.ids.box_images.clear_widgets()
             self.read_ftp_sever_image('tin_CBLU_0.png')
-            self.read_ftp_sever_image('tin_CBLU_1.png')
-            images =['cache/tin_LULU_0.png','cache/tin_LULU_1.png']
+            images =['cache/tin_LULU_0.png']
             for image in images:
                 self.root.ids.box_images.add_widget(
                     Image(
@@ -178,11 +178,29 @@ class Hochua(MDApp):
         
         
         trammua = ['Sông Tranh','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam','Trà Linh']
+        trammua_eng = ['tramdapst2','TRABUI','tragiac','tradon','traleng','TRAMAI','tracang','travan','tranam2','tralinh']
         for i in range(len(trammua)):
+            mua = self.TTB_API_SONGTRANH(trammua_eng[i])
+            # print(mua)
+            if len(mua) >10:
+                # rain = str(mua[-1])
+                rain = str(mua[-1]['Solieu'])
+                tgsl = str(mua[-2]['Thoigian_SL'][-8:-3])
+            else:
+                rain = '-'
+                tgsl =''
             self.root.ids.container.add_widget(
-                OneLineListItem(
-                    text=str(i+1) + '. ' + trammua[i] + ':                ' + '25 mm'
-                    # text_color='aliceblue',  # Màu trắng cho chữ, sử dụng giá trị RGBA
+                OneLineIconListItem(
+
+                    IconLeftWidget(
+                        icon="weather-partly-rainy"
+                    ),
+                    # text="Single-line item with avatar",
+                    text=str(i+1) + '. ' + trammua[i] + ':' + tgsl +'                               ' + rain + ' mm',
+                    
+                    
+                    # IconLeftWidgetWithoutTouch:
+                    #     icon: "language-python"
                 )
             )
     
@@ -266,6 +284,22 @@ class Hochua(MDApp):
         response = requests.get(pth)
         mua = np.array(response.json())
         return mucnuoc,mua
+    
+    def TTB_API_SONGTRANH(self,matram):
+        now = datetime.now()
+        kt = datetime(now.year,now.month,now.day,now.hour)
+        bd = kt - timedelta(days=1)
+        # mua
+        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=1&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
+        pth = pth.format(matram,'mua_songtranh',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
+        response = requests.get(pth)
+        mua = np.array(response.json())
+        if len(mua) < 5:
+            return '-'
+        return mua
+    
+    
+    
     def read_ftp_sever_image(self,tenanh):
         # Thông tin máy chủ FTP và đường dẫn đến file ftp://203.209.181.174/DAKDRINH/Image
         ftp_host = '203.209.181.174'
