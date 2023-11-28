@@ -211,22 +211,30 @@
                 name: 'chart' # dat ten
                 icon:'chart-bell-curve-cumulative' # bieu tuong
                 # on_release: app.root.update_chart()
-                MDBoxLayout:
-                    orientation: 'vertical'
+                # MDBoxLayout:
+                #     orientation: 'vertical'
+                GridLayout:
+                    cols:1
+                    rows:2
                     MDTopAppBar:
-                        title: 'Example BottomSheet'
+                        title: 'Đường quá trình'
                         pos_hint: {"top": 1}
                         elevation: 1
+                        right_action_items: [["image-size-select-actual", lambda x: app.show_example_grid_bottom_sheet()]                        ]
                     Image:
-                        id: image_chart_tvhn
-                        source: 'cache/tvhn.png'
+                        id: image_chart_td
+                        source: 'cache/chart_TVHN.png'
                         pos_hint: {"center_x": .5, "center_y": .5}
                         size_hint: 0.9,0.9
                         # height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
-                    MDRaisedButton:
-                        text: "Open grid bottom sheet"
-                        on_release: app.show_example_grid_bottom_sheet()
-                        pos_hint: {"center_x": .5, "center_y": .5}
+
+                # MDFillRoundFlatButton:
+                #     text: "Chọn biểu đồ"
+                #     on_release: app.show_example_grid_bottom_sheet()
+                #     pos_hint: {"top": 1}
+                #     # pos_hint: {"center_x": .5, "center_y": .5}
+                #     size_hint: 0.1,0.1
+
                 #     TabbedPanel:
                 #         do_default_tab: False
                 #         TabbedPanelItem:

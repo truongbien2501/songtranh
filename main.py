@@ -227,11 +227,11 @@ class Hochua(MDApp):
         # pass
         bottom_sheet_menu = MDGridBottomSheet()
         data = {
-            "Hạn ngắn": "facebook",
-            "Hạn vừa": "youtube",
-            "Hạn dài": "twitter",
-            "Lũ": "cloud-circle",
-            "Cảnh báo lũ": "camera",
+            "Hạn ngắn": "alpha-n-circle-outline",
+            "Hạn vừa": "alpha-v-circle-outline",
+            "Hạn dài": "alpha-d-circle-outline",
+            "Lũ": "size-l",
+            "Cảnh báo lũ": "alpha-c-circle-outline",
         }
         for item in data.items():
             bottom_sheet_menu.add_item(
@@ -244,20 +244,20 @@ class Hochua(MDApp):
     def callback_for_menu_items(self, selected_item):
         # Thực hiện cập nhật hình ảnh dựa trên mục được chọn
         if selected_item == "Hạn ngắn":
-            self.read_ftp_sever_image('TVHN_0.png')
-            self.root.ids.image_bantin.source = 'cache/TVHN_0.png'
+            self.read_ftp_sever_image('chart_TVHN.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_TVHN.png'
         elif selected_item == "Hạn vừa":
-            self.read_ftp_sever_image('TVHV_0.png')
-            self.root.ids.image_bantin.source = 'cache/TVHV_0.png'
+            self.read_ftp_sever_image('chart_TVHV.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_TVHV.png'
         elif selected_item == "Hạn dài":
-            self.read_ftp_sever_image('TVHD_0.png')
-            self.root.ids.image_bantin.source = 'cache/TVHD_0.png'
+            self.read_ftp_sever_image('chart_TVHD.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_TVHD.png'
         elif selected_item == "Lũ":
-            self.read_ftp_sever_image('LULU_0.png')
-            self.root.ids.image_bantin.source = 'cache/LULU_0.png'
+            self.read_ftp_sever_image('chart_LULU.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_LULU.png'
         elif selected_item == "Cảnh báo lũ":
-            self.read_ftp_sever_image('CBLU_0.png')
-            self.root.ids.image_bantin.source = 'cache/CBLU_0.png'
+            self.read_ftp_sever_image('chart_CBLU.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_CBLU.png'
     
     def show_marker_info(self,tram,thongtin):
         toast(tram + ':' + thongtin)
