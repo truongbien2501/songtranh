@@ -20,6 +20,7 @@ from kivymd.uix.list import OneLineAvatarListItem, ImageLeftWidget
 from kivymd.uix.behaviors import RectangularRippleBehavior, BackgroundColorBehavior, CircularRippleBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.tab import MDTabsBase
+from kivymd.uix.swiper import MDSwiper
 from kivy.uix.behaviors import ButtonBehavior
 import numpy as np
 import requests
@@ -34,6 +35,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.list import OneLineListItem,OneLineIconListItem,IconLeftWidget
 from kivy.metrics import dp
 from kivymd.icon_definitions import md_icons
+from kivymd.uix.gridlayout import MDGridLayout
 # Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -43,7 +45,7 @@ class Homescreen(ScreenManager):
     def login(self,username, password):
         # print('da click')
         # Thực hiện xác thực đăng nhập ở đây (ví dụ: kiểm tra tên đăng nhập và mật khẩu)
-        if username == 'admin' and password == 'admin':
+        if username == 'admin' and password == 'ttb':
             app = MDApp.get_running_app()
             app.root.current = 'trangchu'  # Chuyển đến màn hình chính
         else:
@@ -71,7 +73,8 @@ class Hochua(MDApp):
     #         }
         
     def build(self):
-
+        self.mucnuoc,self.qve = self.TTB_API_HC()
+        
         # self.theme_cls.colors = colors
         # self.theme_cls.primary_palette = "Teal"
         # self.theme_cls.accent_palette = "Red"
@@ -79,16 +82,11 @@ class Hochua(MDApp):
         self.theme_cls.primary_palette = "Pink"
         Builder.load_file('main.kv')
         self.scr = Homescreen()
-        self.scr.current = 'trangchu'
+        # self.scr.current = 'trangchu'
         # self.scr.ids.bottom_navigation.switch_tab('chart')
         return self.scr
 
-    # def on_start(self):
-    #     self.root.ids.tabs.add_widget(Tab(title="TVHN"))
-    #     self.root.ids.tabs.add_widget(Tab(title="TVHV"))
-    #     self.root.ids.tabs.add_widget(Tab(title="TVHD"))
-    #     self.root.ids.tabs.add_widget(Tab(title="LULU"))
-    #     self.root.ids.tabs.add_widget(Tab(title="CBLU"))
+
     def on_tab_switch(
         self, instance_tabs, instance_tab, instance_tab_label, tab_text
     ):
@@ -103,7 +101,7 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='400dp'
+                        height='430dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_TVHN_0.png')
@@ -118,7 +116,7 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='400dp'
+                        height='430dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_TVHV_0.png')
@@ -134,11 +132,10 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='400dp'
+                        height='430dp'
                     )
                 )   
-            # self.read_ftp_sever_image('tin_TVHD_0.png')
-            # self.root.ids.image_bantin.source = 'cache/tin_TVHD_0.png'            
+
         elif tab_text=='LULU':
             self.root.ids.box_images.clear_widgets()
             self.read_ftp_sever_image('tin_LULU_0.png')
@@ -149,26 +146,23 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='400dp'
+                        height='430dp'
                     )
                 )   
-            # self.read_ftp_sever_image('tin_LULU_0.png')
-            # self.root.ids.image_bantin.source = 'cache/tin_LULU_0.png'
+
         elif tab_text=='CBLU':
             self.root.ids.box_images.clear_widgets()
             self.read_ftp_sever_image('tin_CBLU_0.png')
-            images =['cache/tin_LULU_0.png']
+            images =['cache/tin_CBLU_0.png']
             for image in images:
                 self.root.ids.box_images.add_widget(
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='400dp'
+                        height='430dp'
                     )
                 )   
-            # self.read_ftp_sever_image('tin_CBLU_0.png')
-            # self.root.ids.image_bantin.source = 'cache/tin_CBLU_0.png'
-    
+   
     def on_start(self):
         self.root.ids.tabs.add_widget(Tab(title="TVHN"))
         self.root.ids.tabs.add_widget(Tab(title="TVHV"))
@@ -178,32 +172,32 @@ class Hochua(MDApp):
         
         
         trammua = ['Sông Tranh','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam','Trà Linh']
+        # for ii in trammua:
+        #     print(len(ii))
         trammua_eng = ['tramdapst2','TRABUI','tragiac','tradon','traleng','TRAMAI','tracang','travan','tranam2','tralinh']
         for i in range(len(trammua)):
+            # muatong = self.TTB_API_SONGTRANH_muatong(trammua_eng[i])
             mua = self.TTB_API_SONGTRANH(trammua_eng[i])
             # print(mua)
             if len(mua) >10:
-                # rain = str(mua[-1])
                 rain = str(mua[-1]['Solieu'])
-                tgsl = str(mua[-2]['Thoigian_SL'][-8:-3])
+                tgsl = str(mua[-1]['Thoigian_SL'][-8:-3])
             else:
                 rain = '-'
-                tgsl =''
+                tgsl ='---:---'
+            # khoangtrang
+            text_length = 30
+            trammua_str = trammua[i].ljust(text_length)
+            rain_str = rain.rjust(text_length - len(trammua[i]) - 1)
+
             self.root.ids.container.add_widget(
                 OneLineIconListItem(
-
-                    IconLeftWidget(
-                        icon="weather-partly-rainy"
-                    ),
-                    # text="Single-line item with avatar",
-                    text=str(i+1) + '. ' + trammua[i] + ':' + tgsl +'                               ' + rain + ' mm',
-                    
-                    
-                    # IconLeftWidgetWithoutTouch:
-                    #     icon: "language-python"
+                    IconLeftWidget(icon="weather-partly-rainy"),
+                    text=trammua_str + ':(' + tgsl + ')' +  rain_str + ' mm'
                 )
             )
     
+            
         #  # list of images
         # images = ['cache/tin_TVHN_0.png', 'cache/tin_TVHN_0.png'] 
         
@@ -227,11 +221,11 @@ class Hochua(MDApp):
         # pass
         bottom_sheet_menu = MDGridBottomSheet()
         data = {
-            "Hạn ngắn": "alpha-n-circle-outline",
-            "Hạn vừa": "alpha-v-circle-outline",
-            "Hạn dài": "alpha-d-circle-outline",
-            "Lũ": "size-l",
-            "Cảnh báo lũ": "alpha-c-circle-outline",
+            "Mực nước": "waves-arrow-up",
+            "Q đến": "alpha-q-circle",
+            "Q xả": "alpha-d-circle-outline",
+            "Mưa": "weather-pouring",
+            "Mưa tại đập": "alpha-c-circle-outline",
         }
         for item in data.items():
             bottom_sheet_menu.add_item(
@@ -243,21 +237,21 @@ class Hochua(MDApp):
     
     def callback_for_menu_items(self, selected_item):
         # Thực hiện cập nhật hình ảnh dựa trên mục được chọn
-        if selected_item == "Hạn ngắn":
-            self.read_ftp_sever_image('chart_TVHN.png')
-            self.root.ids.image_chart_td.source = 'cache/chart_TVHN.png'
-        elif selected_item == "Hạn vừa":
-            self.read_ftp_sever_image('chart_TVHV.png')
-            self.root.ids.image_chart_td.source = 'cache/chart_TVHV.png'
-        elif selected_item == "Hạn dài":
-            self.read_ftp_sever_image('chart_TVHD.png')
-            self.root.ids.image_chart_td.source = 'cache/chart_TVHD.png'
-        elif selected_item == "Lũ":
-            self.read_ftp_sever_image('chart_LULU.png')
-            self.root.ids.image_chart_td.source = 'cache/chart_LULU.png'
-        elif selected_item == "Cảnh báo lũ":
-            self.read_ftp_sever_image('chart_CBLU.png')
-            self.root.ids.image_chart_td.source = 'cache/chart_CBLU.png'
+        if selected_item == "Mực nước":
+            self.read_ftp_sever_image('chart_H.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_H.png'
+        elif selected_item == "Q đến":
+            self.read_ftp_sever_image('chart_Q.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_Q.png'
+        elif selected_item == "Q xả":
+            self.read_ftp_sever_image('chart_Q_xa.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_Q_xa.png'
+        elif selected_item == "Mưa":
+            self.read_ftp_sever_image('chart_mua_tranam2.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_mua_tranam2.png'
+        elif selected_item == "Mưa tại đập":
+            self.read_ftp_sever_image('chart_mua_tramdapst2.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_mua_tramdapst2.png'
     
     def show_marker_info(self,tram,thongtin):
         toast(tram + ':' + thongtin)
@@ -285,19 +279,50 @@ class Hochua(MDApp):
         mua = np.array(response.json())
         return mucnuoc,mua
     
+    def tinhmua(self,data,bd,kt):
+        tonngmua = 0
+        for a in range(data.shape[0]-1,1,-1):
+            date_object = datetime.strptime(data[a]['Thoigian_SL'], "%Y-%m-%d %H:%M:%S")
+            if date_object > bd and date_object <=kt:
+                tonngmua+= float(data[a]['Solieu'])
+        return tonngmua
+    
+    
     def TTB_API_SONGTRANH(self,matram):
         now = datetime.now()
         kt = datetime(now.year,now.month,now.day,now.hour)
         bd = kt - timedelta(days=1)
         # mua
-        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=1&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
+        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=60&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
+        pth = pth.format(matram,'mua_songtranh',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
+        # print(pth)
+        response = requests.get(pth)
+        mua = np.array(response.json())
+        # print(mua)
+        if len(mua) < 5:
+            return '-','-'
+        
+        return mua
+    
+    def TTB_API_SONGTRANH_muatong(self,matram):
+        now = datetime.now()
+        kt = datetime(now.year,now.month,now.day,now.hour)
+        bd = kt - timedelta(days=1)
+        # mua
+        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=60&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
         pth = pth.format(matram,'mua_songtranh',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
         response = requests.get(pth)
         mua = np.array(response.json())
+        # print(mua)
+        giohientai = datetime.strptime(mua[-1]['Thoigian_SL'], '%Y-%m-%d %H:%M:%S')
+        mua1 = self.tinhmua(mua,giohientai-timedelta(hours=1),giohientai)
+        mua3 = self.tinhmua(mua,giohientai-timedelta(hours=3),giohientai)
+        mua6 = self.tinhmua(mua,giohientai-timedelta(hours=6),giohientai)
+        mua12 = self.tinhmua(mua,giohientai-timedelta(hours=12),giohientai)
+        mua24 = self.tinhmua(mua,giohientai-timedelta(hours=24),giohientai)
         if len(mua) < 5:
             return '-'
-        return mua
-    
+        return mua1,mua3,mua6,mua12,mua24
     
     
     def read_ftp_sever_image(self,tenanh):

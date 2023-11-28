@@ -108,7 +108,9 @@
         MDBottomNavigation:
             # selected_color_background: 0, 0, 1, .4
             MDBottomNavigationItem:
+                # on_use_text: 'Trang chủ'
                 text:'Trang chủ'
+                active_font_size: "5dp"
                 name: 'home'
                 icon:'home'
                 pos_hint: {"center_x": .5, "center_y": .5} # hien thi giua
@@ -161,48 +163,50 @@
                                     text: "Sông Tranh"
                                     halign: "center"
                                 MDLabel:
-                                    text:  str(app.get_custom_value()[0])
+                                    # text:  str(app.get_custom_value()[0])
+                                    text:  str(app.mucnuoc[-1]['Solieu'])
                                     halign: "center"
                                 MDLabel:
-                                    text: str(app.get_custom_value()[1])
+                                    # text: str(app.get_custom_value()[1])
+                                    text:  str(app.qve[-1]['Solieu'])
                                     halign: "center"
                                 MDLabel:
-                                    text: "78.4"
+                                    text: "18.57"
                                     halign: "center"
                                 MDLabel:
-                                    text: "79.2"
+                                    text: "18.52"
                                     halign: "center"
 
                                 MDLabel:
                                     text: "Sông Bung"
                                     halign: "center"
                                 MDLabel:
-                                    text: "124.65"
+                                    text: "-"
                                     halign: "center"
                                 MDLabel:
-                                    text: "40.1"
+                                    text: "-"
                                     halign: "center"
                                 MDLabel:
-                                    text: "236.24"
+                                    text: "-"
                                     halign: "center"
                                 MDLabel:
-                                    text: "236.54"
+                                    text: "-"
                                     halign: "center"
 
                                 MDLabel:
                                     text: "A Vương"
                                     halign: "center"
                                 MDLabel:
-                                    text: "410"
+                                    text: "-"
                                     halign: "center"
                                 MDLabel:
-                                    text: "40.1"
+                                    text: "-"
                                     halign: "center"
                                 MDLabel:
-                                    text: "10"
+                                    text: "-"
                                     halign: "center"
                                 MDLabel:
-                                    text: "80"
+                                    text: "-"
                                     halign: "center"
 
             # bieu do thuc do va du bao
@@ -223,7 +227,7 @@
                         right_action_items: [["image-size-select-actual", lambda x: app.show_example_grid_bottom_sheet()]                        ]
                     Image:
                         id: image_chart_td
-                        source: 'cache/chart_TVHN.png'
+                        source: 'cache/chart_H.png'
                         pos_hint: {"center_x": .5, "center_y": .5}
                         size_hint: 0.9,0.9
                         # height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
@@ -291,11 +295,223 @@
                 icon:'weather-lightning-rainy'
                 on_tab_release:
                     app.root.current = 'bangmua'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_color
+                    elevation:1
+                    pos_hint: {"top": 1}
+                    title:'Tổng kết mưa (mm)'
+                    # right_action_items: [["dots-vertical", lambda x: app.callback_trangchu()], ["clock", lambda x: app.callback_trangchu()]]
+                    # left_action_items: [['arrow-left', lambda x: app.callback_trangchu()]]
+                MDBoxLayout:
+                    padding:10
+                    orientation: 'vertical'
+                    MDGridLayout:
+                        cols:6
+                        rows:11
+                        MDLabel:
+                            text:'Thời gian\nHồ'
+                            halign: "center"
+                        MDLabel:
+                            text:'1h'
+                            halign: "center"
+                        MDLabel:
+                            text:'2h'
+                            halign: "center"
+                        MDLabel:
+                            text:'6h'
+                            halign: "center"
+                        MDLabel:
+                            text:'12h'
+                            halign: "center"          
+                        MDLabel:
+                            text:'24h'
+                            halign: "center"    
+
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+                        MDLabel:
+                            text:'Sông Tranh'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"          
+                        MDLabel:
+                            text:'0.0'
+                            halign: "center"    
+
 
             # ban do du lieu tram
             MDBottomNavigationItem:
                 text:'Bản đồ'
-                font_size: 2
                 name: 'map'
                 theme_icon_color: "Custom"
                 icon_color: "white"
@@ -416,6 +632,7 @@
             MDBoxLayout:
                 padding:10
                 orientation: 'vertical'
+                
                 MDScrollView:
                     MDList:
                         id: container
