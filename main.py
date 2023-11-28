@@ -223,41 +223,41 @@ class Hochua(MDApp):
     def callback_for_menu_items(self, *args):
         toast(args[0])
 
-    # def show_example_grid_bottom_sheet(self):
-    #     # pass
-    #     bottom_sheet_menu = MDGridBottomSheet()
-    #     data = {
-    #         "Hạn ngắn": "facebook",
-    #         "Hạn vừa": "youtube",
-    #         "Hạn dài": "twitter",
-    #         "Lũ": "cloud-circle",
-    #         "Cảnh báo lũ": "camera",
-    #     }
-    #     for item in data.items():
-    #         bottom_sheet_menu.add_item(
-    #             item[0],
-    #             lambda x, y=item[0]: self.callback_for_menu_items(y),
-    #             icon_src=item[1],
-    #         )
-    #     bottom_sheet_menu.open()
+    def show_example_grid_bottom_sheet(self):
+        # pass
+        bottom_sheet_menu = MDGridBottomSheet()
+        data = {
+            "Hạn ngắn": "facebook",
+            "Hạn vừa": "youtube",
+            "Hạn dài": "twitter",
+            "Lũ": "cloud-circle",
+            "Cảnh báo lũ": "camera",
+        }
+        for item in data.items():
+            bottom_sheet_menu.add_item(
+                item[0],
+                lambda x, y=item[0]: self.callback_for_menu_items(y),
+                icon_src=item[1],
+            )
+        bottom_sheet_menu.open()
     
-    # def callback_for_menu_items(self, selected_item):
-    #     # Thực hiện cập nhật hình ảnh dựa trên mục được chọn
-    #     if selected_item == "Hạn ngắn":
-    #         self.read_ftp_sever_image('TVHN_0.png')
-    #         self.root.ids.image_bantin.source = 'cache/TVHN_0.png'
-    #     elif selected_item == "Hạn vừa":
-    #         self.read_ftp_sever_image('TVHV_0.png')
-    #         self.root.ids.image_bantin.source = 'cache/TVHV_0.png'
-    #     elif selected_item == "Hạn dài":
-    #         self.read_ftp_sever_image('TVHD_0.png')
-    #         self.root.ids.image_bantin.source = 'cache/TVHD_0.png'
-    #     elif selected_item == "Lũ":
-    #         self.read_ftp_sever_image('LULU_0.png')
-    #         self.root.ids.image_bantin.source = 'cache/LULU_0.png'
-    #     elif selected_item == "Cảnh báo lũ":
-    #         self.read_ftp_sever_image('CBLU_0.png')
-    #         self.root.ids.image_bantin.source = 'cache/CBLU_0.png'
+    def callback_for_menu_items(self, selected_item):
+        # Thực hiện cập nhật hình ảnh dựa trên mục được chọn
+        if selected_item == "Hạn ngắn":
+            self.read_ftp_sever_image('TVHN_0.png')
+            self.root.ids.image_bantin.source = 'cache/TVHN_0.png'
+        elif selected_item == "Hạn vừa":
+            self.read_ftp_sever_image('TVHV_0.png')
+            self.root.ids.image_bantin.source = 'cache/TVHV_0.png'
+        elif selected_item == "Hạn dài":
+            self.read_ftp_sever_image('TVHD_0.png')
+            self.root.ids.image_bantin.source = 'cache/TVHD_0.png'
+        elif selected_item == "Lũ":
+            self.read_ftp_sever_image('LULU_0.png')
+            self.root.ids.image_bantin.source = 'cache/LULU_0.png'
+        elif selected_item == "Cảnh báo lũ":
+            self.read_ftp_sever_image('CBLU_0.png')
+            self.root.ids.image_bantin.source = 'cache/CBLU_0.png'
     
     def show_marker_info(self,tram,thongtin):
         toast(tram + ':' + thongtin)

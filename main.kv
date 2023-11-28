@@ -213,27 +213,41 @@
                 # on_release: app.root.update_chart()
                 MDBoxLayout:
                     orientation: 'vertical'
-                    TabbedPanel:
-                        do_default_tab: False
-                        TabbedPanelItem:
-                            text: 'TVHN'
-                            background_color: 0, 0, 1, 1
-                            on_release: app.get_ftp_image('tvhn.png')
-                        TabbedPanelItem:
-                            text: 'TVHV'
-                            background_color: 0, 0, 1, 1
-                            on_release: app.get_ftp_image('tvhv.png')
-                        TabbedPanelItem:
-                            text: 'LULU'
-                            background_color: 0, 0, 1, 1
-                            on_release: app.get_ftp_image('lulu.png')
+                    MDTopAppBar:
+                        title: 'Example BottomSheet'
+                        pos_hint: {"top": 1}
+                        elevation: 1
+                    Image:
+                        id: image_chart_tvhn
+                        source: 'cache/tvhn.png'
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: 0.9,0.9
+                        # height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
+                    MDRaisedButton:
+                        text: "Open grid bottom sheet"
+                        on_release: app.show_example_grid_bottom_sheet()
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                #     TabbedPanel:
+                #         do_default_tab: False
+                #         TabbedPanelItem:
+                #             text: 'TVHN'
+                #             background_color: 0, 0, 1, 1
+                #             on_release: app.get_ftp_image('tvhn.png')
+                #         TabbedPanelItem:
+                #             text: 'TVHV'
+                #             background_color: 0, 0, 1, 1
+                #             on_release: app.get_ftp_image('tvhv.png')
+                #         TabbedPanelItem:
+                #             text: 'LULU'
+                #             background_color: 0, 0, 1, 1
+                #             on_release: app.get_ftp_image('lulu.png')
 
-                Image:
-                    id: image_chart_tvhn
-                    source: 'cache/tvhn.png'
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    size_hint: 0.9,0.9
-                    # height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn    
+                # Image:
+                #     id: image_chart_tvhn
+                #     source: 'cache/tvhn.png'
+                #     pos_hint: {"center_x": .5, "center_y": .5}
+                #     size_hint: 0.9,0.9
+                #     # height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn    
 
             # hinh anh ban tin kttv
             MDBottomNavigationItem:
