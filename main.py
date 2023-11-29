@@ -36,6 +36,7 @@ from kivymd.uix.list import OneLineListItem,OneLineIconListItem,IconLeftWidget
 from kivy.metrics import dp
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.gridlayout import MDGridLayout
+
 # Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -162,7 +163,6 @@ class Hochua(MDApp):
                         height='430dp'
                     )
                 )   
-   
     def on_start(self):
         self.root.ids.tabs.add_widget(Tab(title="TVHN"))
         self.root.ids.tabs.add_widget(Tab(title="TVHV"))
