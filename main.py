@@ -239,7 +239,7 @@ class Hochua(MDApp):
         
         # index_date = tg.index(now)
         # data_ve = gt[index_date:]
-        data_ve = gt
+        
         # print(data_ve)
         # print(gt)
         lists = ['Sông Tranh_mua','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
@@ -250,12 +250,18 @@ class Hochua(MDApp):
                 cumulative_sum += num
                 result_list.append(cumulative_sum)
             gt  = result_list
-
+        data_ve = gt
         # # print(gt)
         # # print(tg)
         app = MDApp.get_running_app()
         app.root.current = 'bieudo_ve'
-        # 
+        # 'Q điều tiết','Q về'
+        if tentram =='Mực nước':
+            legen = 'Mực nước(cm)'
+        elif tentram =='Q điều tiết' or tentram =='Q về':
+            legen = tentram +'(m3/s)'
+        else:
+            legen = tentram + '(mm)'
         self.root.ids.modulation.clear_widgets()
         if len(data_ve) >3:
             data_ve =np.array(data_ve)
@@ -280,7 +286,7 @@ class Hochua(MDApp):
                     ymin=ymin, ymax=ymax,
                     draw_border=True,
                     x_grid_label=True, y_grid_label=True,
-                    xlabel='Giờ',ylabel=str(tentram))
+                    xlabel='Giờ',ylabel=legen)
 
             self.root.ids.modulation.add_widget(self.graph)
             self.plot = LinePlot(color=[1, 0, 0, 1],line_width=1.5)
@@ -330,7 +336,7 @@ class Hochua(MDApp):
                         ymin=ymin, ymax=ymax,
                         draw_border=True,
                         x_grid_label=True, y_grid_label=True,
-                        xlabel='Giờ',ylabel=str(tentram))
+                        xlabel='Giờ',ylabel=str(tentram) + '(mm)')
 
                 self.root.ids.modulation.add_widget(self.graph)
                 self.plot = BarPlot(color=[1, 0, 0, 1],bar_width=1.5)
