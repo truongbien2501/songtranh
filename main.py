@@ -38,7 +38,7 @@ from kivymd.icon_definitions import md_icons
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.datatables import MDDataTable
 from kivy_garden.graph import Graph,BarPlot,LinePlot
-import paramiko
+# import paramiko
 # Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -552,22 +552,22 @@ class Hochua(MDApp):
         # Trả về giá trị bạn muốn
         return mucnuoc[-1]['Solieu'],qve[-1]['Solieu']
     
-    def get_image_from_ssh(ip, username, password, ssh_path):
-        # Tạo một kết nối SSH đến máy chủ
-        ssh_client = paramiko.SSHClient()
-        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # def get_image_from_ssh(ip, username, password, ssh_path):
+    #     # Tạo một kết nối SSH đến máy chủ
+    #     ssh_client = paramiko.SSHClient()
+    #     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-        ssh_client.connect(ip, username=username, password=password)
-        # Lấy nội dung của tệp ảnh từ máy chủ
-        sftp_client = ssh_client.open_sftp()
-        image_file = sftp_client.open(ssh_path, 'rb')
-        image_data = image_file.read()
-        sftp_client.close()
-        ssh_client.close()
+    #     ssh_client.connect(ip, username=username, password=password)
+    #     # Lấy nội dung của tệp ảnh từ máy chủ
+    #     sftp_client = ssh_client.open_sftp()
+    #     image_file = sftp_client.open(ssh_path, 'rb')
+    #     image_data = image_file.read()
+    #     sftp_client.close()
+    #     ssh_client.close()
         
-        # Chuyển dữ liệu ảnh thành đối tượng hình ảnh (PIL)
-        image = Image.open(io.BytesIO(image_data))
-        return image
+    #     # Chuyển dữ liệu ảnh thành đối tượng hình ảnh (PIL)
+    #     image = Image.open(io.BytesIO(image_data))
+    #     return image
 
 if __name__ == '__main__':
     Hochua().run()
