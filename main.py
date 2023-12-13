@@ -38,6 +38,7 @@ from kivymd.icon_definitions import md_icons
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.datatables import MDDataTable
 from kivy_garden.graph import Graph,BarPlot,LinePlot
+import paramiko
 # Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -75,8 +76,6 @@ class Hochua(MDApp):
     #         }
 
     def build(self):
-        self.mucnuoc,self.qve = self.TTB_API_HC()
-        
         # self.theme_cls.colors = colors
         # self.theme_cls.primary_palette = "Teal"
         # self.theme_cls.accent_palette = "Red"
@@ -89,9 +88,7 @@ class Hochua(MDApp):
         return self.scr
 
 
-    def on_tab_switch(
-        self, instance_tabs, instance_tab, instance_tab_label, tab_text
-    ):
+    def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
 
         if tab_text=='TVHN':
             self.root.ids.box_images.clear_widgets()
@@ -197,7 +194,15 @@ class Hochua(MDApp):
                 
         data_tables.bind(on_row_press=self.on_row_press)
         self.root.ids.dienmua_layout.add_widget(data_tables)
-            
+        
+        mucnuoc,qve = self.TTB_API_HC()
+        
+        self.root.ids.mucnuochientai.text = mucnuoc[-1]['Solieu']
+        self.root.ids.luuluongve.text = qve[-1]['Solieu']
+        array_data = np.genfromtxt('matram/H_W.txt', delimiter=",",names=True,encoding=None)
+        row_index = np.where(array_data['H']==float(mucnuoc[-1]['Solieu']))[0][0]
+        self.root.ids.dungtich.text = str(array_data['W'][row_index])
+        self.root.ids.dungtichdb.text= str(array_data['W'][row_index] + 0.07)
     
     def on_row_press(self, instance_table, instance_row): # click vao row cua bang
         tramten = instance_row.text
@@ -242,7 +247,7 @@ class Hochua(MDApp):
         
         # print(data_ve)
         # print(gt)
-        lists = ['Sông Tranh_mua','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
+        lists = ['Trà Đốc','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
         if tentram in lists:
             result_list = []
             cumulative_sum = 0
@@ -297,7 +302,7 @@ class Hochua(MDApp):
         now = datetime.now()
         now = datetime(now.year,now.month,now.day)
         tentram = self.root.ids.tieude_tram.title   # lay ten yeo to ve
-        lists = ['Sông Tranh_mua','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
+        lists = ['Trà Đốc','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
         if tentram in lists:
             gt = []
             tg = []
@@ -344,7 +349,7 @@ class Hochua(MDApp):
                 self.plot.points = [(t, g) for t, g in enumerate(datave)]
                 
     def chuyentram_vietnam(self,tentram,tiento):
-        trammua_vni = ['Mực nước','Q điều tiết','Q về','Sông Tranh_mua','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
+        trammua_vni = ['Mực nước','Q điều tiết','Q về','Trà Đốc','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
         trammua_eng = ['Song Tranh_H','Song Tranh_Qxa','Song Tranh_Qve','Song Tranh_mua','Tra Bui','Tra Giac','Tra Don','Tra Leng','Tra Mai','Tra Cang','Tra Van','Tra Nam 2','Tra Linh','Tra Mai(UBND)']
         matram = ['5ST','5ST','5ST','tramdapst2','TRABUI','tragiac','tradon','traleng','TRAMAI','tracang','travan','tranam2','tralinh','tramai(UBNDHnamTM)']
         tab_bang = ['ho_dakdrinh_mucnuoc','ho_dakdrinh_qve','ho_dakdrinh_qdieutiet','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh']
@@ -359,7 +364,7 @@ class Hochua(MDApp):
 
 
     def chuyentram_eng(self,tentram):
-        trammua_vni = ['Sông Tranh','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam','Trà Linh']
+        trammua_vni = ['Trà Đốc','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam','Trà Linh']
         trammua_eng = ['tramdapst2','TRABUI','tragiac','tradon','traleng','TRAMAI','tracang','travan','tranam2','tralinh']
         if tentram in trammua_vni:
             idx = trammua_vni.index(tentram)
@@ -411,10 +416,6 @@ class Hochua(MDApp):
     
     def show_marker_info(self,tram,thongtin):
         toast(tram + ':' + thongtin)
-
-            
-    def update_image_source(self, new_image_path):
-        pass
         
     def TTB_API_HC(self):
         now = datetime.now()
@@ -550,7 +551,23 @@ class Hochua(MDApp):
         mucnuoc,qve = self.TTB_API_HC()
         # Trả về giá trị bạn muốn
         return mucnuoc[-1]['Solieu'],qve[-1]['Solieu']
+    
+    def get_image_from_ssh(ip, username, password, ssh_path):
+        # Tạo một kết nối SSH đến máy chủ
+        ssh_client = paramiko.SSHClient()
+        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
+        ssh_client.connect(ip, username=username, password=password)
+        # Lấy nội dung của tệp ảnh từ máy chủ
+        sftp_client = ssh_client.open_sftp()
+        image_file = sftp_client.open(ssh_path, 'rb')
+        image_data = image_file.read()
+        sftp_client.close()
+        ssh_client.close()
+        
+        # Chuyển dữ liệu ảnh thành đối tượng hình ảnh (PIL)
+        image = Image.open(io.BytesIO(image_data))
+        return image
 
 if __name__ == '__main__':
     Hochua().run()

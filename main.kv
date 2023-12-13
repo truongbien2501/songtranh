@@ -165,16 +165,20 @@
                                     halign: "center"
                                 MDLabel:
                                     # text:  str(app.get_custom_value()[0])
-                                    text:  str(app.mucnuoc[-1]['Solieu'])
+                                    id: mucnuochientai
+                                    # text:  str(app.mucnuoc[-1]['Solieu'])
                                     halign: "center"
                                 MDLabel:
+                                    id: luuluongve
                                     # text: str(app.get_custom_value()[1])
-                                    text:  str(app.qve[-1]['Solieu'])
+                                    # text:  str(app.qve[-1]['Solieu'])
                                     halign: "center"
                                 MDLabel:
-                                    text: "18.57"
+                                    id: dungtich
+                                    text: ""
                                     halign: "center"
                                 MDLabel:
+                                    id:dungtichdb
                                     text: "18.52"
                                     halign: "center"
 
@@ -212,9 +216,9 @@
 
             # bieu do thuc do va du bao
             MDBottomNavigationItem: 
-                text: 'Biểu đồ'
+                text: 'Dự báo'
                 name: 'chart' # dat ten
-                icon:'chart-bell-curve-cumulative' # bieu tuong
+                icon:'desktop-classic' # bieu tuong
                 # on_release: app.root.update_chart()
                 # MDBoxLayout:
                 #     orientation: 'vertical'
