@@ -1,0 +1,15 @@
+Ma tram,ten tram,TAB,Yeu To
+5ST,Song Tranh_H,ho_dakdrinh_mucnuoc,mucnuoc
+5ST,Song Tranh_Qxa,ho_dakdrinh_qve,Qxa
+5ST,Song Tranh_Qve,ho_dakdrinh_qdieutiet,Qve
+TRABUI,Tra Bui,mua_songtranh,mua
+tracang,Tra Cang,mua_songtranh,mua
+tradon,Tra Don,mua_songtranh,mua
+tragiac,Tra Giac,mua_songtranh,mua
+traleng,Tra Leng,mua_songtranh,mua
+tralinh,Tra Linh,mua_songtranh,mua
+TRAMAI,Tra Mai,mua_songtranh,mua
+tramai(UBNDHnamTM),Tra Mai(UBND),mua_songtranh,mua
+tramdapst2,Song Tranh_mua,mua_songtranh,mua
+tranam2,Tra Nam 2,mua_songtranh,mua
+travan,Tra Van,mua_songtranh,mua

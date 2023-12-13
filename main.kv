@@ -1,4 +1,5 @@
 #:import MapView kivy_garden.mapview.MapView
+#:import utils kivy.utils
 <Homescreen>:
     MDScreen:
         md_bg_color:239/255,243/255,246/255,1
@@ -290,225 +291,21 @@
 
             # du lieu do mua
             MDBottomNavigationItem:
-                text: 'Mưa'
+                text: 'Số liệu'
                 name: 'luongmua'
                 icon:'weather-lightning-rainy'
-                on_tab_release:
-                    app.root.current = 'bangmua'
-                MDTopAppBar:
-                    md_bg_color: app.theme_cls.primary_color
-                    elevation:1
-                    pos_hint: {"top": 1}
-                    title:'Tổng kết mưa (mm)'
-                    # right_action_items: [["dots-vertical", lambda x: app.callback_trangchu()], ["clock", lambda x: app.callback_trangchu()]]
-                    # left_action_items: [['arrow-left', lambda x: app.callback_trangchu()]]
+                # on_tab_release:
+                #     app.root.current = 'bangmua'
                 MDBoxLayout:
+                    id: dienmua_layout
                     padding:10
                     orientation: 'vertical'
-                    MDGridLayout:
-                        cols:6
-                        rows:11
-                        MDLabel:
-                            text:'Thời gian\nHồ'
-                            halign: "center"
-                        MDLabel:
-                            text:'1h'
-                            halign: "center"
-                        MDLabel:
-                            text:'2h'
-                            halign: "center"
-                        MDLabel:
-                            text:'6h'
-                            halign: "center"
-                        MDLabel:
-                            text:'12h'
-                            halign: "center"          
-                        MDLabel:
-                            text:'24h'
-                            halign: "center"    
-
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-                        MDLabel:
-                            text:'Sông Tranh'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"          
-                        MDLabel:
-                            text:'0.0'
-                            halign: "center"    
-
-
+                    MDTopAppBar:
+                        id:tieude_tram
+                        md_bg_color: app.theme_cls.primary_color
+                        elevation:2
+                        title:'Tổng kết số liệu KTTV'
+                        # left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
             # ban do du lieu tram
             MDBottomNavigationItem:
                 text:'Bản đồ'
@@ -619,24 +416,109 @@
                             size: (35, 35)    
                             source: 'icon/quocky.png'  # Đường dẫn đến hình ảnh marker (điền tên tệp ảnh của bạn)
     MDScreen:
-        name:'bangmua'
+        name:'tram'
         MDBoxLayout:
             orientation: 'vertical'
             md_bg_color: 1, 1, 1, 1
             MDTopAppBar:
+                id:tieude_tram
                 md_bg_color: app.theme_cls.primary_color
-                elevation:1
-                title:'LƯỢNG MƯA (mm)'
-                right_action_items: [["dots-vertical", lambda x: app.callback_trangchu()], ["clock", lambda x: app.callback_trangchu()]]
-                left_action_items: [['arrow-left', lambda x: app.callback_trangchu()]]
+                elevation:2
+                title:''
+                right_action_items: [["chart-scatter-plot", lambda x: app.vebieudo()]]
+                left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
+
             MDBoxLayout:
                 padding:10
                 orientation: 'vertical'
-                
                 MDScrollView:
                     MDList:
-                        id: container
-                        # md_bg_color:0, 0, 0, 0.8
+                        id: solieutram
+    
+    MDScreen:
+        name: 'bieudo_ve'
+        canvas.before:
+            Color:
+                rgb: utils.get_color_from_hex('#212946')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        MDBoxLayout:
+            size_hint: 1, 1
+            orientation: 'vertical'
+            padding: 5, 5, 5, 5
+            MDTopAppBar:
+                id:tieude_tram_bieudo
+                md_bg_color: app.theme_cls.primary_color
+                elevation:0.8
+                title:''
+                # size_hint: 1, 0.2
+                right_action_items: [["chart-bar", lambda x: app.vebieudo_bar()]]
+                left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
+            MDScrollView:
+                id: view
+                do_scroll_x: True
+                do_scroll_y: False
+                orientation: 'vertical'
+                size_hint: 1, 0.5
+                valign: 'middle'
+                bar_width: 4
+                bar_color: 1, 1, 1, 1
+                bar_inactive_color: 1, 1, 1, 0.5
+                scroll_type: ['content']
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    size_hint: None, 1
+                    width: root.width
+                    MDBoxLayout:
+                        id: modulation
+                        size_hint_x: 1
+                        size_hint_y: 1
+
+            # BoxLayout:
+            #     id: zoom
+            #     orientation: 'horizontal'
+            #     size_hint: 1, 0.1
+            #     padding: 10
+
+            #     Button:
+            #         text: '-'
+            #         size_hint_x: None
+            #         width: self.height
+            #         on_release: app.update_zoom(self.text)
+
+            #     Label:
+            #         text: str(int(app.zoom)) + ' ngày'
+            #         # text:  '25x'
+            #     Button:
+            #         text: '+'
+            #         size_hint_x: None
+            #         width: self.height
+            #         on_release: app.update_zoom(self.text)
+
+            BoxLayout:
+                size_hint: 1, 0.1
+                orientation: 'vertical'
+
+                Label:
+                    text: 'Thời gian: ' + str(freq.value) + ' ngày'
+
+                Slider:
+                    id: freq
+                    min: 1
+                    max: 3
+                    step: 1
+                    # on_value: app.update_plot(freq.value)
+
+            BoxLayout:
+                size_hint: 1, 0.3
+
+
+
+
+
+
+
 
 <RectangularRippleButton>:
 <RectangularRippleImage>:

@@ -1,19 +1,19 @@
 [app]
 
 # (str) Title of your application
-title = hochua
+title = HoChua
 
 # (str) Package name
-package.name = hochua
+package.name = HoChua
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.hochua
+package.domain = org.HoChua
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+source.include_exts = py,png,jpg,kv,atlas,txt
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -47,7 +47,7 @@ requirements = python3==3.9.10,hostpython3==3.9.10,kivy,kivymd,pillow,kivy_garde
 #presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
-#icon.filename = %(source.dir)s/data/icon.png
+icon.filename = icon/songtranh2.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
