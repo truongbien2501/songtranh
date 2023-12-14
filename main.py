@@ -373,7 +373,10 @@ class Hochua(MDApp):
         if tentram in trammua_vni:
             idx = trammua_vni.index(tentram)
         return trammua_eng[idx]
-
+    
+    def callback_solieutram(self):
+        app = MDApp.get_running_app()
+        app.root.current = 'tram'
 
     def callback_trangchu(self):
         app = MDApp.get_running_app()
