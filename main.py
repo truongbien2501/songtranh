@@ -169,35 +169,49 @@ class Hochua(MDApp):
         self.root.ids.tabs.add_widget(Tab(title="CBLU"))
         
         
-        # tao bang datatable
-        data_tables = MDDataTable(
-            size_hint=(1, 0.99),
-            use_pagination=True,
-            rows_num=7,
-            column_data=[
-                ("Trạm-Giờ", dp(20)),
-                ("1h", dp(20)),
-                ("3h", dp(20)),
-                ("6h", dp(20)),
-                ("12h", dp(20)),
-                ("24h", dp(20)),
-                ("48h", dp(20)),
-                ("72h", dp(20)),
-            ],
-        )
+        # # tao bang datatable
+        # data_tables = MDDataTable(
+        #     size_hint=(1, 0.99),
+        #     use_pagination=True,
+        #     rows_num=7,
+        #     column_data=[
+        #         ("Trạm-Giờ", dp(20)),
+        #         ("1h", dp(20)),
+        #         ("3h", dp(20)),
+        #         ("6h", dp(20)),
+        #         ("12h", dp(20)),
+        #         ("24h", dp(20)),
+        #         ("48h", dp(20)),
+        #         ("72h", dp(20)),
+        #     ],
+        # )
+        # ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
+        # for tram in ds_tram:
+        #     if 'mua' in tram[3]:
+        #         muatong = self.TTB_API_muatong(tram[0],tram[2])
+        #         data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+        #     else:
+        #         muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
+        #         data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+                
+        # data_tables.bind(on_row_press=self.on_row_press)
+        # self.root.ids.dienmua_layout.add_widget(data_tables)
         ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         for tram in ds_tram:
-            if 'mua' in tram[3]:
-                muatong = self.TTB_API_muatong(tram[0],tram[2])
-                data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+            if 'mua' in str(tram[2]):
+                    bieutuong = "weather-partly-rainy"                    
+            elif 'mucnuoc' in str(tram[2]):
+                bieutuong = 'waves-arrow-up'
+            elif 'Q' in str(tram[2]):
+                bieutuong = 'waves-arrow-right'     
             else:
-                muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
-                data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
-                
-        data_tables.bind(on_row_press=self.on_row_press)
-        self.root.ids.dienmua_layout.add_widget(data_tables)
-        
-        
+                bieutuong = ''
+            icon_item = OneLineIconListItem(
+                        IconLeftWidget(icon=bieutuong),
+                        text=self.chuyentram_vietnam(tram[1],2)[0],
+                        on_release=self.tram_pressed
+                    )
+            self.root.ids.tramkttv_ho.add_widget(icon_item)
         
         # tinh dung tich trang chu
         mucnuoc,qve = self.TTB_API_HC()
@@ -207,7 +221,35 @@ class Hochua(MDApp):
         row_index = np.where(array_data['H']==float(mucnuoc[-1]['Solieu']))[0][0]
         self.root.ids.dungtich.text = str(array_data['W'][row_index])
         self.root.ids.dungtichdb.text= '{:.2f}'.format(array_data['W'][row_index] + 0.07)
-    
+
+    def tram_pressed(self,instance): # su kien click vao tram
+        clicked_text = instance.text
+        # print('bạn đã click vào:' + clicked_text)
+        app = MDApp.get_running_app()
+        app.root.current = 'tram'
+        self.root.ids.solieutram.clear_widgets()
+        self.root.ids.tieude_tram.text = clicked_text
+        yeuto = self.chuyentram_vietnam(clicked_text,1)
+        # tt_tram = clicked_text.split('-')
+        # tentram = str(tt_tram[0]).strip()
+        # yeuto = str(tt_tram[1]).strip()
+        # tentinh = self.ten_tinh_txt(self.root.ids.provin.title)
+        # print(tentinh)
+      
+        solieu = self.TTB_API(yeuto[0],yeuto[1])
+        # print(solieu)
+        for tencot in solieu:
+            if 'SoLieu'in tencot:
+                tencot_sl = 'SoLieu'
+            else:
+                tencot_sl = 'Solieu'
+        for value in range(len(solieu) - 1, -1, -1):
+            icon_item = OneLineIconListItem(
+                text=solieu[value]['Thoigian_SL'] + ' : ' + solieu[value][tencot_sl]
+            )
+            # gán su kien cho icon
+            self.root.ids.solieutram.add_widget(icon_item)
+            
     def on_row_press(self, instance_table, instance_row): # click vao row cua bang
         tramten = instance_row.text
         app = MDApp.get_running_app()
@@ -357,11 +399,11 @@ class Hochua(MDApp):
         trammua_eng = ['Song Tranh_H','Song Tranh_Qxa','Song Tranh_Qve','Song Tranh_mua','Tra Bui','Tra Giac','Tra Don','Tra Leng','Tra Mai','Tra Cang','Tra Van','Tra Nam 2','Tra Linh','Tra Mai(UBND)']
         matram = ['5ST','5ST','5ST','tramdapst2','TRABUI','tragiac','tradon','traleng','TRAMAI','tracang','travan','tranam2','tralinh','tramai(UBNDHnamTM)']
         tab_bang = ['ho_dakdrinh_mucnuoc','ho_dakdrinh_qve','ho_dakdrinh_qdieutiet','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh','mua_songtranh']
-        if tiento == 1 :
+        if tiento == 1 : # neu ten dua vao la tieng viet tra ra ma tram va Tab
             idx = trammua_vni.index(tentram)
             yeuto  = [matram[idx],tab_bang[idx]]
             return yeuto
-        elif tiento == 2 :
+        elif tiento == 2 : # neu ten dua vao la tieng anh tra ra ten tieng viet ma tram va Tab
             idx = trammua_eng.index(tentram)
             yeuto  = [trammua_vni[idx],matram[idx],tab_bang[idx]]
             return yeuto
