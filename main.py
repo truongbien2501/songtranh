@@ -173,7 +173,7 @@ class Hochua(MDApp):
         data_tables = MDDataTable(
             size_hint=(1, 0.99),
             use_pagination=True,
-            rows_num=10,
+            rows_num=7,
             column_data=[
                 ("Trạm-Giờ", dp(20)),
                 ("1h", dp(20)),
