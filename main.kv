@@ -274,7 +274,7 @@
                         orientation: 'vertical'
                         md_bg_color: app.theme_cls.primary_color
                         MDGridLayout:
-                            cols:2
+                            cols:3
                             rows:1
                             MDIconButton:
                                 icon: "arrow-left-thick"
@@ -285,9 +285,14 @@
                                 icon_right: "magnify"
                                 id: hintexx
                                 hint_text: "Tìm kiếm"
-                                # on_text: app.search_tram(self.text)  # Gọi hàm tìm kiếm khi văn bản thay đổi
+                                on_text: app.search_tram(self.text)  # Gọi hàm tìm kiếm khi văn bản thay đổi
                                 mode: "round"
                                 pos_hint: {"center_x": .5, "center_y": .5}
+                            MDIconButton:
+                                icon: "sigma"
+                                size_hint: None,None
+                                pos_hint: {"center_x": .5, "center_y": .5}
+                                on_press: app.callback_dienmua()
                     MDBoxLayout:
                         size_hint: None,None
                         size: (root.width * 0.96, root.height * 0.80)
@@ -524,7 +529,20 @@
 
             # BoxLayout:
             #     size_hint: 1, 0.3
-
+    MDScreen:
+        name: 'dienmua'
+        id: dienmua
+        md_bg_color: app.theme_cls.primary_color
+        MDBoxLayout:
+            id: dienmua_layout
+            padding:10
+            orientation: 'vertical'
+            # MDTopAppBar:
+            #     id:tieude_tram
+            #     md_bg_color: app.theme_cls.primary_color
+            #     elevation:2
+            #     title:'Tổng kết mưa'
+            #     left_action_items: [['arrow-left-thick', lambda x: app.callback_solieu()]]
 
 <RectangularRippleButton>:
 <RectangularRippleImage>:

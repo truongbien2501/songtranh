@@ -198,11 +198,11 @@ class Hochua(MDApp):
         # self.root.ids.dienmua_layout.add_widget(data_tables)
         ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         for tram in ds_tram:
-            if 'mua' in str(tram[2]):
+            if 'mua' in str(tram[3]):
                     bieutuong = "weather-partly-rainy"                    
-            elif 'mucnuoc' in str(tram[2]):
+            elif 'mucnuoc' in str(tram[3]):
                 bieutuong = 'waves-arrow-up'
-            elif 'Q' in str(tram[2]):
+            elif 'Q' in str(tram[3]):
                 bieutuong = 'waves-arrow-right'     
             else:
                 bieutuong = ''
@@ -600,7 +600,64 @@ class Hochua(MDApp):
         mucnuoc,qve = self.TTB_API_HC()
         # Trả về giá trị bạn muốn
         return mucnuoc[-1]['Solieu'],qve[-1]['Solieu']
-    
+
+    def callback_trangchu(self):
+        app = MDApp.get_running_app()
+        app.root.current = 'trangchu'
+        
+    def callback_dienmua(self,**kwargs):
+        app = MDApp.get_running_app()
+        app.root.current = 'dienmua'
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Orange"
+        data_tables = MDDataTable(
+            size_hint=(1, 0.99),
+            use_pagination=True,
+            rows_num=7,
+            column_data=[
+                ("Trạm-Giờ", dp(20)),
+                ("1h", dp(20)),
+                ("3h", dp(20)),
+                ("6h", dp(20)),
+                ("12h", dp(20)),
+                ("24h", dp(20)),
+                ("48h", dp(20)),
+                ("72h", dp(20)),
+            ],
+        )
+        ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
+        for tram in ds_tram:
+            if 'mua' in tram[3]:
+                muatong = self.TTB_API_muatong(tram[0],tram[2])
+                data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+            else:
+                muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
+                data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+        self.root.ids.dienmua_layout.add_widget(data_tables)
+
+    def search_tram(self, search_text):# su kien tìm kiếm
+        self.root.ids.tramkttv_ho.clear_widgets()
+        
+        ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
+        for tram in ds_tram:
+            tramtv = self.chuyentram_vietnam(str(tram[1]),2)
+            if  tramtv[0]== str(search_text):
+                if 'mua' in str(tram[3]):
+                        bieutuong = "weather-partly-rainy"                    
+                elif 'mucnuoc' in str(tram[3]):
+                    bieutuong = 'waves-arrow-up'
+                elif 'Q' in str(tram[3]):
+                    bieutuong = 'waves-arrow-right'     
+                else:
+                    bieutuong = ''
+                icon_item = OneLineIconListItem(
+                            IconLeftWidget(icon=bieutuong),
+                            text=self.chuyentram_vietnam(tram[1],2)[0],
+                            on_release=self.tram_pressed
+                        )
+                self.root.ids.tramkttv_ho.add_widget(icon_item)
+   
+
     # def get_image_from_ssh(ip, username, password, ssh_path):
     #     # Tạo một kết nối SSH đến máy chủ
     #     ssh_client = paramiko.SSHClient()
