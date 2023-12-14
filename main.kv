@@ -220,51 +220,27 @@
                 name: 'chart' # dat ten
                 icon:'desktop-classic' # bieu tuong
                 # on_release: app.root.update_chart()
-                # MDBoxLayout:
-                #     orientation: 'vertical'
-                GridLayout:
-                    cols:1
-                    rows:2
-                    MDTopAppBar:
-                        title: 'Đường quá trình'
-                        pos_hint: {"top": 1}
-                        elevation: 1
-                        right_action_items: [["image-size-select-actual", lambda x: app.show_example_grid_bottom_sheet()]                        ]
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    MDGridLayout:
+                        adaptive_height: True
+                        md_bg_color: app.theme_cls.primary_color
+                        size_hint: 1,0.1
+                        cols:2
+                        rows:1
+                        MDLabel:
+                            text:'Đường quá trình'
+                            halign: "center"
+                        MDIconButton:
+                            icon: "image-filter-center-focus-weak"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            on_release:app.show_example_grid_bottom_sheet()
                     Image:
                         id: image_chart_td
                         source: 'cache/chart_H.png'
                         pos_hint: {"center_x": .5, "center_y": .5}
                         size_hint: 0.9,0.9
-                        # height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
-
-                # MDFillRoundFlatButton:
-                #     text: "Chọn biểu đồ"
-                #     on_release: app.show_example_grid_bottom_sheet()
-                #     pos_hint: {"top": 1}
-                #     # pos_hint: {"center_x": .5, "center_y": .5}
-                #     size_hint: 0.1,0.1
-
-                #     TabbedPanel:
-                #         do_default_tab: False
-                #         TabbedPanelItem:
-                #             text: 'TVHN'
-                #             background_color: 0, 0, 1, 1
-                #             on_release: app.get_ftp_image('tvhn.png')
-                #         TabbedPanelItem:
-                #             text: 'TVHV'
-                #             background_color: 0, 0, 1, 1
-                #             on_release: app.get_ftp_image('tvhv.png')
-                #         TabbedPanelItem:
-                #             text: 'LULU'
-                #             background_color: 0, 0, 1, 1
-                #             on_release: app.get_ftp_image('lulu.png')
-
-                # Image:
-                #     id: image_chart_tvhn
-                #     source: 'cache/tvhn.png'
-                #     pos_hint: {"center_x": .5, "center_y": .5}
-                #     size_hint: 0.9,0.9
-                #     # height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn    
+                        height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
 
             # hinh anh ban tin kttv
             MDBottomNavigationItem:
@@ -275,11 +251,6 @@
                     id: tabs
                     on_tab_switch: app.on_tab_switch(*args)
 
-                # Image:
-                #     id: image_bantin
-                #     source: 'cache/tin_TVHN_0.png'
-                #     pos_hint: {"center_x": .5, "center_y": .5}
-                #     size_hint: 0.99,0.8
                 MDBoxLayout:
                     padding:10
                     orientation: 'vertical'
@@ -298,18 +269,15 @@
                 text: 'Số liệu'
                 name: 'luongmua'
                 icon:'weather-lightning-rainy'
-                # on_tab_release:
-                #     app.root.current = 'bangmua'
+                md_bg_color: app.theme_cls.primary_color
                 MDBoxLayout:
                     id: dienmua_layout
                     padding:10
                     orientation: 'vertical'
-                    MDTopAppBar:
+                    MDLabel:
+                        size_hint: (1, 0.1)
+                        text:'Tổng kết số liệu'
                         id:tieude_tram
-                        md_bg_color: app.theme_cls.primary_color
-                        elevation:2
-                        title:'Tổng kết số liệu KTTV'
-                        # left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
             # ban do du lieu tram
             MDBottomNavigationItem:
                 text:'Bản đồ'
@@ -321,10 +289,10 @@
                     orientation: 'vertical'
                     spacing: 5
                     padding: 10
-                    MDTopAppBar:
-                        md_bg_color: app.theme_cls.primary_color
-                        elevation:1
-                        title:'BẢN ĐỒ TRẠM ĐO MƯA'
+                    # MDTopAppBar:
+                    #     md_bg_color: app.theme_cls.primary_color
+                    #     elevation:1
+                    #     title:'BẢN ĐỒ TRẠM ĐO MƯA'
                         # right_action_items: [["dots-vertical", lambda x: app.callback_trangchu()], ["clock", lambda x: app.callback_trangchu()]]
                         # left_action_items: [['arrow-left', lambda x: app.callback_trangchu()]]
                     MapView:
@@ -423,18 +391,48 @@
         name:'tram'
         MDBoxLayout:
             orientation: 'vertical'
-            md_bg_color: 1, 1, 1, 1
-            MDTopAppBar:
-                id:tieude_tram
+            # md_bg_color: app.theme_cls.primary_color
+            MDBoxLayout:
+                orientation: 'vertical'
                 md_bg_color: app.theme_cls.primary_color
-                elevation:2
-                title:''
-                right_action_items: [["chart-scatter-plot", lambda x: app.vebieudo()]]
-                left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
+                size_hint: (1, 0.1)
+                MDGridLayout:
+                    cols:3
+                    rows:1
+                    MDIconButton:
+                        icon: "arrow-left-thick"
+                        # size_hint: (1, 0.1)
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_press: app.callback_trangchu()
+                    MDLabel:
+                        id:tieude_tram
+                        # size_hint: (1, 0.1)
+                        text:'Tổng kết số liệu'
+                        id:tieude_tram
+                    # MDTextField:
+                    #     icon_right: "magnify"
+                    #     id: id:tieude_tram
+                    #     hint_text: "Tìm kiếm"
+                    #     on_text: app.search_tram(self.text)  # Gọi hàm tìm kiếm khi văn bản thay đổi
+                    #     mode: "round"
+                    #     pos_hint: {"center_x": .5, "center_y": .5}
+                    MDIconButton:
+                        icon: "chart-scatter-plot"
+                        # size_hint: (1, 0.1)
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_press: app.vebieudo()
+            # MDTopAppBar:
+            #     id:tieude_tram
+            #     md_bg_color: app.theme_cls.primary_color
+            #     elevation:2
+            #     title:''
+            #     right_action_items: [["chart-scatter-plot", lambda x: app.vebieudo()]]
+            #     left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
 
             MDBoxLayout:
                 padding:10
                 orientation: 'vertical'
+                size_hint: (1, 0.9)
                 MDScrollView:
                     MDList:
                         id: solieutram
@@ -450,21 +448,41 @@
         MDBoxLayout:
             size_hint: 1, 1
             orientation: 'vertical'
-            padding: 5, 5, 5, 5
-            MDTopAppBar:
-                id:tieude_tram_bieudo
+            padding: 1, 1, 1, 1
+
+            # MDTopAppBar:
+            #     id:tieude_tram_bieudo
+            #     md_bg_color: app.theme_cls.primary_color
+            #     elevation:0.8
+            #     title:''
+            #     # size_hint: 1, 0.2
+            #     right_action_items: [["chart-bar", lambda x: app.vebieudo_bar()]]
+            #     left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
+            MDBoxLayout:
+                orientation: 'vertical'
                 md_bg_color: app.theme_cls.primary_color
-                elevation:0.8
-                title:''
-                # size_hint: 1, 0.2
-                right_action_items: [["chart-bar", lambda x: app.vebieudo_bar()]]
-                left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
+                size_hint: (1, 0.1)
+                MDGridLayout:
+                    cols:3
+                    rows:1
+                    MDIconButton:
+                        icon: "arrow-left-thick"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_press: app.callback_trangchu()
+                    MDLabel:
+                        id:tieude_tram_bieudo
+                        text:''
+                    MDIconButton:
+                        icon: "chart-bar"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_press: app.vebieudo_bar()
+            
             MDScrollView:
                 id: view
                 do_scroll_x: True
                 do_scroll_y: False
                 orientation: 'vertical'
-                size_hint: 1, 0.5
+                size_hint: 1, 0.9
                 valign: 'middle'
                 bar_width: 4
                 bar_color: 1, 1, 1, 1
@@ -500,28 +518,22 @@
             #         width: self.height
             #         on_release: app.update_zoom(self.text)
 
-            BoxLayout:
-                size_hint: 1, 0.1
-                orientation: 'vertical'
+            # BoxLayout:
+            #     size_hint: 1, 0.1
+            #     orientation: 'vertical'
 
-                Label:
-                    text: 'Thời gian: ' + str(freq.value) + ' ngày'
+            #     Label:
+            #         text: 'Thời gian: ' + str(freq.value) + ' ngày'
 
-                Slider:
-                    id: freq
-                    min: 1
-                    max: 3
-                    step: 1
-                    # on_value: app.update_plot(freq.value)
+            #     Slider:
+            #         id: freq
+            #         min: 1
+            #         max: 3
+            #         step: 1
+            #         # on_value: app.update_plot(freq.value)
 
-            BoxLayout:
-                size_hint: 1, 0.3
-
-
-
-
-
-
+            # BoxLayout:
+            #     size_hint: 1, 0.3
 
 
 <RectangularRippleButton>:

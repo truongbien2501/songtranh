@@ -202,7 +202,7 @@ class Hochua(MDApp):
         array_data = np.genfromtxt('matram/H_W.txt', delimiter=",",names=True,encoding=None)
         row_index = np.where(array_data['H']==float(mucnuoc[-1]['Solieu']))[0][0]
         self.root.ids.dungtich.text = str(array_data['W'][row_index])
-        self.root.ids.dungtichdb.text= str(array_data['W'][row_index] + 0.07)
+        self.root.ids.dungtichdb.text= '{:.2f}'.format(array_data['W'][row_index] + 0.07)
     
     def on_row_press(self, instance_table, instance_row): # click vao row cua bang
         tramten = instance_row.text
@@ -210,7 +210,7 @@ class Hochua(MDApp):
         app.root.current = 'tram'
         self.root.ids.solieutram.clear_widgets()
         # self.root.ids.tieude_tram.clear_widgets()
-        self.root.ids.tieude_tram.title = str(tramten)
+        self.root.ids.tieude_tram.text = str(tramten)
         
         mt_tab = self.chuyentram_vietnam(str(tramten),1)
         
@@ -230,7 +230,7 @@ class Hochua(MDApp):
 
        
     def vebieudo(self,**kwargs):
-        self.root.ids.tieude_tram_bieudo.title = self.root.ids.tieude_tram.title
+        self.root.ids.tieude_tram_bieudo.text = self.root.ids.tieude_tram.text
         now = datetime.now()
         now = datetime(now.year,now.month,now.day)
         gt = []
@@ -240,7 +240,7 @@ class Hochua(MDApp):
             dl = str(child.text).split(':')
             gt.append(float(dl[3].strip()))
             tg.append(datetime.strptime(dl[0].strip() + ':' + dl[1].strip(),"%Y-%m-%d %H:%M"))
-        tentram = self.root.ids.tieude_tram.title   # lay ten yeo to ve
+        tentram = self.root.ids.tieude_tram.text   # lay ten yeo to ve
         
         # index_date = tg.index(now)
         # data_ve = gt[index_date:]
@@ -301,7 +301,7 @@ class Hochua(MDApp):
     def vebieudo_bar(self,**kwargs):
         now = datetime.now()
         now = datetime(now.year,now.month,now.day)
-        tentram = self.root.ids.tieude_tram.title   # lay ten yeo to ve
+        tentram = self.root.ids.tieude_tram.text   # lay ten yeo to ve
         lists = ['Trà Đốc','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
         if tentram in lists:
             gt = []
