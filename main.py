@@ -168,6 +168,8 @@ class Hochua(MDApp):
         self.root.ids.tabs.add_widget(Tab(title="LULU"))
         self.root.ids.tabs.add_widget(Tab(title="CBLU"))
         
+        
+        # tao bang datatable
         data_tables = MDDataTable(
             size_hint=(1, 0.99),
             use_pagination=True,
@@ -195,8 +197,10 @@ class Hochua(MDApp):
         data_tables.bind(on_row_press=self.on_row_press)
         self.root.ids.dienmua_layout.add_widget(data_tables)
         
-        mucnuoc,qve = self.TTB_API_HC()
         
+        
+        # tinh dung tich trang chu
+        mucnuoc,qve = self.TTB_API_HC()
         self.root.ids.mucnuochientai.text = mucnuoc[-1]['Solieu']
         self.root.ids.luuluongve.text = qve[-1]['Solieu']
         array_data = np.genfromtxt('matram/H_W.txt', delimiter=",",names=True,encoding=None)

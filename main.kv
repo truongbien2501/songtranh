@@ -263,21 +263,24 @@
                             size_hint_y: None
                             height: self.minimum_height
                     
-
             # du lieu do mua
             MDBottomNavigationItem:
                 text: 'Số liệu'
                 name: 'luongmua'
                 icon:'weather-lightning-rainy'
-                md_bg_color: app.theme_cls.primary_color
                 MDBoxLayout:
-                    id: dienmua_layout
-                    padding:10
+                    md_bg_color: app.theme_cls.primary_color
                     orientation: 'vertical'
+                    # size_hint: (1, 0.1)
                     MDLabel:
-                        size_hint: (1, 0.1)
                         text:'Tổng kết số liệu'
                         id:tieude_tram
+                        size_hint: (1, 0.1)
+                    MDBoxLayout:
+                        orientation: 'vertical'  
+                        size_hint: (1, 0.9)
+                        id: dienmua_layout
+                          
             # ban do du lieu tram
             MDBottomNavigationItem:
                 text:'Bản đồ'
@@ -391,7 +394,6 @@
         name:'tram'
         MDBoxLayout:
             orientation: 'vertical'
-            # md_bg_color: app.theme_cls.primary_color
             MDBoxLayout:
                 orientation: 'vertical'
                 md_bg_color: app.theme_cls.primary_color
@@ -401,34 +403,15 @@
                     rows:1
                     MDIconButton:
                         icon: "arrow-left-thick"
-                        # size_hint: (1, 0.1)
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: app.callback_trangchu()
                     MDLabel:
                         id:tieude_tram
-                        # size_hint: (1, 0.1)
                         text:'Tổng kết số liệu'
-                        id:tieude_tram
-                    # MDTextField:
-                    #     icon_right: "magnify"
-                    #     id: id:tieude_tram
-                    #     hint_text: "Tìm kiếm"
-                    #     on_text: app.search_tram(self.text)  # Gọi hàm tìm kiếm khi văn bản thay đổi
-                    #     mode: "round"
-                    #     pos_hint: {"center_x": .5, "center_y": .5}
                     MDIconButton:
                         icon: "chart-scatter-plot"
-                        # size_hint: (1, 0.1)
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: app.vebieudo()
-            # MDTopAppBar:
-            #     id:tieude_tram
-            #     md_bg_color: app.theme_cls.primary_color
-            #     elevation:2
-            #     title:''
-            #     right_action_items: [["chart-scatter-plot", lambda x: app.vebieudo()]]
-            #     left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
-
             MDBoxLayout:
                 padding:10
                 orientation: 'vertical'
@@ -449,15 +432,6 @@
             size_hint: 1, 1
             orientation: 'vertical'
             padding: 1, 1, 1, 1
-
-            # MDTopAppBar:
-            #     id:tieude_tram_bieudo
-            #     md_bg_color: app.theme_cls.primary_color
-            #     elevation:0.8
-            #     title:''
-            #     # size_hint: 1, 0.2
-            #     right_action_items: [["chart-bar", lambda x: app.vebieudo_bar()]]
-            #     left_action_items: [['arrow-left-thick', lambda x: app.callback_trangchu()]]
             MDBoxLayout:
                 orientation: 'vertical'
                 md_bg_color: app.theme_cls.primary_color
