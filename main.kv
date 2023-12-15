@@ -534,9 +534,23 @@
         id: dienmua
         md_bg_color: app.theme_cls.primary_color
         MDBoxLayout:
-            id: dienmua_layout
-            padding:10
+            # md_bg_color:app.theme_cls.primary_color        
             orientation: 'vertical'
+            MDGridLayout:
+                size_hint: (1, 0.1)
+                cols:2
+                rows:1
+                MDIconButton:
+                    icon: "arrow-left-thick"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_press: app.callback_solieutram()
+                MDLabel:
+                    text:'Tổng kết số liệu'
+            MDBoxLayout:
+                size_hint: (1, 0.9)
+                id: dienmua_layout
+                padding:10
+                orientation: 'vertical'
             # MDTopAppBar:
             #     id:tieude_tram
             #     md_bg_color: app.theme_cls.primary_color

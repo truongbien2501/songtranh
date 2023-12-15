@@ -390,7 +390,7 @@ class Hochua(MDApp):
                         xlabel='Giờ',ylabel=str(tentram) + '(mm)')
 
                 self.root.ids.modulation.add_widget(self.graph)
-                self.plot = BarPlot(color=[1, 0, 0, 1],bar_width=1.5)
+                self.plot = BarPlot(color=[1, 0, 0, 1],bar_width=2.5)
                 self.graph.add_plot(self.plot)
                 self.plot.points = [(t, g) for t, g in enumerate(datave)]
                 
@@ -418,7 +418,9 @@ class Hochua(MDApp):
     
     def callback_solieutram(self):
         app = MDApp.get_running_app()
-        app.root.current = 'tram'
+        app.root.current = 'trangchu'
+        self.theme_cls.theme_style = "Light"
+        self.theme_cls.primary_palette = "LightBlue"        
 
     def callback_trangchu(self):
         app = MDApp.get_running_app()
@@ -575,7 +577,10 @@ class Hochua(MDApp):
             h12 = mua[-12]['SoLieu']
             h24 = mua[-24]['SoLieu']
             h48 = mua[-48]['SoLieu']
-            h72 = mua[-72]['SoLieu']
+            try:
+                h72 = mua[-72]['SoLieu']
+            except:
+                h72 ='-'
         return h1,h3,h6,h12,h24,h48,h72   
     def read_ftp_sever_image(self,tenanh):
         # Thông tin máy chủ FTP và đường dẫn đến file ftp://203.209.181.174/DAKDRINH/Image
@@ -606,6 +611,7 @@ class Hochua(MDApp):
         app.root.current = 'trangchu'
         
     def callback_dienmua(self,**kwargs):
+        self.root.ids.dienmua_layout.clear_widgets()
         app = MDApp.get_running_app()
         app.root.current = 'dienmua'
         self.theme_cls.theme_style = "Dark"
