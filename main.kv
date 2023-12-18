@@ -111,108 +111,160 @@
             MDBottomNavigationItem:
                 # on_use_text: 'Trang chủ'
                 text:'Trang chủ'
-                active_font_size: "5dp"
+                # font_style='Caption'
                 name: 'home'
                 icon:'home'
                 pos_hint: {"center_x": .5, "center_y": .5} # hien thi giua
                 # on_tab_release: root.current = 'trangchu'
-                MDLabel:
-                    BoxLayout:
+                # MDLabel:
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    # spacing: 5
+                    padding: [10,10,10, 10] # trai,trên,phai,duoi
+                    MDCard:
                         orientation: 'vertical'
-                        spacing: 5
-                        padding: [10,10,10, 10] # trai,trên,phai,duoi
-                        MDCard:
-                            # orientation: 'vertical'
-                            size_hint: None,None # kich thuoc bang 50% va 20 % hop dung
-                            # pos_hint: {"top": .5}
-                            size: (root.width * 0.96, root.height * 0.80)
+                        # size_hint: None,None # kich thuoc bang 50% va 20 % hop dung
+                        # # pos_hint: {"top": .5}
+                        # size: (root.width, root.height*0.93)
+                        MDGridLayout:
+                            cols: 5
+                            # spacing: 10
+                            # padding: 5                       
+                            canvas.before:
+                                Color:
+                                    rgba: 1, 1, 1, 1
+                                Line:
+                                    width: 1
+                                    rectangle: self.x, self.y, self.width, self.height
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    source: 'icon/songtranh2.png'
+                            MDLabel: # ten
+                                text: "Hồ"
+                                text_color: 1, .92, .32, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "Mực nước\n(m)"
+                                text_color: 1, .92, .32, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "Q về\n(m3\s)"
+                                text_color: 1, .92, .32, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "Dung tích\n(m3)"
+                                text_color: 1, .92, .32, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "Dung tích 24h tới\n(m3)"
+                                # md_bg_color: 'teal'
+                                text_color: 1, .92, .32, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "Sông Tranh"
+                                text_color: 0, 1, 0, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                on_touch_down:app.callback_solieutram()
+                                # font_style:'H6'
+                            MDLabel:
+                                # text:  str(app.get_custom_value()[0])
+                                id: mucnuochientai
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                id: luuluongve
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                id: dungtich
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                id:dungtichdb
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
 
-                            # padding:20
-                            # radius: [15]
-                            GridLayout:
-                                cols: 5
-                                spacing: 10
-                                padding: 10
-                                canvas.before:
-                                    Color:
-                                        rgba: 0, 0.6, 1, 1
-                                    Line:
-                                        width: 1
-                                        rectangle: self.x, self.y, self.width, self.height
-
-                                MDLabel: # ten
-                                    text: "Hồ"
-                                    md_bg_color: 'teal'
-                                    halign: "center"
-                                MDLabel:
-                                    text: "Mực nước\n(m)"
-                                    md_bg_color: 'teal'
-                                    halign: "center"
-                                MDLabel:
-                                    text: "Q về\n(m3\s)"
-                                    md_bg_color: 'teal'
-                                    halign: "center"
-                                MDLabel:
-                                    text: "Dung tích\n(m3)"
-                                    md_bg_color: 'teal'
-                                    halign: "center"
-                                MDLabel:
-                                    text: "Dung tích 24h tới\n(m3)"
-                                    md_bg_color: 'teal'
-                                    halign: "center"
-                                MDLabel:
-                                    text: "Sông Tranh"
-                                    halign: "center"
-                                MDLabel:
-                                    # text:  str(app.get_custom_value()[0])
-                                    id: mucnuochientai
-                                    # text:  str(app.mucnuoc[-1]['Solieu'])
-                                    halign: "center"
-                                MDLabel:
-                                    id: luuluongve
-                                    # text: str(app.get_custom_value()[1])
-                                    # text:  str(app.qve[-1]['Solieu'])
-                                    halign: "center"
-                                MDLabel:
-                                    id: dungtich
-                                    text: ""
-                                    halign: "center"
-                                MDLabel:
-                                    id:dungtichdb
-                                    text: "18.52"
-                                    halign: "center"
-
-                                MDLabel:
-                                    text: "Sông Bung"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
-
-                                MDLabel:
-                                    text: "A Vương"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
-                                MDLabel:
-                                    text: "-"
-                                    halign: "center"
+                            MDLabel:
+                                text: "Sông Bung"
+                                text_color: 0, 1,0, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                # md_bg_color: 'teal'
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "A Vương"
+                                text_color: 0,1, 0, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
+                            MDLabel:
+                                text: "-"
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+                                halign: "center"
+                                # font_style:'H6'
 
             # bieu do thuc do va du bao
             MDBottomNavigationItem: 
@@ -273,12 +325,13 @@
                     MDBoxLayout:
                         orientation: 'vertical'
                         md_bg_color: app.theme_cls.primary_color
+                        size_hint:(1,0.1)
                         MDGridLayout:
                             cols:3
                             rows:1
                             MDIconButton:
                                 icon: "arrow-left-thick"
-                                size_hint: None,None
+                                # size_hint: None,None
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 on_press: app.callback_trangchu()
                             MDTextField:
@@ -290,18 +343,21 @@
                                 pos_hint: {"center_x": .5, "center_y": .5}
                             MDIconButton:
                                 icon: "sigma"
-                                size_hint: None,None
+                                # size_hint: None,None
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 on_press: app.callback_dienmua()
                     MDBoxLayout:
-                        size_hint: None,None
-                        size: (root.width * 0.96, root.height * 0.80)
-                        padding:10
+                        size_hint: 1,0.9
                         orientation: 'vertical'
                         MDScrollView:
+                            do_scroll_x: True
+                            do_scroll_y: True
                             MDList:
+                                size_hint: (1, 1.9)
+                                cols:4
+                                text_color: 1,0, 0, 1
                                 id: tramkttv_ho     
-                          
+                           
             # ban do du lieu tram
             MDBottomNavigationItem:
                 text:'Bản đồ'
@@ -320,78 +376,87 @@
                         # right_action_items: [["dots-vertical", lambda x: app.callback_trangchu()], ["clock", lambda x: app.callback_trangchu()]]
                         # left_action_items: [['arrow-left', lambda x: app.callback_trangchu()]]
                     MapView:
-                        zoom: 8
+                        zoom: 9
                         lat: 15.3219  # Vĩ độ
                         lon: 108.0987  # Kinh độ
                         MapMarker:
-                            title: 'Sông Tranh'
+                            title: 'Trà Đốc'
                             lat: 15.331688  # Vĩ độ của marker
                             lon: 108.147511  # Kinh độ của marker
                             source: "cache/weather.png"
-                            description: "Thông tin điểm đánh dấu"
                             size: (35, 35)
-                            # on_press: app.show_marker_info(self.title,self.description)
+                            on_press: app.show_marker_info(self.title)
                         MapMarker:
                             title: 'Trà Bui'
                             lat: 15.34661   # Vĩ độ của marker
                             lon: 108.041526  # Kinh độ của marker
                             source: "cache/weather.png"
-                            size: (35, 35)    
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)
                         MapMarker:
                             title: 'Trà Giác'
                             lat: 15.240458  # Vĩ độ của marker
                             lon: 108.178398  # Kinh độ của marker
                             source: "cache/weather.png"
-                            size: (35, 35)    
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)    
                         MapMarker:
                             title: 'Trà Dơn'
                             lat: 15.243961  # Vĩ độ của marker
                             lon: 108.0858880  # Kinh độ của marker
                             source: "icon/weather.png"
-                            size: (35, 35)    
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)    
                         MapMarker:
-                            title: 'Trà Len'
+                            title: 'Trà Leng'
                             lat: 15.272192 # Vĩ độ của marker
                             lon: 108.014046 # Kinh độ của marker
                             source: "icon/weather.png"
-                            size: (35, 35)    
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)    
                         MapMarker:
-                            title: 'Trà Mai'
+                            title: 'Trà Mai(UBND)'
                             lat: 15.1547 # Vĩ độ của marker
                             lon: 108.1085 # Kinh độ của marker
                             source: "icon/weather.png"
-                            size: (35, 35)    
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)    
                         MapMarker:
                             title: 'Trà Cang'
                             lat: 15.1046490 # Vĩ độ của marker
                             lon: 108.0714240 # Kinh độ của marker
                             source: "icon/weather.png"
-                            size: (35, 35)                                                        
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)                                                        
                         MapMarker:
                             title: 'Trà Vân'
                             lat: 15.1130910 # Vĩ độ của marker
                             lon: 108.1800410 # Kinh độ của marker
                             source: "icon/weather.png"
-                            size: (35, 35)                            
+                            size: (35, 35)   
+                            on_press: app.show_marker_info(self.title)                           
                         MapMarker:
-                            title: 'Trà Nam'
+                            title: 'Trà Nam 2'
                             lat: 14.9871600 # Vĩ độ của marker
                             lon: 108.1336140 # Kinh độ của marker
                             source: "icon/weather.png"
-                            size: (35, 35)    
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)      
                         MapMarker:
                             title: 'Trà Linh'
                             lat: 15.030926 # Vĩ độ của marker
                             lon: 108.0241060 # Kinh độ của marker
                             source: "icon/weather.png"
-                            size: (35, 35)        
+                            size: (35, 35)
+                            on_press: app.show_marker_info(self.title)          
 
                         MapMarker:
                             title: 'Nông Sơn'
                             lat: 15.70276202116165 # Vĩ độ của marker
                             lon: 108.03392429139377 # Kinh độ của marker
                             source: "icon/thuychi.png"
-                            size: (35, 35)    
+                            size: (35, 35)
+  
                         MapMarker:
                             title: 'Câu Lâu'
                             lat: 15.857806467135058 # Vĩ độ của marker
@@ -477,7 +542,7 @@
                 do_scroll_x: True
                 do_scroll_y: False
                 orientation: 'vertical'
-                size_hint: 1, 0.9
+                size_hint: 1, 0.8
                 valign: 'middle'
                 bar_width: 4
                 bar_color: 1, 1, 1, 1
@@ -491,50 +556,55 @@
                         id: modulation
                         size_hint_x: 1
                         size_hint_y: 1
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, 0.1
+                padding:[50,0,0,0]
+                MDGridLayout:
+                    cols:4
+                    rows:1
+                    spacing:1
+                    # padding:30
 
-            # BoxLayout:
-            #     id: zoom
-            #     orientation: 'horizontal'
-            #     size_hint: 1, 0.1
-            #     padding: 10
-
-            #     Button:
-            #         text: '-'
-            #         size_hint_x: None
-            #         width: self.height
-            #         on_release: app.update_zoom(self.text)
-
-            #     Label:
-            #         text: str(int(app.zoom)) + ' ngày'
-            #         # text:  '25x'
-            #     Button:
-            #         text: '+'
-            #         size_hint_x: None
-            #         width: self.height
-            #         on_release: app.update_zoom(self.text)
-
-            # BoxLayout:
-            #     size_hint: 1, 0.1
-            #     orientation: 'vertical'
-
-            #     Label:
-            #         text: 'Thời gian: ' + str(freq.value) + ' ngày'
-
-            #     Slider:
-            #         id: freq
-            #         min: 1
-            #         max: 3
-            #         step: 1
-            #         # on_value: app.update_plot(freq.value)
-
-            # BoxLayout:
-            #     size_hint: 1, 0.3
+                    MDLabel:
+                        id: ngay1
+                        text:'25/01'
+                        md_bg_color: '1e90ff'
+                        text_color: 1, 1, 1, 1
+                        theme_text_color: "Custom"
+                        halign: "center"
+                        # font_style:'H6'
+                    MDLabel:
+                        id: ngay2
+                        text:'25/01'
+                        md_bg_color: '1e90ff'
+                        text_color: 1, 1, 1, 1
+                        theme_text_color: "Custom"
+                        halign: "center"
+                        # font_style:'H6'
+                    MDLabel:
+                        id: ngay3
+                        text:'25/01'
+                        md_bg_color: '1e90ff'
+                        text_color: 1, 1, 1, 1
+                        theme_text_color: "Custom"
+                        halign: "center"
+                        # font_style:'H6'
+                    MDLabel:
+                        id: ngay4
+                        text:'25/01'
+                        md_bg_color: '1e90ff'
+                        text_color: 1, 1, 1, 1
+                        theme_text_color: "Custom"
+                        halign: "center"
+     
     MDScreen:
         name: 'dienmua'
         id: dienmua
-        md_bg_color: app.theme_cls.primary_color
+        # md_bg_color: app.theme_cls.primary_color
         MDBoxLayout:
-            # md_bg_color:app.theme_cls.primary_color        
+            # size_hint: (1, 0.1)
+            md_bg_color:app.theme_cls.primary_color        
             orientation: 'vertical'
             MDGridLayout:
                 size_hint: (1, 0.1)
@@ -546,18 +616,31 @@
                     on_press: app.callback_solieutram()
                 MDLabel:
                     text:'Tổng kết số liệu'
-            MDBoxLayout:
-                size_hint: (1, 0.9)
-                id: dienmua_layout
-                padding:10
-                orientation: 'vertical'
-            # MDTopAppBar:
-            #     id:tieude_tram
-            #     md_bg_color: app.theme_cls.primary_color
-            #     elevation:2
-            #     title:'Tổng kết mưa'
-            #     left_action_items: [['arrow-left-thick', lambda x: app.callback_solieu()]]
-
+        MDBoxLayout:
+            size_hint: (1, 0.9)
+            orientation: 'vertical'
+            md_bg_color:1, 1, 1, 1
+            MDScrollView:
+                # size_hint: None, 0.8
+                do_scroll_x: True
+                do_scroll_y: True
+                bar_color: 0, 0, 100, 1
+                bar_width: 10
+                MDList:
+                    size_hint: (3.0, 3.0)
+                    cols:7
+                    text_color: 1,0, 0, 1
+                    width: self.minimum_width
+                    height: self.minimum_height
+                    id: dienmua_layout 
+                # MDGridLayout:
+                #     cols: 8
+                #     # size_hint: (None, None)
+                #     width: self.minimum_width
+                #     height: self.minimum_height
+                #     padding: 10
+                #     id: dienmua_layout
+  
 <RectangularRippleButton>:
 <RectangularRippleImage>:
 <NCard@MDBoxLayout>:

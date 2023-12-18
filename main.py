@@ -4,7 +4,7 @@ from kivy.uix.screenmanager import ScreenManager,Screen,CardTransition,SlideTran
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFillRoundFlatButton,MDFlatButton,MDRaisedButton,MDFloatingActionButtonSpeedDial
+from kivymd.uix.button import MDIconButton,MDFlatButton,MDRaisedButton,MDFloatingActionButtonSpeedDial
 from kivy_garden.mapview import MapView,MarkerMapLayer,MapMarkerPopup
 from kivymd.uix.scrollview import MDScrollView
 from kivy.uix.image import Image
@@ -32,14 +32,16 @@ from kivy.core.image import Image as CoreImage
 from kivy.clock import Clock
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.label import MDLabel
-from kivymd.uix.list import OneLineListItem,OneLineIconListItem,IconLeftWidget
+from kivymd.uix.list import OneLineListItem,OneLineIconListItem,IconLeftWidget,OneLineRightIconListItem,ImageRightWidget
 from kivy.metrics import dp
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.datatables import MDDataTable
 from kivy_garden.graph import Graph,BarPlot,LinePlot
+from kivy.uix.popup import Popup
+from kivymd.uix.imagelist import MDSmartTile
 # import paramiko
-# Window.size = (350, 600)
+Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
     '''Class implementing content for a tab.'''
@@ -67,13 +69,6 @@ class RectangularRippleImage(CircularRippleBehavior, ButtonBehavior, Image):
 
 
 class Hochua(MDApp):
-    # data = {
-    #         "Hạn ngắn": "facebook",
-    #         "Hạn vừa": "youtube",
-    #         "Hạn dài": "twitter",
-    #         "Lũ": "cloud-circle",
-    #         "Cảnh báo lũ": "camera",
-    #         }
 
     def build(self):
         # self.theme_cls.colors = colors
@@ -100,7 +95,7 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='430dp'
+                        height='450dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_TVHN_0.png')
@@ -115,7 +110,7 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='430dp'
+                        height='450dp'
                     )
                 )   
             # self.read_ftp_sever_image('tin_TVHV_0.png')
@@ -131,7 +126,7 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='430dp'
+                        height='450dp'
                     )
                 )   
 
@@ -145,7 +140,7 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='430dp'
+                        height='450dp'
                     )
                 )   
 
@@ -158,7 +153,7 @@ class Hochua(MDApp):
                     Image(
                         source=image,
                         size_hint=(1, None),
-                        height='430dp'
+                        height='450dp'
                     )
                 )   
     def on_start(self):
@@ -168,50 +163,135 @@ class Hochua(MDApp):
         self.root.ids.tabs.add_widget(Tab(title="LULU"))
         self.root.ids.tabs.add_widget(Tab(title="CBLU"))
         
+        #
+        now = datetime.now()
+        self.root.ids.ngay1.text = (now - timedelta(days=-3)).strftime('%d/%m')
+        self.root.ids.ngay2.text = (now - timedelta(days=-2)).strftime('%d/%m')
+        self.root.ids.ngay3.text = (now - timedelta(days=-1)).strftime('%d/%m')
+        self.root.ids.ngay4.text = now.strftime('%d/%m')
         
-        # # tao bang datatable
-        # data_tables = MDDataTable(
-        #     size_hint=(1, 0.99),
-        #     use_pagination=True,
-        #     rows_num=7,
-        #     column_data=[
-        #         ("Trạm-Giờ", dp(20)),
-        #         ("1h", dp(20)),
-        #         ("3h", dp(20)),
-        #         ("6h", dp(20)),
-        #         ("12h", dp(20)),
-        #         ("24h", dp(20)),
-        #         ("48h", dp(20)),
-        #         ("72h", dp(20)),
-        #     ],
-        # )
+        
+        # self.root.ids.tramkttv_ho.add_widget(MDLabel(text='Trạm'))
+        # self.root.ids.tramkttv_ho.add_widget(MDLabel(text='Trend'))
+        # self.root.ids.tramkttv_ho.add_widget(MDLabel(text='Giờ'))
+        # self.root.ids.tramkttv_ho.add_widget(MDLabel(text='Value'))
         # ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         # for tram in ds_tram:
         #     if 'mua' in tram[3]:
         #         muatong = self.TTB_API_muatong(tram[0],tram[2])
-        #         data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+        #         # ten tram
+        #         self.root.ids.tramkttv_ho.add_widget(MDLabel(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2'))
+        #         # xu the
+        #         if muatong[0] !='-':
+        #             if float(muatong[0]) == 0:
+        #                 self.root.ids.tramkttv_ho.add_widget(Image(source="icon/0_mua.png"))
+        #             elif float(muatong[0]) > 0 and float(muatong[0]) <10:
+        #                 self.root.ids.tramkttv_ho.add_widget(Image(source="icon/1_mua.png"))
+        #             elif float(muatong[0]) >= 10 and float(muatong[0]) <30:
+        #                 self.root.ids.tramkttv_ho.add_widget(Image(source="icon/2_mua.png"))
+        #             elif float(muatong[0]) >= 30:
+        #                 self.root.ids.tramkttv_ho.add_widget(Image(source="icon/3_mua.png"))
+        #         else:
+        #             self.root.ids.tramkttv_ho.add_widget(MDLabel(text='-'))
+        #         # gio
+        #         if muatong[-1] != '-':
+        #             self.root.ids.tramkttv_ho.add_widget(MDLabel(text=muatong[-1].strftime('%H:%M'),font_style='Body2'))
+        #         else:
+        #             self.root.ids.tramkttv_ho.add_widget(MDLabel(text='-',font_style='Body2'))
+        #         # gia tri
+        #         self.root.ids.tramkttv_ho.add_widget(MDLabel(text=muatong[0],font_style='Body2'))
         #     else:
         #         muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
-        #         data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
-                
-        # data_tables.bind(on_row_press=self.on_row_press)
-        # self.root.ids.dienmua_layout.add_widget(data_tables)
+        #         # ten tram
+        #         self.root.ids.tramkttv_ho.add_widget(MDLabel(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2'))
+        #          # xu the
+        #         if muatong[0] !='-':
+        #             if float(muatong[0]) == float(muatong[1]):
+        #                 self.root.ids.tramkttv_ho.add_widget(Image(source="icon/0_mua.png"))
+        #             elif float(muatong[0]) >  float(muatong[1]):
+        #                 self.root.ids.tramkttv_ho.add_widget(Image(source="icon/4_nuoc.png"))
+        #             elif float(muatong[0]) < float(muatong[1]) :
+        #                 self.root.ids.tramkttv_ho.add_widget(Image(source="icon/1_nuoc.png"))
+        #         else:
+        #             self.root.ids.tramkttv_ho.add_widget(MDLabel(text='-',font_style='Body2'))
+        #         # gio
+        #         if muatong[-1] != '-':
+        #             self.root.ids.tramkttv_ho.add_widget(MDLabel(text=muatong[-1].strftime('%H:%M'),font_style='Body2'))
+        #         else:
+        #             self.root.ids.tramkttv_ho.add_widget(MDLabel(text='-',font_style='Body2'))
+        #         # gia tri
+        #         self.root.ids.tramkttv_ho.add_widget(MDLabel(text=muatong[0],font_style='Body2'))
+        
+        
+        
+        # man hinh so lieu
+        self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='Trạm',font_style='Body1'))
+        self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='Trend',font_style='Body1'))
+        self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='Giờ',font_style='Body1'))
+        self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='Value',font_style='Body1'))
+
         ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         for tram in ds_tram:
-            if 'mua' in str(tram[3]):
-                    bieutuong = "weather-partly-rainy"                    
-            elif 'mucnuoc' in str(tram[3]):
-                bieutuong = 'waves-arrow-up'
-            elif 'Q' in str(tram[3]):
-                bieutuong = 'waves-arrow-right'     
+            if 'mua' in tram[3]:
+                muatong = self.TTB_API_muatong(tram[0],tram[2])
+                # ten tram
+                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2',on_release=self.tram_pressed))
+                # xu the
+                if muatong[0] !='-':
+                    if float(muatong[0]) == 0:
+                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/0_mua.png"))
+                    elif float(muatong[0]) > 0 and float(muatong[0]) <10:
+                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/1_mua.png"))
+                    elif float(muatong[0]) >= 10 and float(muatong[0]) <30:
+                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/2_mua.png"))
+                    elif float(muatong[0]) >= 30:
+                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/3_mua.png"))    
+                else:
+                    self.root.ids.tramkttv_ho.add_widget(OneLineRightIconListItem(text='-'))
+                # gio
+                if muatong[-1] != '-':
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[-1].strftime('%H:%M'),font_style='Body2'))
+                else:
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
+                # gia tri
+                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],font_style='Body2'))
             else:
-                bieutuong = ''
-            icon_item = OneLineIconListItem(
-                        IconLeftWidget(icon=bieutuong),
-                        text=self.chuyentram_vietnam(tram[1],2)[0],
-                        on_release=self.tram_pressed
-                    )
-            self.root.ids.tramkttv_ho.add_widget(icon_item)
+                muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
+                # ten tram
+                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2',on_release=self.tram_pressed))
+                 # xu the
+                if muatong[0] !='-':
+                    if float(muatong[0]) == float(muatong[1]):
+                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/0_mua.png"))
+                    elif float(muatong[0]) >  float(muatong[1]):
+                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/4_nuoc.png"))
+                    elif float(muatong[0]) < float(muatong[1]) :
+                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/1_nuoc.png"))
+                else:
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
+                # gio
+                if muatong[-1] != '-':
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[-1].strftime('%H:%M'),font_style='Body2'))
+                else:
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
+                # gia tri
+                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],font_style='Body2'))
+        
+        # ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
+        # for tram in ds_tram:
+        #     if 'mua' in str(tram[3]):
+        #             bieutuong = "weather-partly-rainy"                    
+        #     elif 'mucnuoc' in str(tram[3]):
+        #         bieutuong = 'waves-arrow-up'
+        #     elif 'Q' in str(tram[3]):
+        #         bieutuong = 'waves-arrow-right'     
+        #     else:
+        #         bieutuong = ''
+        #     icon_item = OneLineIconListItem(
+        #                 IconLeftWidget(icon=bieutuong),
+        #                 text=self.chuyentram_vietnam(tram[1],2)[0],
+        #                 on_release=self.tram_pressed)
+        #     self.root.ids.tramkttv_ho.add_widget(icon_item)
         
         # tinh dung tich trang chu
         mucnuoc,qve = self.TTB_API_HC()
@@ -408,6 +488,28 @@ class Hochua(MDApp):
             yeuto  = [trammua_vni[idx],matram[idx],tab_bang[idx]]
             return yeuto
 
+    def show_marker_info(self,tram):
+        lists = ['Mực nước','Q điều tiết','Q về','Trà Đốc','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam 2','Trà Linh','Trà Mai(UBND)']
+        # toast(tram + ':' + thongtin)
+        content = MDBoxLayout(orientation='vertical',
+                              md_bg_color= self.theme_cls.primary_color
+                              )
+        if tram in lists:
+            mt_tab = self.chuyentram_vietnam(tram,1)
+            muatong = self.TTB_API_muatong(mt_tab[0],mt_tab[1])
+            cont = 'Lượng mưa đo được:\n   - 1h: ' + muatong[0] + ' mm\n   - 3h: ' + muatong[1] + ' mm\n   - 6h: ' + muatong[2] + ' mm\n   - 12h: ' + muatong[3] + ' mm\n   - 24h: ' + muatong[4] + ' mm\n'
+            content.add_widget(MDLabel(text=cont,
+                                    text_color= (1, 1, 1, 1),
+                                        theme_text_color= "Custom"
+                                    ))
+            # Thêm nút tắt thông báo
+            dismiss_button = MDIconButton(icon='close-circle-outline',pos_hint= {"center_x": .5, "center_y": .5})
+            content.add_widget(dismiss_button)
+            # Tạo popup với nội dung và nút tắt thông báo
+            popup = Popup(title=tram, content=content, size_hint=(1, 0.5))
+            # Thiết lập hàm callback khi nút tắt được nhấn
+            dismiss_button.bind(on_release=popup.dismiss)
+            popup.open()
 
     def chuyentram_eng(self,tentram):
         trammua_vni = ['Trà Đốc','Trà Bui','Trà Giác','Trà Dơn','Trà Leng','Trà Mai','Trà Cang','Trà Vân','Trà Nam','Trà Linh']
@@ -465,9 +567,6 @@ class Hochua(MDApp):
             self.read_ftp_sever_image('chart_mua_tramdapst2.png')
             self.root.ids.image_chart_td.source = 'cache/chart_mua_tramdapst2.png'
     
-    def show_marker_info(self,tram,thongtin):
-        toast(tram + ':' + thongtin)
-        
     def TTB_API_HC(self):
         now = datetime.now()
         kt = datetime(now.year,now.month,now.day,now.hour)
@@ -486,6 +585,7 @@ class Hochua(MDApp):
         response = requests.get(pth)
         mua = np.array(response.json())
         return mucnuoc,mua
+    
     def TTB_API(self,matram,ten_bang):
         if 'mua' in ten_bang:
             tinhtong = 1
@@ -503,7 +603,8 @@ class Hochua(MDApp):
         # print(mua)
         # if len(mua) < 5:
         #     return '-','-'
-        return mua    
+        return mua
+        
     def tinhmua(self,data,bd,kt):
         tonngmua = 0
         for a in range(data.shape[0]-1,1,-1):
@@ -539,7 +640,7 @@ class Hochua(MDApp):
         response = requests.get(pth)
         mua = np.array(response.json())
         if len(mua) < 5:
-            return '-','-','-','-','-','-','-'
+            return '-','-','-','-','-','-','-','-'
         else:
             giohientai = datetime.strptime(mua[-1]['Thoigian_SL'], '%Y-%m-%d %H:%M:%S')
             mua1 = self.tinhmua(mua,giohientai-timedelta(hours=1),giohientai)
@@ -556,7 +657,7 @@ class Hochua(MDApp):
             mua48 = '{:.2f}'.format(mua48)
             mua72 = self.tinhmua(mua,giohientai-timedelta(hours=72),giohientai)
             mua72 = '{:.2f}'.format(mua72)
-        return mua1,mua3,mua6,mua12,mua24,mua48,mua72
+        return mua1,mua3,mua6,mua12,mua24,mua48,mua72,giohientai
     def TTB_API_yeutokhac(self,matram,tenbang):
         now = datetime.now()
         kt = datetime(now.year,now.month,now.day,now.hour)
@@ -568,9 +669,9 @@ class Hochua(MDApp):
         response = requests.get(pth)
         mua = np.array(response.json())
         if len(mua) < 5:
-            return '-','-','-','-','-','-','-'
+            return '-','-','-','-','-','-','-','-'
         else:
-            # giohientai = datetime.strptime(mua[-1]['Thoigian_SL'], '%Y-%m-%d %H:%M:%S')
+            giohientai = datetime.strptime(mua[-1]['Thoigian_SL'], '%Y-%m-%d %H:%M:%S')
             h1 = mua[-1]['SoLieu']
             h3 = mua[-3]['SoLieu']
             h6 = mua[-6]['SoLieu']
@@ -581,7 +682,7 @@ class Hochua(MDApp):
                 h72 = mua[-72]['SoLieu']
             except:
                 h72 ='-'
-        return h1,h3,h6,h12,h24,h48,h72   
+        return h1,h3,h6,h12,h24,h48,h72,giohientai
     def read_ftp_sever_image(self,tenanh):
         # Thông tin máy chủ FTP và đường dẫn đến file ftp://203.209.181.174/DAKDRINH/Image
         ftp_host = '203.209.181.174'
@@ -614,32 +715,87 @@ class Hochua(MDApp):
         self.root.ids.dienmua_layout.clear_widgets()
         app = MDApp.get_running_app()
         app.root.current = 'dienmua'
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Orange"
-        data_tables = MDDataTable(
-            size_hint=(1, 0.99),
-            use_pagination=True,
-            rows_num=7,
-            column_data=[
-                ("Trạm-Giờ", dp(20)),
-                ("1h", dp(20)),
-                ("3h", dp(20)),
-                ("6h", dp(20)),
-                ("12h", dp(20)),
-                ("24h", dp(20)),
-                ("48h", dp(20)),
-                ("72h", dp(20)),
-            ],
-        )
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='Trạm-Giờ',font_style='Body2'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='1h',font_style='H6'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='3h',font_style='H6'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='6h',font_style='H6'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='12h',font_style='H6'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='24h',font_style='H6'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='48h',font_style='H6'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='72h',font_style='H6'))
         ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         for tram in ds_tram:
             if 'mua' in tram[3]:
                 muatong = self.TTB_API_muatong(tram[0],tram[2])
-                data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+                self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2'))
+                for p in range(7):
+                    self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(muatong[p]),font_style='Body2'))
             else:
                 muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
-                data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
-        self.root.ids.dienmua_layout.add_widget(data_tables)
+                self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2'))
+                for p in range(7):
+                    self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(muatong[p]),font_style='Body2'))
+
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='Trạm-Giờ',font_style='Body2'))
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='1h',font_style='H6'))
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='3h',font_style='H6'))
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='6h',font_style='H6'))
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='12h',font_style='H6'))
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='24h',font_style='H6'))
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='48h',font_style='H6'))
+        # self.root.ids.dienmua_layout.add_widget(MDLabel(text='72h',font_style='H6'))
+        # ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
+        # for tram in ds_tram:
+        #     if 'mua' in tram[3]:
+        #         muatong = self.TTB_API_muatong(tram[0],tram[2])
+        #         self.root.ids.dienmua_layout.add_widget(MDLabel(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2'))
+        #         for p in range(7):
+        #             self.root.ids.dienmua_layout.add_widget(MDLabel(text=str(muatong[p]),font_style='Body2'))
+        #     else:
+        #         muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
+        #         self.root.ids.dienmua_layout.add_widget(MDLabel(text=str(self.chuyentram_vietnam(tram[1],2)[0]),font_style='Body2'))
+        #         for p in range(7):
+        #             self.root.ids.dienmua_layout.add_widget(MDLabel(text=str(muatong[p]),font_style='Body2'))
+
+        
+        
+        
+        # bang_girl = MDGridLayout(cols=8, rows=14)
+        # for a in range(1,9):
+        #     for b in range(1,15):
+        #         bang_girl.add_widget(MDLabel(text="value:" + str(a) + '-' + str(b)))
+                
+        
+        # bang_girl.add_widget(MDLabel(text='vcl2'))
+        # bang_girl.add_widget(MDLabel(text='vcl3'))
+        # self.root.ids.dienmua_layout.add_widget(bang_girl)
+        
+        # self.theme_cls.theme_style = "Dark"
+        # self.theme_cls.primary_palette = "Orange"
+        # data_tables = MDDataTable(
+        #     size_hint=(1, 0.99),
+        #     use_pagination=True,
+        #     rows_num=7,
+        #     column_data=[
+        #         ("Trạm-Giờ", dp(20)),
+        #         ("1h", dp(20)),
+        #         ("3h", dp(20)),
+        #         ("6h", dp(20)),
+        #         ("12h", dp(20)),
+        #         ("24h", dp(20)),
+        #         ("48h", dp(20)),
+        #         ("72h", dp(20)),
+        #     ],
+        # )
+        # ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
+        # for tram in ds_tram:
+        #     if 'mua' in tram[3]:
+        #         muatong = self.TTB_API_muatong(tram[0],tram[2])
+        #         data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+        #     else:
+        #         muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
+        #         data_tables.add_row((self.chuyentram_vietnam(tram[1],2)[0], muatong[0], muatong[1],muatong[2], muatong[3], muatong[4],muatong[5],muatong[6]))
+        # self.root.ids.dienmua_layout.add_widget(data_tables)
 
     def search_tram(self, search_text):# su kien tìm kiếm
         self.root.ids.tramkttv_ho.clear_widgets()
