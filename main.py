@@ -41,7 +41,7 @@ from kivy_garden.graph import Graph,BarPlot,LinePlot
 from kivy.uix.popup import Popup
 from kivymd.uix.imagelist import MDSmartTile
 # import paramiko
-Window.size = (350, 600)
+# Window.size = (350, 600)
 
 class Tab(MDFloatLayout, MDTabsBase):
     '''Class implementing content for a tab.'''
