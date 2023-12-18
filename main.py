@@ -165,9 +165,9 @@ class Hochua(MDApp):
         
         #
         now = datetime.now()
-        self.root.ids.ngay1.text = (now - timedelta(days=-3)).strftime('%d/%m')
-        self.root.ids.ngay2.text = (now - timedelta(days=-2)).strftime('%d/%m')
-        self.root.ids.ngay3.text = (now - timedelta(days=-1)).strftime('%d/%m')
+        self.root.ids.ngay1.text = (now - timedelta(days=3)).strftime('%d/%m')
+        self.root.ids.ngay2.text = (now - timedelta(days=2)).strftime('%d/%m')
+        self.root.ids.ngay3.text = (now - timedelta(days=1)).strftime('%d/%m')
         self.root.ids.ngay4.text = now.strftime('%d/%m')
         
         
