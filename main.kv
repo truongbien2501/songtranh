@@ -347,7 +347,15 @@
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 on_press: app.callback_dienmua()
                     MDBoxLayout:
-                        size_hint: 1,0.9
+                        size_hint: 1,0.1
+                        orientation: 'vertical'
+                        MDList:
+                            size_hint: (1, 1.9)
+                            cols:4
+                            text_color: 1,0, 0, 1
+                            id: tramkttv_ho_title   
+                    MDBoxLayout:
+                        size_hint: 1,0.8
                         orientation: 'vertical'
                         MDScrollView:
                             do_scroll_x: True
@@ -356,8 +364,7 @@
                                 size_hint: (1, 1.9)
                                 cols:4
                                 text_color: 1,0, 0, 1
-                                id: tramkttv_ho     
-                           
+                                id: tramkttv_ho                             
             # ban do du lieu tram
             MDBottomNavigationItem:
                 text:'Bản đồ'
@@ -616,30 +623,30 @@
                     on_press: app.callback_solieutram()
                 MDLabel:
                     text:'Tổng kết số liệu'
-        MDBoxLayout:
-            size_hint: (1, 0.9)
-            orientation: 'vertical'
-            md_bg_color:1, 1, 1, 1
-            MDScrollView:
-                # size_hint: None, 0.8
-                do_scroll_x: True
-                do_scroll_y: True
-                bar_color: 0, 0, 100, 1
-                bar_width: 10
-                MDList:
-                    size_hint: (3.0, 3.0)
-                    cols:7
-                    text_color: 1,0, 0, 1
-                    width: self.minimum_width
-                    height: self.minimum_height
-                    id: dienmua_layout 
-                # MDGridLayout:
-                #     cols: 8
-                #     # size_hint: (None, None)
-                #     width: self.minimum_width
-                #     height: self.minimum_height
-                #     padding: 10
-                #     id: dienmua_layout
+            MDBoxLayout:
+                size_hint: (1, 0.9)
+                orientation: 'vertical'
+                md_bg_color:1, 1, 1, 1
+                MDScrollView:
+                    # size_hint: None, 0.8
+                    do_scroll_x: True
+                    do_scroll_y: True
+                    bar_color: 0, 0, 100, 1
+                    bar_width: 10
+                    MDList:
+                        size_hint: (2.2, 3.0)
+                        cols:8
+                        text_color: 1,0, 0, 1
+                        width: self.minimum_width
+                        height: self.minimum_height
+                        id: dienmua_layout 
+                    # MDGridLayout:
+                    #     cols: 8
+                    #     # size_hint: (None, None)
+                    #     width: self.minimum_width
+                    #     height: self.minimum_height
+                    #     padding: 10
+                    #     id: dienmua_layout
   
 <RectangularRippleButton>:
 <RectangularRippleImage>:
