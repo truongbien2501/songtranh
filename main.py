@@ -84,84 +84,28 @@ class Hochua(MDApp):
 
 
     def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
-
-        if tab_text=='TVHN':
-            self.root.ids.box_images.clear_widgets()
-            self.read_ftp_sever_image('tin_TVHN_0.png')
-            self.read_ftp_sever_image('tin_TVHN_1.png')
-            images =['cache/tin_TVHN_0.png','cache/tin_TVHN_1.png']
-            for image in images:
-                self.root.ids.box_images.add_widget(
-                    Image(
-                        source=image,
-                        size_hint=(1, None),
-                        height='450dp'
-                    )
-                )   
-            # self.read_ftp_sever_image('tin_TVHN_0.png')
-            # self.root.ids.image_bantin.source = 'cache/tin_TVHN_0.png'
-        elif tab_text=='TVHV':
-            self.root.ids.box_images.clear_widgets()
-            self.read_ftp_sever_image('tin_TVHV_0.png')
-            self.read_ftp_sever_image('tin_TVHV_1.png')
-            images =['cache/tin_TVHV_0.png','cache/tin_TVHV_1.png']
-            for image in images:
-                self.root.ids.box_images.add_widget(
-                    Image(
-                        source=image,
-                        size_hint=(1, None),
-                        height='450dp'
-                    )
-                )   
-            # self.read_ftp_sever_image('tin_TVHV_0.png')
-            # self.root.ids.image_bantin.source = 'cache/tin_TVHV_0.png'  
-        elif tab_text=='TVHD':
-            self.root.ids.box_images.clear_widgets()
-            self.read_ftp_sever_image('tin_TVHD_0.png')
-            self.read_ftp_sever_image('tin_TVHD_1.png')
-            self.read_ftp_sever_image('tin_TVHD_2.png')
-            images =['cache/tin_TVHD_0.png','cache/tin_TVHD_1.png','tin_TVHD_2.png']
-            for image in images:
-                self.root.ids.box_images.add_widget(
-                    Image(
-                        source=image,
-                        size_hint=(1, None),
-                        height='450dp'
-                    )
-                )   
-
-        elif tab_text=='LULU':
-            self.root.ids.box_images.clear_widgets()
-            self.read_ftp_sever_image('tin_LULU_0.png')
-            self.read_ftp_sever_image('tin_LULU_1.png')
-            images =['cache/tin_LULU_0.png','cache/tin_LULU_1.png']
-            for image in images:
-                self.root.ids.box_images.add_widget(
-                    Image(
-                        source=image,
-                        size_hint=(1, None),
-                        height='450dp'
-                    )
-                )   
-
-        elif tab_text=='CBLU':
-            self.root.ids.box_images.clear_widgets()
-            self.read_ftp_sever_image('tin_CBLU_0.png')
-            images =['cache/tin_CBLU_0.png']
-            for image in images:
-                self.root.ids.box_images.add_widget(
-                    Image(
-                        source=image,
-                        size_hint=(1, None),
-                        height='450dp'
-                    )
-                )   
+        self.root.ids.box_images.clear_widgets()
+        images =[]
+        try:
+            for a in range(3):
+                img_name = 'tin_' + tab_text[-4:] + '_' + str(a)+'.png'
+                self.read_ftp_sever_image(img_name)
+                images.append('cache/'+img_name)
+        except:
+            pass
+        # images =['cache/tin_TVHN_0.png','cache/tin_TVHN_1.png']
+        for image in images:
+            self.root.ids.box_images.add_widget(
+                Image(
+                    source=image,
+                    size_hint=(1, None),
+                    height='460dp'
+                )
+            )  
     def on_start(self):
-        self.root.ids.tabs.add_widget(Tab(title="TVHN"))
-        self.root.ids.tabs.add_widget(Tab(title="TVHV"))
-        self.root.ids.tabs.add_widget(Tab(title="TVHD"))
-        self.root.ids.tabs.add_widget(Tab(title="LULU"))
-        self.root.ids.tabs.add_widget(Tab(title="CBLU"))
+        ten_bantin = ['TVHN','TVHV','TVHD',"LULU",'CBLU']
+        for tin in ten_bantin:
+            self.root.ids.tabs.add_widget(Tab(title=tin,icon='account-arrow-down'))
         
         #
         now = datetime.now()
@@ -240,16 +184,16 @@ class Hochua(MDApp):
                 maune_value = ''
                 if muatong[0] !='-':
                     if float(muatong[0]) == 0:
-                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/0_mua.png"))
+                        self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="circle",theme_icon_color="Custom",icon_color= '#EEEEEE'))
                     elif float(muatong[0]) > 0 and float(muatong[0]) <10:
-                        maune_value = '#90ee90'
-                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/1_mua.png"))
+                        maune_value = '#32cd32'
+                        self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="circle",theme_icon_color="Custom",icon_color= maune_value))
                     elif float(muatong[0]) >= 10 and float(muatong[0]) <30:
-                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/2_mua.png"))
                         maune_value = '#ffff00' 
+                        self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="circle",theme_icon_color="Custom",icon_color= maune_value))
                     elif float(muatong[0]) >= 30:
-                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/3_mua.png")) 
-                        maune_value = '#ff0000'   
+                        maune_value = '#ff0000' 
+                        self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="circle",theme_icon_color="Custom",icon_color= maune_value))
                 else:
                     self.root.ids.tramkttv_ho.add_widget(OneLineRightIconListItem(text='-'))
                 # gio
@@ -258,7 +202,7 @@ class Hochua(MDApp):
                 else:
                     self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
                 # gia tri
-                if maune_value !='':
+                if maune_value =='#ff0000' :
                     self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],bg_color=maune_value,font_style='Body2'))
                 else:
                     self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],font_style='Body2'))
@@ -269,11 +213,12 @@ class Hochua(MDApp):
                  # xu the
                 if muatong[0] !='-':
                     if float(muatong[0]) == float(muatong[1]):
-                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/0_mua.png"))
+                        trend = ("arrow-down-bold",[39 / 256, 174 / 256, 96 / 256, 1],'Xuống')
+                        self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="swap-horizontal-bold",theme_icon_color="Custom",icon_color= '#32cd32'))
                     elif float(muatong[0]) >  float(muatong[1]):
-                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/4_nuoc.png"))
+                        self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="arrow-up-bold",theme_icon_color="Custom",icon_color= '#32cd32'))
                     elif float(muatong[0]) < float(muatong[1]) :
-                        self.root.ids.tramkttv_ho.add_widget(Image(source="icon/1_nuoc.png"))
+                        self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="arrow-down-bold",theme_icon_color="Custom",icon_color= '#32cd32'))
                 else:
                     self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
                 # gio
