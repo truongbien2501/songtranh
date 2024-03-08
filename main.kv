@@ -4,6 +4,7 @@
     MDScreen:
         md_bg_color:239/255,243/255,246/255,1
         name:"SingIn"
+        id: login
         MDBoxLayout:
             orientation:'vertical'
             padding:dp(20)
@@ -106,7 +107,9 @@
             #     on_press: root.login(username.text, password.text)
     MDScreen:
         name:'trangchu'
+        id: home_stay
         MDBottomNavigation:
+            id:bottom_navigation
             # selected_color_background: 0, 0, 1, .4
             MDBottomNavigationItem:
                 # on_use_text: 'Trang chủ'
@@ -308,12 +311,15 @@
                     orientation: 'vertical'
                     size_hint: (1, 0.9)
                     MDScrollView:
-                        do_scroll_x: False  
+                        do_scroll_x: True  
                         MDBoxLayout:
                             id: box_images
                             orientation: 'vertical'
                             size_hint_y: None
                             height: self.minimum_height
+                            # on_press:root.on_touch_down()
+                            # on_touch_down:app.root.on_touch_move(self,touch)
+                            on_touch_down:app.on_touch_down(*args)
                     
             # du lieu do mua
             MDBottomNavigationItem:
@@ -386,13 +392,14 @@
                         zoom: 10
                         lat: 15.3219  # Vĩ độ
                         lon: 108.0987  # Kinh độ
+                        id:vitri
                         MapMarker:
                             title: 'Trà Đốc'
                             lat: 15.331688  # Vĩ độ của marker
                             lon: 108.147511  # Kinh độ của marker
                             source: "cache/weather.png"
                             size: (35, 35)
-                            on_press: app.show_marker_info(self.title)
+                            on_press: app.show_marker_info(self.title) 
                         MapMarker:
                             title: 'Trà Bui'
                             lat: 15.34661   # Vĩ độ của marker

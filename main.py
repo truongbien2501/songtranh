@@ -1,47 +1,33 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager,Screen,CardTransition,SlideTransition
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDIconButton,MDFlatButton,MDRaisedButton,MDFloatingActionButtonSpeedDial
-from kivy_garden.mapview import MapView,MarkerMapLayer,MapMarkerPopup
-from kivymd.uix.scrollview import MDScrollView
+from kivy.uix.screenmanager import ScreenManager
+from kivymd.uix.button import MDIconButton
 from kivy.uix.image import Image
 from kivy.core.window import Window
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.tab import MDTabsBase
-from kivy.utils import get_color_from_hex
-from kivymd.icon_definitions import md_icons
 from kivymd.toast import toast
 from kivymd.uix.bottomsheet import MDGridBottomSheet
-from kivymd.uix.bottomnavigation import MDBottomNavigationItem
-from kivymd.uix.list import OneLineAvatarListItem, ImageLeftWidget
 from kivymd.uix.behaviors import RectangularRippleBehavior, BackgroundColorBehavior, CircularRippleBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.tab import MDTabsBase
-from kivymd.uix.swiper import MDSwiper
 from kivy.uix.behaviors import ButtonBehavior
 import numpy as np
 import requests
 from datetime import datetime,timedelta
-import io
-from PIL import Image as PILImage
 from ftplib import FTP
-from kivy.core.image import Image as CoreImage
-from kivy.clock import Clock
-from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.label import MDLabel
-from kivymd.uix.list import OneLineListItem,OneLineIconListItem,IconLeftWidget,OneLineRightIconListItem,ImageRightWidget
-from kivy.metrics import dp
-from kivymd.icon_definitions import md_icons
-from kivymd.uix.gridlayout import MDGridLayout
-from kivymd.uix.datatables import MDDataTable
+from kivymd.uix.list import OneLineListItem,OneLineIconListItem,IconLeftWidget,OneLineRightIconListItem
 from kivy_garden.graph import Graph,BarPlot,LinePlot
 from kivy.uix.popup import Popup
-from kivymd.uix.imagelist import MDSmartTile
+from kivy.properties import NumericProperty
+from kivymd.uix.behaviors import TouchBehavior
+# from kivy_garden.mapview import MapMarker,MapView
+# from kivymd.uix.imagelist import MDSmartTile
+# from kivymd.uix.behaviors import HoverBehavior
 # import paramiko
-# Window.size = (350, 600)
+Window.size = (400, 700)
+
 
 class Tab(MDFloatLayout, MDTabsBase):
     '''Class implementing content for a tab.'''
@@ -59,9 +45,32 @@ class Homescreen(ScreenManager):
 
     def thongbao(self):
         toast("Không đúng tên hoặc mật khẩu")
+    
+
+    # def on_touch_down(self, touch):
+    #     print("Cú chạm xuống tại", touch.pos)  
+    #     print(touch)
+    #     return super().on_touch_down(touch)
         
 class RectangularRippleButton(MDBoxLayout, RectangularRippleBehavior, ButtonBehavior, BackgroundColorBehavior):
     pass
+
+# class ResizableDraggablePicture(MDBoxLayout):
+#     def on_touch_down(self, touch):
+#         print("Cú chạm xuống tại", touch.pos)  
+#     #     return super().on_touch_down(touch)
+#         # Override Scatter's `on_touch_down` behavior for mouse scroll
+#         if touch.is_mouse_scrolling:
+#             if touch.button == 'scrolldown':
+#                 if self.scale < 10:
+#                     self.scale = self.scale * 1.1
+#             elif touch.button == 'scrollup':
+#                 if self.scale > 1:
+#                     self.scale = self.scale * 0.8
+#         # If some other kind of "touch": Fall back on Scatter's behavior
+#         else:
+#             super(ResizableDraggablePicture, self).on_touch_down(touch)
+
 
 
 class RectangularRippleImage(CircularRippleBehavior, ButtonBehavior, Image):
@@ -76,14 +85,16 @@ class Hochua(MDApp):
         # self.theme_cls.accent_palette = "Red"
         self.title = "Hồ chứa KTTV"
         self.theme_cls.primary_palette = "Pink"
-        Builder.load_file('main.kv')
+        scm = Builder.load_file('main.kv')
         self.scr = Homescreen()
+        
         self.scr.current = 'trangchu'
-        # self.scr.ids.bottom_navigation.switch_tab('chart')
+        # self.root.ids.bottom_navigation.switch_tab('map')
         return self.scr
 
 
     def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
+        
         self.root.ids.box_images.clear_widgets()
         images =[]
         try:
@@ -101,7 +112,68 @@ class Hochua(MDApp):
                     size_hint=(1, None),
                     height='460dp'
                 )
-            )  
+            )
+    # def on_touch_down(self, touch):
+    #     print(touch.pos)
+    #     # for touch in args:
+    #     #     print("Tọa độ cú chạm:", touch.pos)  
+    #     # return super().on_touch_move(*args)
+
+        
+    # def on_touch_down(self, *args):
+    #     print(args.is_double_tap())
+        
+    def on_touch_down(self, widget, touch_event):
+        # print(touch_event.ud)
+        # print(touch_event.pos)
+        # print(touch_event.button)
+        # print(touch_event.pressure)
+        # print(touch_event.is_touch)
+        # print(touch_event.id)
+        print(touch_event.device)
+        # print(touch_event.phase)
+        # print(touch_event.profile)
+        # print(touch_event.profile)
+        # print(touch_event.pos)
+        # print(touch_event.button)
+        #  print(touch_event.is_pinch)
+        # print(args)
+        # print(len(touch_event.ud))
+        # if len(touch_event.ud) == 2:  # Kiểm tra xem có hai điểm chạm hay không
+        # # Tính toán khoảng cách giữa hai điểm chạm (nếu cần)
+        #     distance = self.calculate_distance(touch_event)
+
+        #     # Thực hiện zoom trên widget
+        #     self.zoom_widget(widget, distance)
+        # print(touch_event.pos)
+        # print(widget)
+    #     print(touch.pos)
+        # images =[]
+        # print("Tab touched:", args)
+        # for a in self.root.ids.box_images.children:
+        #     images.append(a.source)
+
+        # # image_widget = self.root.ids.box_images.children[-1].source
+        # # # print(image_widget)
+        # self.root.ids.box_images.clear_widgets()
+        # for image in reversed(images):
+        #     self.root.ids.box_images.add_widget(
+        #         Image(
+        #             source=image,
+        #             size_hint=(None, None),
+        #             height='460dp',
+        #         )
+        #     )
+        # source_of_added_image = image_widget.source
+        # image_width = image_widget.texture_size[0]
+        # image_height = image_widget.texture_size[1]
+
+        # # Tính toán kích thước mới
+        # new_width = image_width * 1.5
+        # new_height = image_height * 1.5
+
+        # Cập nhật kích thước của Image
+        # image_widget.size = (new_width, new_height)
     def on_start(self):
         ten_bantin = ['TVHN','TVHV','TVHD',"LULU",'CBLU']
         for tin in ten_bantin:
@@ -247,6 +319,8 @@ class Hochua(MDApp):
         
         # tinh dung tich trang chu
         mucnuoc,qve = self.TTB_API_HC()
+        # print(float(mucnuoc[-1]['Solieu']))
+        # print(array_data['H'])
         self.root.ids.mucnuochientai.text = mucnuoc[-1]['Solieu']
         self.root.ids.luuluongve.text = qve[-1]['Solieu']
         array_data = np.genfromtxt('matram/H_W.txt', delimiter=",",names=True,encoding=None)
@@ -281,7 +355,8 @@ class Hochua(MDApp):
             )
             # gán su kien cho icon
             self.root.ids.solieutram.add_widget(icon_item)
-            
+
+
     def on_row_press(self, instance_table, instance_row): # click vao row cua bang
         tramten = instance_row.text
         app = MDApp.get_running_app()
@@ -501,6 +576,7 @@ class Hochua(MDApp):
             )
         bottom_sheet_menu.open()
     
+    # sự kiện click vào các item của tab bản tin
     def callback_for_menu_items(self, selected_item):
         # Thực hiện cập nhật hình ảnh dựa trên mục được chọn
         if selected_item == "Mực nước":
@@ -513,11 +589,18 @@ class Hochua(MDApp):
             self.read_ftp_sever_image('chart_Q_xa.png')
             self.root.ids.image_chart_td.source = 'cache/chart_Q_xa.png'
         elif selected_item == "Mưa":
-            self.read_ftp_sever_image('chart_mua_tranam2.png')
-            self.root.ids.image_chart_td.source = 'cache/chart_mua_tranam2.png'
+            self.read_ftp_sever_image('chart_mua_traleng.png')
+            self.root.ids.image_chart_td.source = 'cache/chart_mua_traleng.png'
         elif selected_item == "Mưa tại đập":
             self.read_ftp_sever_image('chart_mua_tramdapst2.png')
             self.root.ids.image_chart_td.source = 'cache/chart_mua_tramdapst2.png'
+    
+    def cham_tay_zoom(self,touch):
+        print(touch)
+        # if self.collide_point(touch.x, touch.y):
+        #     print(touch.x)
+        #     print(touch.y)
+    
     
     def TTB_API_HC(self):
         now = datetime.now()
