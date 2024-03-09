@@ -37,7 +37,7 @@ version = 0.404
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.9.10,hostpython3==3.9.10,kivy==2.1.0,Cython==0.29.33,kivymd,pillow,kivy_garden.mapview,kivy_garden.graph,openssl,requests,charset_normalizer,chardet,idna, urllib3,certifi,pyftpdlib,Python-IO,android,DateTime,numpy
+requirements = python3==3.9.10,hostpython3==3.9.10,kivy,kivymd,pillow,kivy_garden.mapview,kivy_garden.graph,openssl,requests,charset_normalizer,chardet,idna, urllib3,certifi,pyftpdlib,Python-IO,android,DateTime,numpy
 
 
 # (str) Custom source folders for requirements
@@ -301,9 +301,9 @@ android.allow_backup = True
 p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-#p4a.branch = master
+p4a.branch = master
 #p4a.branch = develop
-p4a.branch =release-2022.12.20
+#p4a.branch =release-2022.12.20
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
