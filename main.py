@@ -124,7 +124,7 @@ class Hochua(MDApp):
     #     print(args.is_double_tap())
         
     def on_touch_down(self, widget, touch_event):
-        # print(touch_event.ud)
+        print(touch_event.ud)
         # print(touch_event.pos)
         # print(touch_event.button)
         # print(touch_event.pressure)
