@@ -37,7 +37,7 @@ version = 0.404
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.9.10,hostpython3==3.9.10,kivy,Cython=0.29.33,kivymd,pillow,kivy_garden.mapview,kivy_garden.graph,openssl,requests,charset_normalizer,chardet,idna, urllib3,certifi,pyftpdlib,Python-IO,android,DateTime,numpy
+requirements = python3==3.9.10,hostpython3==3.9.10,kivy,Cython==0.29.33,kivymd,pillow,kivy_garden.mapview,kivy_garden.graph,openssl,requests,charset_normalizer,chardet,idna, urllib3,certifi,pyftpdlib,Python-IO,android,DateTime,numpy
 
 
 # (str) Custom source folders for requirements
