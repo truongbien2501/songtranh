@@ -37,7 +37,7 @@ version = 0.404
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.9.10,hostpython3==3.9.10,kivy==2.2.0,Cython=0.29.33,kivymd,pillow,kivy_garden.mapview,kivy_garden.graph,openssl,requests,charset_normalizer,chardet,idna, urllib3,certifi,pyftpdlib,Python-IO,android,DateTime,numpy
+requirements = python3==3.9.10,hostpython3==3.9.10,kivy,Cython=0.29.33,kivymd,pillow,kivy_garden.mapview,kivy_garden.graph,openssl,requests,charset_normalizer,chardet,idna, urllib3,certifi,pyftpdlib,Python-IO,android,DateTime,numpy
 
 
 # (str) Custom source folders for requirements
@@ -67,7 +67,7 @@ orientation = portrait
 osx.python_version = 3.9.10
 
 # Kivy version to use
-osx.kivy_version = 2.2.0
+osx.kivy_version = 1.9.1
 
 
 #
@@ -101,10 +101,10 @@ android.permissions = INTERNET
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 33
+android.api = 34
 
 # (int) Minimum API your APK / AAB will support.
-#android.minapi = 21
+android.minapi = 21
 
 # (int) Android SDK version to use
 #android.sdk = 20
