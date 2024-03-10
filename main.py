@@ -125,7 +125,7 @@ class Hochua(MDApp):
         
     def on_touch_down(self, widget, touch_event):
         # Kiểm tra xem có 2 ngón tay chạm hay không
-        # print(len(touch_event.touches))
+        print(len(touch_event.touches))
         if len(touch_event.touches) == 2:
             # Lưu trữ vị trí ban đầu của 2 ngón tay
             self.touch_start_pos1 = touch_event.touches[0].pos
