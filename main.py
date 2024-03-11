@@ -124,17 +124,8 @@ class Hochua(MDApp):
     #     print(args.is_double_tap())
         
     def on_touch_down(self, widget, touch_event):
-        # Kiểm tra xem có 2 ngón tay chạm hay không
-        # print(len(touch_event.touches))
-        # if len(touch_event.touches) == 2:
-        #     # Lưu trữ vị trí ban đầu của 2 ngón tay
-        #     self.touch_start_pos1 = touch_event.touches[0].pos
-        #     self.touch_start_pos2 = touch_event.touches[1].pos
-
         # print(touch_event.ud)
-        print(len(touch_event.pos))
-        for a in touch_event.pos:
-            print(a)
+        # print(touch_event.touches)
         # print(touch_event.button)
         # print(touch_event.pressure)
         # print(touch_event.is_touch)
@@ -142,10 +133,9 @@ class Hochua(MDApp):
         # print(touch_event.device)
         # print(touch_event.phase)
         # print(touch_event.profile)
-        # print(touch_event.profile)
         # print(touch_event.pos)
         # print(touch_event.button)
-        #  print(touch_event.is_pinch)
+        print(touch_event.is_pinch)
         # print(args)
         # print(len(touch_event.ud))
         # if len(touch_event.ud) == 2:  # Kiểm tra xem có hai điểm chạm hay không
