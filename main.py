@@ -136,7 +136,7 @@ class Hochua(MDApp):
         print('day là 10: ',touch_event.pos)
         print('day là 11: ',touch_event.button)
         print('day là 12: ',touch_event.is_pinch)
-        print('day là 13: ',touch_event.SDL2MotionEvent)
+        # print('day là 13: ',touch_event.SDL2MotionEvent)
         # print(args)
         # print(len(touch_event.ud))
         # if len(touch_event.ud) == 2:  # Kiểm tra xem có hai điểm chạm hay không
