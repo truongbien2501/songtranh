@@ -125,7 +125,7 @@ class Hochua(MDApp):
         
     def on_touch_down(self, widget, touch_event):
         print('day là 1: ',touch_event.ud)
-        print('day là 2: ',touch_event.touches)
+        # print('day là 2: ',touch_event.touches)
         print('day là 3: ',touch_event.button)
         print('day là 4: ',touch_event.pressure)
         print('day là 5: ',touch_event.is_touch)
