@@ -274,28 +274,118 @@
                 text: 'Dự báo'
                 name: 'chart' # dat ten
                 icon:'desktop-classic' # bieu tuong
-                # on_release: app.root.update_chart()
-                MDBoxLayout:
-                    orientation: 'vertical'
-                    MDGridLayout:
-                        adaptive_height: True
-                        md_bg_color: app.theme_cls.primary_color
-                        size_hint: 1,0.1
-                        cols:2
-                        rows:1
-                        MDLabel:
-                            text:'Đường quá trình'
-                            halign: "center"
-                        MDIconButton:
-                            icon: "image-filter-center-focus-weak"
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            on_release:app.show_example_grid_bottom_sheet()
-                    Image:
-                        id: image_chart_td
-                        source: 'cache/chart_H.png'
+                # # on_release: app.root.update_chart()
+                # MDBoxLayout:
+                #     orientation: 'vertical'
+                #     MDGridLayout:
+                #         adaptive_height: True
+                #         md_bg_color: app.theme_cls.primary_color
+                #         size_hint: 1,0.1
+                #         cols:2
+                #         rows:1
+                #         MDLabel:
+                #             text:'Đường quá trình'
+                #             halign: "center"
+                #         MDIconButton:
+                #             icon: "image-filter-center-focus-weak"
+                #             pos_hint: {"center_x": .5, "center_y": .5}
+                #             on_release:app.show_example_grid_bottom_sheet()
+                #     Image:
+                #         id: image_chart_td
+                #         source: 'cache/chart_H.png'
+                #         pos_hint: {"center_x": .5, "center_y": .5}
+                #         size_hint: 0.9,0.9
+                #         height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
+                MDGridLayout:
+                    cols:2
+                    rows:2
+                    # padding:5,5,5,5
+                    spacing:dp(2)
+                    MDSmartTile:
+                        radius: 24
+                        box_radius: [0, 0, 24, 24]
+                        box_color: 1, 1, 1, .2
+                        source: "icon\mucnuocho.png"
                         pos_hint: {"center_x": .5, "center_y": .5}
-                        size_hint: 0.9,0.9
-                        height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
+                        size_hint: None, None
+                        size: root.width*0.48, root.height*0.44
+                        on_press:app.callback_solieu()
+
+                        MDIconButton:
+                            icon: "heart-outline"
+                            theme_icon_color: "Custom"
+                            icon_color: 1, 0, 0, 1
+                            pos_hint: {"center_y": .5}
+                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                        MDLabel:
+                            id:mucnuocdb
+                            text: "Mực nước"
+                            bold: True
+                            color: 0, 0, 0, 1
+
+                    MDSmartTile:
+                        radius: 24
+                        box_radius: [0, 0, 24, 24]
+                        box_color: 1, 1, 1, .2
+                        source: "icon\Qden.png"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: None, None
+                        size: root.width*0.48, root.height*0.44
+                        on_press:app.callback_solieu()
+                        MDIconButton:
+                            icon: "heart-outline"
+                            theme_icon_color: "Custom"
+                            icon_color: 1, 0, 0, 1
+                            pos_hint: {"center_y": .5}
+                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        MDLabel:
+                            id:qdendb
+                            text: "Q đến"
+                            bold: True
+                            color: 0, 0, 0, 1
+                    MDSmartTile:
+                        radius: 24
+                        box_radius: [0, 0, 24, 24]
+                        box_color: 1, 1, 1, .2
+                        source: "icon\Qxa-2.png"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: None, None
+                        size: root.width*0.48, root.height*0.44
+                        on_press:app.callback_solieu()
+                        MDIconButton:
+                            icon: "heart-outline"
+                            theme_icon_color: "Custom"
+                            icon_color: 1, 0, 0, 1
+                            pos_hint: {"center_y": .5}
+                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        MDLabel:
+                            id:qtongxa
+                            text: "Tổng Q xả"
+                            bold: True
+                            color: 0, 0, 0, 1
+                    MDSmartTile:
+                        radius: 24
+                        box_radius: [0, 0, 24, 24]
+                        box_color: 1, 1, 1, .2
+                        source: "icon\luuluongxaquacong.png"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: None, None
+                        size: root.width*0.48, root.height*0.44
+                        on_press:app.callback_solieu()
+                        MDIconButton:
+                            icon: "heart-outline"
+                            theme_icon_color: "Custom"
+                            icon_color: 1, 0, 0, 1
+                            pos_hint: {"center_y": .5}
+                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        MDLabel:
+                            id:dungtichthuctai
+                            text: "Tổng Q xả qua cống"
+                            bold: True
+                            ccolor: 0, 0, 0, 1
 
             # hinh anh ban tin kttv
             MDBottomNavigationItem:
@@ -319,7 +409,7 @@
                             height: self.minimum_height
                             # on_press:root.on_touch_down()
                             # on_touch_down:app.root.on_touch_move(self,touch)
-                            on_touch_down:app.on_touch_down(*args)
+                            # on_touch_down:app.on_touch_down(*args)
                     
             # du lieu do mua
             MDBottomNavigationItem:

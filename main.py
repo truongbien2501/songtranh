@@ -55,27 +55,9 @@ class Homescreen(ScreenManager):
 class RectangularRippleButton(MDBoxLayout, RectangularRippleBehavior, ButtonBehavior, BackgroundColorBehavior):
     pass
 
-# class ResizableDraggablePicture(MDBoxLayout):
-#     def on_touch_down(self, touch):
-#         print("Cú chạm xuống tại", touch.pos)  
-#     #     return super().on_touch_down(touch)
-#         # Override Scatter's `on_touch_down` behavior for mouse scroll
-#         if touch.is_mouse_scrolling:
-#             if touch.button == 'scrolldown':
-#                 if self.scale < 10:
-#                     self.scale = self.scale * 1.1
-#             elif touch.button == 'scrollup':
-#                 if self.scale > 1:
-#                     self.scale = self.scale * 0.8
-#         # If some other kind of "touch": Fall back on Scatter's behavior
-#         else:
-#             super(ResizableDraggablePicture, self).on_touch_down(touch)
-
-
 
 class RectangularRippleImage(CircularRippleBehavior, ButtonBehavior, Image):
     pass
-
 
 class Hochua(MDApp):
 
@@ -94,7 +76,6 @@ class Hochua(MDApp):
 
 
     def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
-        
         self.root.ids.box_images.clear_widgets()
         images =[]
         try:
@@ -178,7 +159,6 @@ class Hochua(MDApp):
         ten_bantin = ['TVHN','TVHV','TVHD',"LULU",'CBLU']
         for tin in ten_bantin:
             self.root.ids.tabs.add_widget(Tab(title=tin,icon='account-arrow-down'))
-        
         #
         now = datetime.now()
         self.root.ids.ngay1.text = (now - timedelta(days=3)).strftime('%d/%m')
@@ -327,7 +307,15 @@ class Hochua(MDApp):
         row_index = np.where(array_data['H']==float(mucnuoc[-1]['Solieu']))[0][0]
         self.root.ids.dungtich.text = str(array_data['W'][row_index])
         self.root.ids.dungtichdb.text= '{:.2f}'.format(array_data['W'][row_index] + 0.07)
-
+        
+        # tab du bao
+        self.root.ids.mucnuocdb.text =  'Mực nước: ' + mucnuoc[-1]['Solieu'] + ' m'
+        self.root.ids.qdendb.text = 'Q đến: ' + qve[-1]['Solieu']+  ' m3/s'
+        self.root.ids.qtongxa.text = 'Q tổng xả: ' + qve[-1]['Solieu']+  ' m3/s'
+        # self.root.ids.dungtichthuctai.text = 'Dung tích: ' + qve[-1]['Solieu']+  ' m3/s'
+        
+        
+        
     def tram_pressed(self,instance): # su kien click vao tram
         clicked_text = instance.text
         # print('bạn đã click vào:' + clicked_text)
@@ -595,12 +583,7 @@ class Hochua(MDApp):
             self.read_ftp_sever_image('chart_mua_tramdapst2.png')
             self.root.ids.image_chart_td.source = 'cache/chart_mua_tramdapst2.png'
     
-    def cham_tay_zoom(self,touch):
-        print(touch)
-        # if self.collide_point(touch.x, touch.y):
-        #     print(touch.x)
-        #     print(touch.y)
-    
+
     
     def TTB_API_HC(self):
         now = datetime.now()
@@ -854,7 +837,8 @@ class Hochua(MDApp):
                         )
                 self.root.ids.tramkttv_ho.add_widget(icon_item)
    
-
+    def callback_solieu(self):
+        self.root.ids.bottom_navigation.switch_tab('luongmua')
     # def get_image_from_ssh(ip, username, password, ssh_path):
     #     # Tạo một kết nối SSH đến máy chủ
     #     ssh_client = paramiko.SSHClient()
