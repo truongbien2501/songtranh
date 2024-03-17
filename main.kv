@@ -1,5 +1,6 @@
 #:import MapView kivy_garden.mapview.MapView
 #:import utils kivy.utils
+<MagicButton@MagicBehavior+MDIconButton>
 <Homescreen>:
     MDScreen:
         md_bg_color:239/255,243/255,246/255,1
@@ -296,96 +297,123 @@
                 #         pos_hint: {"center_x": .5, "center_y": .5}
                 #         size_hint: 0.9,0.9
                 #         height: 200  # Điều chỉnh chiều cao của hình ảnh theo ý muốn 
+
                 MDGridLayout:
                     cols:2
-                    rows:2
-                    # padding:5,5,5,5
+                    rows:3
+                    padding: dp(4), dp(4)
                     spacing:dp(2)
+                    
                     MDSmartTile:
                         radius: 24
                         box_radius: [0, 0, 24, 24]
                         box_color: 1, 1, 1, .2
-                        source: "icon/mucnuocho.png"
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        size_hint: None, None
-                        size: root.width*0.48, root.height*0.44
-                        on_press:app.callback_solieu()
-
+                        canvas.before:
+                            Color:
+                                rgba: 1, 1, 1, 1
+                            Line:
+                                width: 1
+                                rectangle: self.x, self.y, self.width, self.height
+                            Rectangle:
+                                pos: (0,0)
+                                size: root.width*0.48, root.height*0.44
+                                source: 'icon/mucnuocho.png'
                         MDIconButton:
                             icon: "heart-outline"
                             theme_icon_color: "Custom"
                             icon_color: 1, 0, 0, 1
                             pos_hint: {"center_y": .5}
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
-                        MDLabel:
+                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline" 
+                        TwoLineListItem:
                             id:mucnuocdb
-                            text: "Mực nước"
-                            bold: True
-                            color: 0, 0, 0, 1
+                            text: "[color=#000000][b]Mực nước[/b][/color]"
+                            secondary_text: "[color=#000000][b](m)[/b][/color]"
+                            pos_hint: {"center_y": .5}
+                            _no_ripple_effect: True
 
                     MDSmartTile:
                         radius: 24
                         box_radius: [0, 0, 24, 24]
                         box_color: 1, 1, 1, .2
-                        source: "icon/Qden.png"
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        size_hint: None, None
-                        size: root.width*0.48, root.height*0.44
-                        on_press:app.callback_solieu()
+                        canvas.before:
+                            Color:
+                                rgba: 1, 1, 1, 1
+                            Line:
+                                width: 1
+                                rectangle: self.x, self.y, self.width, self.height
+                            Rectangle:
+                                pos: (0,0)
+                                size: root.width*0.48, root.height*0.44
+                                source: 'icon/Qden.png'
                         MDIconButton:
                             icon: "heart-outline"
                             theme_icon_color: "Custom"
                             icon_color: 1, 0, 0, 1
                             pos_hint: {"center_y": .5}
                             on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
-
-                        MDLabel:
+                        TwoLineListItem:
                             id:qdendb
-                            text: "Q đến"
-                            bold: True
-                            color: 0, 0, 0, 1
+                            text: "[color=#000000][b]Q đến[/b][/color]"
+                            secondary_text: "[color=#000000][b](m)[/b][/color]"
+                            pos_hint: {"center_y": .5}
+                            _no_ripple_effect: True
                     MDSmartTile:
                         radius: 24
                         box_radius: [0, 0, 24, 24]
                         box_color: 1, 1, 1, .2
-                        source: "icon/Qxa-2.png"
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        size_hint: None, None
-                        size: root.width*0.48, root.height*0.44
-                        on_press:app.callback_solieu()
+                        canvas.before:
+                            Color:
+                                rgba: 1, 1, 1, 1
+                            Line:
+                                width: 1
+                                rectangle: self.x, self.y, self.width, self.height
+                            Rectangle:
+                                pos: (0,0)
+                                size: root.width*0.48, root.height*0.44
+                                source: 'icon/Qxa-2.png'
                         MDIconButton:
                             icon: "heart-outline"
                             theme_icon_color: "Custom"
                             icon_color: 1, 0, 0, 1
                             pos_hint: {"center_y": .5}
                             on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
-
-                        MDLabel:
+                        TwoLineListItem:
                             id:qtongxa
-                            text: "Tổng Q xả"
-                            bold: True
-                            color: 0, 0, 0, 1
+                            text: "[color=#000000][b]Q xả[/b][/color]"
+                            secondary_text: "[color=#000000][b](m)[/b][/color]"
+                            pos_hint: {"center_y": .5}
+                            _no_ripple_effect: True
                     MDSmartTile:
                         radius: 24
                         box_radius: [0, 0, 24, 24]
                         box_color: 1, 1, 1, .2
-                        source: "icon/luuluongxaquacong.png"
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        size_hint: None, None
-                        size: root.width*0.48, root.height*0.44
-                        on_press:app.callback_solieu()
+                        canvas.before:
+                            Color:
+                                rgba: 1, 1, 1, 1
+                            Line:
+                                width: 1
+                                rectangle: self.x, self.y, self.width, self.height
+                            Rectangle:
+                                pos: (0,0)
+                                size: root.width*0.48, root.height*0.44
+                                source: "icon/mua.png"
+                                
                         MDIconButton:
                             icon: "heart-outline"
                             theme_icon_color: "Custom"
                             icon_color: 1, 0, 0, 1
                             pos_hint: {"center_y": .5}
                             on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                                
+                        TwoLineListItem:
+                            id:muadubaokttv
+                            text: "[color=#000000][b]Mưa[/b][/color]"
+                            secondary_text: "[color=#000000][b](m)[/b][/color]"
+                            pos_hint: {"center_y": .5}
+                            _no_ripple_effect: True
+                            on_release:app.callback_imageRada()
+                            
 
-                        MDLabel:
-                            id:dungtichthuctai
-                            text: "Tổng Q xả qua cống"
-                            bold: True
-                            ccolor: 0, 0, 0, 1
 
             # hinh anh ban tin kttv
             MDBottomNavigationItem:
@@ -744,7 +772,158 @@
                     #     height: self.minimum_height
                     #     padding: 10
                     #     id: dienmua_layout
-  
+    MDScreen:
+        name:'anhrada'
+        id: anhrada
+        MDBoxLayout:
+            # md_bg_color:app.theme_cls.theme_style = "Light"      
+            orientation: 'vertical'
+            MDGridLayout:
+                md_bg_color:app.theme_cls.primary_color 
+                size_hint: (1, 0.1)
+                id:toolbar
+                cols:2
+                rows:1
+                MDIconButton:
+                    icon: "arrow-left-thick"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_press: app.callback_solieutram()
+                MDLabel:
+                    text:'Ảnh RADA'
+            MDBoxLayout:
+                size_hint: (1, 0.9)
+                MDSwiper:
+                    size_hint_y: None
+                    height: root.height - toolbar.height -dp(10)
+                    y: root.height - self.height - toolbar.height -dp(1)
+                    # on_swipe: self.get_current_item().ids.icon.shake()
+                    # radius: [20,]
+                    MDSwiperItem:
+                        RelativeLayout:
+
+                            FitImage:
+                                source: "cache/rada5.png"
+                                radius: [20,]
+
+                            MDBoxLayout:
+                                adaptive_height: True
+                                spacing: "12dp"
+
+                                MagicButton:
+                                    id: icon
+                                    icon: "weather-sunny"
+                                    user_font_size: "56sp"
+                                    opposite_colors: True
+
+                                MDLabel:
+                                    id:time1
+                                    text: "MDLabel1"
+                                    font_style: "H5"
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    pos_hint: {"center_y": .5}
+                                    opposite_colors: True
+                    MDSwiperItem:
+
+                        RelativeLayout:
+
+                            FitImage:
+                                source: "cache/rada4.png"
+                                radius: [20,]
+
+                            MDBoxLayout:
+                                adaptive_height: True
+                                spacing: "12dp"
+
+                                MagicButton:
+                                    id: icon
+                                    icon: "weather-sunny"
+                                    user_font_size: "56sp"
+                                    opposite_colors: True
+
+                                MDLabel:
+                                    id:time2
+                                    text: "MDLabel2"
+                                    font_style: "H5"
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    pos_hint: {"center_y": .5}
+                                    opposite_colors: True
+                    MDSwiperItem:
+                        RelativeLayout:
+
+                            FitImage:
+                                source: "cache/rada3.png"
+                                radius: [20,]
+
+                            MDBoxLayout:
+                                adaptive_height: True
+                                spacing: "12dp"
+
+                                MagicButton:
+                                    id: icon
+                                    icon: "weather-sunny"
+                                    user_font_size: "56sp"
+                                    opposite_colors: True
+
+                                MDLabel:
+                                    id:time3
+                                    text: "MDLabel3"
+                                    font_style: "H5"
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    pos_hint: {"center_y": .5}
+                                    opposite_colors: True
+                    MDSwiperItem:
+                        RelativeLayout:
+
+                            FitImage:
+                                source: "cache/rada2.png"
+                                radius: [20,]
+
+                            MDBoxLayout:
+                                adaptive_height: True
+                                spacing: "12dp"
+
+                                MagicButton:
+                                    id: icon
+                                    icon: "weather-sunny"
+                                    user_font_size: "56sp"
+                                    opposite_colors: True
+
+                                MDLabel:
+                                    id:time4
+                                    text: "MDLabel4"
+                                    font_style: "H5"
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    pos_hint: {"center_y": .5}
+                                    opposite_colors: True
+                    MDSwiperItem:
+                        RelativeLayout:
+
+                            FitImage:
+                                source: "cache/rada1.png"
+                                radius: [20,]
+
+                            MDBoxLayout:
+                                adaptive_height: True
+                                spacing: "12dp"
+
+                                MagicButton:
+                                    id: icon
+                                    icon: "weather-sunny"
+                                    user_font_size: "56sp"
+                                    opposite_colors: True
+
+                                MDLabel:
+                                    id:time5
+                                    text: "MDLabel4"
+                                    font_style: "H5"
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    pos_hint: {"center_y": .5}
+                                    opposite_colors: True
 <RectangularRippleButton>:
 <RectangularRippleImage>:
 <NCard@MDBoxLayout>:

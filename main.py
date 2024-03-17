@@ -25,9 +25,11 @@ from kivymd.uix.behaviors import TouchBehavior
 # from kivy_garden.mapview import MapMarker,MapView
 # from kivymd.uix.imagelist import MDSmartTile
 # from kivymd.uix.behaviors import HoverBehavior
-# import paramiko
-# Window.size = (400, 700)
+import paramiko
+Window.size = (400, 700)
 
+# class FullImage(Image):
+#     pass
 
 class Tab(MDFloatLayout, MDTabsBase):
     '''Class implementing content for a tab.'''
@@ -221,17 +223,17 @@ class Hochua(MDApp):
         
         
         # man hinh so lieu
-        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Trạm',font_style='Body1',bg_color='#00bfff'))
-        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Trend',font_style='Body1',bg_color='#00bfff'))
-        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Giờ',font_style='Body1',bg_color='#00bfff'))
-        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Value',font_style='Body1',bg_color='#00bfff'))
+        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Trạm',font_style='Caption',bg_color='#00bfff'))
+        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Trend',font_style='Caption',bg_color='#00bfff'))
+        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Giờ',font_style='Caption',bg_color='#00bfff'))
+        self.root.ids.tramkttv_ho_title.add_widget(OneLineListItem(text='Value',font_style='Caption',bg_color='#00bfff'))
 
         ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         for tram in ds_tram:
             if 'mua' in tram[3]:
                 muatong = self.TTB_API_muatong(tram[0],tram[2])
                 # ten tram
-                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),bg_color='#add8e6',font_style='Body2',on_release=self.tram_pressed))
+                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),bg_color='#add8e6',font_style='Caption',on_release=self.tram_pressed))
                 # xu the
                 maune_value = ''
                 if muatong[0] !='-':
@@ -250,14 +252,14 @@ class Hochua(MDApp):
                     self.root.ids.tramkttv_ho.add_widget(OneLineRightIconListItem(text='-'))
                 # gio
                 if muatong[-1] != '-':
-                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[-1].strftime('%H:%M'),font_style='Body2'))
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[-1].strftime('%H:%M'),font_style='Caption'))
                 else:
-                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Caption'))
                 # gia tri
                 if maune_value =='#ff0000' :
-                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],bg_color=maune_value,font_style='Body2'))
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],bg_color=maune_value,font_style='Caption'))
                 else:
-                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],font_style='Body2'))
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],font_style='Caption'))
             else:
                 muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
                 # ten tram
@@ -272,14 +274,14 @@ class Hochua(MDApp):
                     elif float(muatong[0]) < float(muatong[1]) :
                         self.root.ids.tramkttv_ho.add_widget(MDIconButton(icon="arrow-down-bold",theme_icon_color="Custom",icon_color= '#32cd32'))
                 else:
-                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Caption'))
                 # gio
                 if muatong[-1] != '-':
-                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[-1].strftime('%H:%M'),font_style='Body2'))
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[-1].strftime('%H:%M'),font_style='Caption'))
                 else:
-                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Body2'))
+                    self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text='-',font_style='Caption'))
                 # gia tri
-                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],font_style='Body2'))
+                self.root.ids.tramkttv_ho.add_widget(OneLineListItem(text=muatong[0],font_style='Caption'))
         
         # ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         # for tram in ds_tram:
@@ -309,10 +311,10 @@ class Hochua(MDApp):
         self.root.ids.dungtichdb.text= '{:.2f}'.format(array_data['W'][row_index] + 0.07)
         
         # tab du bao
-        self.root.ids.mucnuocdb.text =  'Mực nước: ' + mucnuoc[-1]['Solieu'] + ' m'
-        self.root.ids.qdendb.text = 'Q đến: ' + qve[-1]['Solieu']+  ' m3/s'
-        self.root.ids.qtongxa.text = 'Q tổng xả: ' + qve[-1]['Solieu']+  ' m3/s'
-        # self.root.ids.dungtichthuctai.text = 'Dung tích: ' + qve[-1]['Solieu']+  ' m3/s'
+        self.root.ids.mucnuocdb.secondary_text =  "[color=#000000][b]{}[/b][/color]".format(mucnuoc[-1]['Solieu'] + ' m')
+        self.root.ids.qdendb.secondary_text =  "[color=#000000][b]{}[/b][/color]".format(qve[-1]['Solieu']+  ' m3/s') 
+        self.root.ids.qtongxa.secondary_text = "[color=#000000][b]{}[/b][/color]".format(qve[-1]['Solieu']+  ' m3/s')
+        self.root.ids.muadubaokttv.secondary_text = "[color=#000000][b]{}[/b][/color]".format(qve[-1]['Solieu']+  ' mm')
         
         
         
@@ -713,12 +715,42 @@ class Hochua(MDApp):
         with open('cache/'+ tenanh, 'wb') as local_file:
             ftp.retrbinary('RETR ' + file_path, local_file.write)
         ftp.quit()
+    def read_ftp_sever_rada_image(self):
+        # Your SSH details
+        host = '113.161.6.128'
+        port = 2233
+        username = 'radarop'
+        password = 'xxxxxx'
+        remote_directory = '/usr/iris_data/jpg'
+
+        # Create SSH connection
+        client = paramiko.SSHClient()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        client.connect(hostname=host, port=port, username=username, password=password)
+
+        # Create SFTP connection
+        sftp = client.open_sftp()
+        filenames = sftp.listdir(remote_directory)
+
+        # print(filenames[-1])
+        i = 1
+        for a in sorted(filenames)[-5:]:
+            print(a)
+            sftp.get(r'/usr/iris_data/jpg/' + a,'cache/rada{}.png'.format(i))
+            i+=1
+        # Close connections
+        sftp.close()
+        client.close()
+        
         
     
     def get_ftp_image(self,tram):
         self.read_ftp_sever_image(tram)
         self.root.ids.image_chart_tvhn.source = "cache/" + tram
 
+    # def get_ftp_rada_image(self,tram):
+    #     self.read_ftp_sever_image(tram)
+    #     self.root.ids.image_chart_tvhn.source = "cache/" + tram
 
     def get_custom_value(self):
         mucnuoc,qve = self.TTB_API_HC()
@@ -733,26 +765,26 @@ class Hochua(MDApp):
         self.root.ids.dienmua_layout.clear_widgets()
         app = MDApp.get_running_app()
         app.root.current = 'dienmua'
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='Trạm-Giờ',bg_color='#20b2aa',font_style='Body2'))
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='1h',bg_color='#20b2aa',font_style='H6'))
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='3h',bg_color='#20b2aa',font_style='H6'))
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='6h',bg_color='#20b2aa',font_style='H6'))
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='12h',bg_color='#20b2aa',font_style='H6'))
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='24h',bg_color='#20b2aa',font_style='H6'))
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='48h',bg_color='#20b2aa',font_style='H6'))
-        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='72h',bg_color='#20b2aa',font_style='H6'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='Trạm-Giờ',bg_color='#20b2aa',font_style='Caption'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='1h',bg_color='#20b2aa',font_style='Caption'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='3h',bg_color='#20b2aa',font_style='Caption'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='6h',bg_color='#20b2aa',font_style='Caption'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='12h',bg_color='#20b2aa',font_style='Caption'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='24h',bg_color='#20b2aa',font_style='Caption'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='48h',bg_color='#20b2aa',font_style='Caption'))
+        self.root.ids.dienmua_layout.add_widget(OneLineListItem(text='72h',bg_color='#20b2aa',font_style='Caption'))
         ds_tram = np.genfromtxt('matram/mucnuoc.txt' , delimiter=',', dtype=None, names=True, encoding=None)
         for tram in ds_tram:
             if 'mua' in tram[3]:
                 muatong = self.TTB_API_muatong(tram[0],tram[2])
-                self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),bg_color='#87cefa',font_style='Body2'))
+                self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),bg_color='#87cefa',font_style='Caption'))
                 for p in range(7):
-                    self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(muatong[p]),font_style='Body2'))
+                    self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(muatong[p]),font_style='Caption'))
             else:
                 muatong = self.TTB_API_yeutokhac(tram[0],tram[2])
-                self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),bg_color='#87cefa',font_style='Body2'))
+                self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(self.chuyentram_vietnam(tram[1],2)[0]),bg_color='#87cefa',font_style='Caption'))
                 for p in range(7):
-                    self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(muatong[p]),font_style='Body2'))
+                    self.root.ids.dienmua_layout.add_widget(OneLineListItem(text=str(muatong[p]),font_style='Caption'))
 
         # self.root.ids.dienmua_layout.add_widget(MDLabel(text='Trạm-Giờ',font_style='Body2'))
         # self.root.ids.dienmua_layout.add_widget(MDLabel(text='1h',font_style='H6'))
@@ -839,6 +871,22 @@ class Hochua(MDApp):
    
     def callback_solieu(self):
         self.root.ids.bottom_navigation.switch_tab('luongmua')
+        
+    def callback_imageRada(self):
+        # print('da click vao day!')
+        self.read_ftp_sever_rada_image()
+        app = MDApp.get_running_app()
+        app.root.current = 'anhrada'
+        self.root.ids.time5.text= (datetime.now() - timedelta(minutes=20)).strftime('%d-%m-%Y %H:%M')
+        self.root.ids.time4.text= (datetime.now() - timedelta(minutes=15)).strftime('%d-%m-%Y %H:%M')
+        self.root.ids.time3.text= (datetime.now() - timedelta(minutes=10)).strftime('%d-%m-%Y %H:%M')
+        self.root.ids.time2.text= (datetime.now() - timedelta(minutes=5)).strftime('%d-%m-%Y %H:%M')
+        self.root.ids.time1.text= datetime.now().strftime('%d-%m-%Y %H:%M')
+        # self.theme_cls.theme_style = "Blue"
+        # self.theme_cls.primary_palette = "Orange"
+        
+        
+        
     # def get_image_from_ssh(ip, username, password, ssh_path):
     #     # Tạo một kết nối SSH đến máy chủ
     #     ssh_client = paramiko.SSHClient()
