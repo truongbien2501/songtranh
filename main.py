@@ -26,7 +26,7 @@ from kivymd.uix.behaviors import TouchBehavior
 # from kivymd.uix.imagelist import MDSmartTile
 # from kivymd.uix.behaviors import HoverBehavior
 import paramiko
-Window.size = (400, 700)
+# Window.size = (400, 700)
 
 # class FullImage(Image):
 #     pass
