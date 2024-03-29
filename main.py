@@ -158,6 +158,7 @@ class Hochua(MDApp):
         # Cập nhật kích thước của Image
         # image_widget.size = (new_width, new_height)
     def on_start(self):
+        self.read_ftp_sever_rada_image()
         ten_bantin = ['TVHN','TVHV','TVHD',"LULU",'CBLU']
         for tin in ten_bantin:
             self.root.ids.tabs.add_widget(Tab(title=tin,icon='account-arrow-down'))
@@ -300,21 +301,33 @@ class Hochua(MDApp):
         #     self.root.ids.tramkttv_ho.add_widget(icon_item)
         
         # tinh dung tich trang chu
-        mucnuoc,qve = self.TTB_API_HC()
+        mucnuoc,qve,qdieu = self.TTB_API_HC()
+        
+        mucnuocdb,qdb,muadb = self.TTB_API_db()
+        
+        
+        # print(datetime.strptime(mucnuoc[-1]['Thoigian_SL'], '%Y-%m-%d %H:%M:%S').strftime('%H:%M'))
+        # print(mucnuoc[-1]['Thoigian_SL'].strftime('%H:%M')) # '%Y-%m-%d %H:%M:%S'
         # print(float(mucnuoc[-1]['Solieu']))
         # print(array_data['H'])
+
         self.root.ids.mucnuochientai.text = mucnuoc[-1]['Solieu']
         self.root.ids.luuluongve.text = qve[-1]['Solieu']
         array_data = np.genfromtxt('matram/H_W.txt', delimiter=",",names=True,encoding=None)
         row_index = np.where(array_data['H']==float(mucnuoc[-1]['Solieu']))[0][0]
+        
         self.root.ids.dungtich.text = str(array_data['W'][row_index])
         self.root.ids.dungtichdb.text= '{:.2f}'.format(array_data['W'][row_index] + 0.07)
         
         # tab du bao
-        self.root.ids.mucnuocdb.secondary_text =  "[color=#000000][b]{}[/b][/color]".format(mucnuoc[-1]['Solieu'] + ' m')
-        self.root.ids.qdendb.secondary_text =  "[color=#000000][b]{}[/b][/color]".format(qve[-1]['Solieu']+  ' m3/s') 
-        self.root.ids.qtongxa.secondary_text = "[color=#000000][b]{}[/b][/color]".format(qve[-1]['Solieu']+  ' m3/s')
-        self.root.ids.muadubaokttv.secondary_text = "[color=#000000][b]{}[/b][/color]".format(qve[-1]['Solieu']+  ' mm')
+        self.root.ids.mucnuocdb.text =  "[color=#000000][b]{}[/b][/color]".format('H Giao Thủy')
+        self.root.ids.mucnuocdb.secondary_text =  "[color=#000000][b]{}[/b][/color]".format(mucnuocdb[-1]['Solieu'] + ' m')
+        self.root.ids.qdendb.text =  "[color=#000000][b]{}[/b][/color]".format('Q đến 24h')
+        self.root.ids.qdendb.secondary_text =  "[color=#000000][b]{}[/b][/color]".format(qdb[-1]['Solieu']+  ' m3/s') 
+        self.root.ids.qtongxa.text =  "[color=#000000][b]{}[/b][/color]".format('Q xả 24h tới')
+        self.root.ids.qtongxa.secondary_text = "[color=#000000][b]{}[/b][/color]".format(qdieu[-1]['Solieu']+  ' m3/s')
+        # self.root.ids.muadubaokttv.text =  "[color=#000000][b]{}[/b][/color]".format('Mưa 24h ' + datetime.strptime(qve[-1]['Thoigian_SL'], '%Y-%m-%d %H:%M:%S').strftime('%H:%M') )
+        self.root.ids.muadubaokttv.secondary_text = "[color=#000000][b]{}[/b][/color]".format(muadb[-1]['Solieu']+  ' mm')
         
         
         
@@ -586,7 +599,6 @@ class Hochua(MDApp):
             self.root.ids.image_chart_td.source = 'cache/chart_mua_tramdapst2.png'
     
 
-    
     def TTB_API_HC(self):
         now = datetime.now()
         kt = datetime(now.year,now.month,now.day,now.hour)
@@ -599,12 +611,46 @@ class Hochua(MDApp):
         pth = pth.format(matram,'ho_dakdrinh_mucnuoc',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
         response = requests.get(pth)
         mucnuoc = np.array(response.json())
-        # mua
+        # qve
         pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=1&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
         pth = pth.format(matram,'ho_dakdrinh_qve',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
         response = requests.get(pth)
-        mua = np.array(response.json())
-        return mucnuoc,mua
+        qve = np.array(response.json())
+        # qxa
+        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=1&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
+        pth = pth.format(matram,'ho_dakdrinh_qdieutiet',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
+        response = requests.get(pth)
+        qxa = np.array(response.json())        
+        return mucnuoc,qve,qxa
+    
+    def TTB_API_db(self):
+        now = datetime(2024,1,25)
+        kt = datetime(2024,1,25)
+        bd = datetime(2024,1,25)
+        # data = pd.DataFrame()
+        # data['time'] = pd.date_range(bd,kt,freq='T')
+        matram = 'hdb'
+        # h du bao muc nuoc
+        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=60&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
+        pth = pth.format(matram,'ho_dakdrinh_mucnuoc',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
+        response = requests.get(pth)
+        mucnuocdb = np.array(response.json())
+        # print(mucnuocdb)
+        # qdb
+        matram = 'qdubao'
+        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=60&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
+        pth = pth.format(matram,'ho_dakdrinh_mucnuoc',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
+        response = requests.get(pth)
+        qdb = np.array(response.json())
+        # print(qdb)
+        # qxa
+        matram = 'muadb24'
+        pth = 'http://113.160.225.84:2018/API_TTB/JSON/solieu.php?matram={}&ten_table={}&sophut=60&tinhtong=0&thoigianbd=%27{}%2000:00:00%27&thoigiankt=%27{}%2023:59:00%27'
+        pth = pth.format(matram,'ho_dakdrinh_mucnuoc',bd.strftime('%Y-%m-%d'),kt.strftime('%Y-%m-%d'))
+        response = requests.get(pth)
+        muadb = np.array(response.json())        
+        return mucnuocdb,qdb,muadb
+    
     
     def TTB_API(self,matram,ten_bang):
         if 'mua' in ten_bang:
@@ -695,9 +741,21 @@ class Hochua(MDApp):
             h1 = mua[-1]['SoLieu']
             h3 = mua[-3]['SoLieu']
             h6 = mua[-6]['SoLieu']
-            h12 = mua[-12]['SoLieu']
-            h24 = mua[-24]['SoLieu']
-            h48 = mua[-48]['SoLieu']
+            # h12 = mua[-12]['SoLieu']
+            # h24 = mua[-24]['SoLieu']
+            # h48 = mua[-48]['SoLieu']
+            try:
+                h12 = mua[-12]['SoLieu']
+            except:
+                h12 ='-'            
+            try:
+                h24 = mua[-24]['SoLieu']
+            except:
+                h24 ='-'            
+            try:
+                h48 = mua[-48]['SoLieu']
+            except:
+                h48 ='-'
             try:
                 h72 = mua[-72]['SoLieu']
             except:
@@ -705,10 +763,10 @@ class Hochua(MDApp):
         return h1,h3,h6,h12,h24,h48,h72,giohientai
     def read_ftp_sever_image(self,tenanh):
         # Thông tin máy chủ FTP và đường dẫn đến file ftp://203.209.181.174/DAKDRINH/Image
-        ftp_host = '203.209.181.174'
-        ftp_user = 'admin'
-        ftp_password = 'Supportdng'
-        file_path = 'SONGTRANH/Image' + '/' + tenanh
+        ftp_host = '113.160.225.111'
+        ftp_user = 'kttvttbdb'
+        ftp_password = '618778'
+        file_path = 'Dulieu-Bantinkttvttb/5-Quang Ngai/LUU TRU/PHAN MEM/mobiapp' + '/' + tenanh
         # Kết nối đến máy chủ FTP
         ftp = FTP(ftp_host)
         ftp.login(user=ftp_user, passwd=ftp_password)
@@ -753,7 +811,7 @@ class Hochua(MDApp):
     #     self.root.ids.image_chart_tvhn.source = "cache/" + tram
 
     def get_custom_value(self):
-        mucnuoc,qve = self.TTB_API_HC()
+        mucnuoc,qve,qdt = self.TTB_API_HC()
         # Trả về giá trị bạn muốn
         return mucnuoc[-1]['Solieu'],qve[-1]['Solieu']
 
@@ -874,7 +932,7 @@ class Hochua(MDApp):
         
     def callback_imageRada(self):
         # print('da click vao day!')
-        self.read_ftp_sever_rada_image()
+        # self.read_ftp_sever_rada_image()
         app = MDApp.get_running_app()
         app.root.current = 'anhrada'
         self.root.ids.time5.text= (datetime.now() - timedelta(minutes=20)).strftime('%d-%m-%Y %H:%M')
@@ -884,8 +942,6 @@ class Hochua(MDApp):
         self.root.ids.time1.text= datetime.now().strftime('%d-%m-%Y %H:%M')
         # self.theme_cls.theme_style = "Blue"
         # self.theme_cls.primary_palette = "Orange"
-        
-        
         
     # def get_image_from_ssh(ip, username, password, ssh_path):
     #     # Tạo một kết nối SSH đến máy chủ

@@ -1,155 +1,74 @@
 from kivy.lang.builder import Builder
 
 from kivymd.app import MDApp
+from kivymd.uix.card import MDCard
 
-kv = '''
-<MagicButton@MagicBehavior+MDIconButton>
+KV = '''
+<CardItem>
+    size_hint_y: None
+    height: "86dp"
+    padding: "4dp"
+    radius: 12
 
+    FitImage:
+        source: "avatar.jpg"
+        radius: root.radius
+        size_hint_x: None
+        width: root.height
 
-<MySwiper@MDSwiperItem>
+    MDBoxLayout:
+        orientation: "vertical"
+        adaptive_height: True
+        spacing: "6dp"
+        padding: "12dp", 0, 0, 0
+        pos_hint: {"center_y": .5}
 
-    RelativeLayout:
-
-        FitImage:
-            source: "cache/rada3.png"
-            radius: [20,]
-
-        MDBoxLayout:
+        MDLabel:
+            text: "Title text"
+            font_style: "H5"
+            bold: True
             adaptive_height: True
-            spacing: "12dp"
 
-            MagicButton:
-                id: icon
-                icon: "weather-sunny"
-                user_font_size: "56sp"
-                opposite_colors: True
+        MDLabel:
+            text: "Subtitle text"
+            theme_text_color: "Hint"
+            adaptive_height: True
 
-            MDLabel:
-                text: "MDLabel"
-                font_style: "H5"
-                size_hint_y: None
-                height: self.texture_size[1]
-                pos_hint: {"center_y": .5}
-                opposite_colors: True
-                
- 
+
 MDScreen:
 
-    MDTopAppBar:
-        id: toolbar
-        title: "Anh RADA"
-        elevation: 4
-        pos_hint: {"top": 1}
+    MDSliverAppbar:
+        background_color: "2d4a50"
 
-    MDSwiper:
-        size_hint_y: None
-        height: root.height - toolbar.height - dp(40)
-        y: root.height - self.height - toolbar.height - dp(20)
-        # on_swipe: self.get_current_item().ids.icon.shake()
+        MDSliverAppbarHeader:
 
-        MDSwiperItem:
-            RelativeLayout:
+            MDRelativeLayout:
 
                 FitImage:
-                    source: "icon/mucnuocho.png"
-                    radius: [20,]
+                    source: "bg.jpg"
 
-                MDBoxLayout:
-                    adaptive_height: True
-                    spacing: "12dp"
-
-                    MagicButton:
-                        id: icon
-                        icon: "weather-sunny"
-                        user_font_size: "56sp"
-                        opposite_colors: True
-
-                    MDLabel:
-                        text: "MDLabel1"
-                        font_style: "H5"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        pos_hint: {"center_y": .5}
-                        opposite_colors: True
-        MDSwiperItem:
-            size_transition:40
-            RelativeLayout:
-
-                FitImage:
-                    source: "cache/rada2.png"
-                    radius: [20,]
-
-                MDBoxLayout:
-                    adaptive_height: True
-                    spacing: "12dp"
-
-                    MagicButton:
-                        id: icon
-                        icon: "weather-sunny"
-                        user_font_size: "56sp"
-                        opposite_colors: True
-
-                    MDLabel:
-                        text: "MDLabel2"
-                        font_style: "H5"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        pos_hint: {"center_y": .5}
-                        opposite_colors: True
-        MDSwiperItem:
-            RelativeLayout:
-
-                FitImage:
-                    source: "cache/rada3.png"
-                    radius: [20,]
-
-                MDBoxLayout:
-                    adaptive_height: True
-                    spacing: "12dp"
-
-                    MagicButton:
-                        id: icon
-                        icon: "weather-sunny"
-                        user_font_size: "56sp"
-                        opposite_colors: True
-
-                    MDLabel:
-                        text: "MDLabel3"
-                        font_style: "H5"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        pos_hint: {"center_y": .5}
-                        opposite_colors: True
-        MDSwiperItem:
-            RelativeLayout:
-
-                FitImage:
-                    source: "cache/rada4.png"
-                    radius: [20,]
-
-                MDBoxLayout:
-                    adaptive_height: True
-                    spacing: "12dp"
-
-                    MagicButton:
-                        id: icon
-                        icon: "weather-sunny"
-                        user_font_size: "56sp"
-                        opposite_colors: True
-
-                    MDLabel:
-                        text: "MDLabel4"
-                        font_style: "H5"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        pos_hint: {"center_y": .5}
-                        opposite_colors: True
+        MDSliverAppbarContent:
+            id: content
+            orientation: "vertical"
+            padding: "12dp"
+            spacing: "12dp"
+            adaptive_height: True
 '''
 
 
-class Main(MDApp):
+class CardItem(MDCard):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.elevation = 3
+
+
+class Example(MDApp):
     def build(self):
-        return Builder.load_string(kv)
+        return Builder.load_string(KV)
+
+    def on_start(self):
+        for x in range(10):
+            self.root.ids.content.add_widget(CardItem())
 
 
-Main().run()
+Example().run()
